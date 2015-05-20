@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class  Monopoly {
     
@@ -28,9 +29,9 @@ public class  Monopoly {
 	
 	private void buildGamePlateau(String dataFilename)
 	{
-		
 		for(CouleurPropriete c : CouleurPropriete.values())
 		{
+			
 			System.out.println("Le groupe de couleur "+c.toString()+" a bien été créée");
 			g = new Groupe(new ArrayList<ProprieteAConstruire>(), c);
 			listGroupes.put(c.toString(), g);
@@ -156,6 +157,36 @@ public class  Monopoly {
 
 	private void setDes2(int des2) {
 		this.des2 = des2;
+	}
+
+	public HashMap<String, Groupe> getListGroupes()
+	{
+		return listGroupes;
+	}
+
+	public void setListGroupes(HashMap<String, Groupe> listGroupes)
+	{
+		this.listGroupes = listGroupes;
+	}
+
+	public Groupe getG()
+	{
+		return g;
+	}
+
+	public void setG(Groupe g)
+	{
+		this.g = g;
+	}
+
+	public Carreau[] getListeCarreaux()
+	{
+		return listeCarreaux;
+	}
+
+	public void setListeCarreaux(Carreau[] listeCarreaux)
+	{
+		this.listeCarreaux = listeCarreaux;
 	}
 
 			
