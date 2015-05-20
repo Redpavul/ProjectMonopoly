@@ -17,7 +17,7 @@ public class  Monopoly {
 	private int nbHotels = 12;
 	private HashMap<String, Groupe> listGroupes = new HashMap();
 	private Groupe g;
-	private Carreau [] listeCarreaux;
+	private HashMap<Integer, Carreau> listCarreaux = new HashMap();
 	private int des1 ;
 	private int des2 ;
     
@@ -32,7 +32,7 @@ public class  Monopoly {
 		for(CouleurPropriete c : CouleurPropriete.values())
 		{
 			
-			System.out.println("Le groupe de couleur "+c.toString()+" a bien été créée");
+			//System.out.println("Le groupe de couleur "+c.toString()+" a bien été créée");
 			g = new Groupe(new ArrayList<ProprieteAConstruire>(), c);
 			listGroupes.put(c.toString(), g);
 			
@@ -44,7 +44,7 @@ public class  Monopoly {
 			for(int i=0; i<data.size(); ++i){
 				String caseType = data.get(i)[0];
 				if(caseType.compareTo("P") == 0){
-					System.out.println("Propriété :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+					//System.out.println("Propriété :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
 					
 					int[] loyers = {Integer.parseInt(data.get(i)[5]), Integer.parseInt(data.get(i)[6]), 
 								Integer.parseInt(data.get(i)[7]), Integer.parseInt(data.get(i)[8]),
@@ -56,23 +56,49 @@ public class  Monopoly {
 					int numeroCarreau = Integer.parseInt(data.get(i)[1]);
 					int prixAchat = Integer.parseInt(data.get(i)[4]);
 					ProprieteAConstruire p = new ProprieteAConstruire(prixAchat, nomCarreau, numeroCarreau, g, loyers, prixMaison, prixHotel);
-					System.out.println(nomCarreau);
+					//System.out.println(nomCarreau);
+					listCarreaux.put(numeroCarreau, p);
+					
 					
 				}
 				else if(caseType.compareTo("G") == 0){
-					System.out.println("Gare :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+					//System.out.println("Gare :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+					int numeroCarreau = Integer.parseInt(data.get(i)[1]);
+					String nomCarreau = data.get(i)[2];
+					int prixAchat = Integer.parseInt(data.get(i)[3]);
+					Gare g = new Gare(prixAchat, nomCarreau, numeroCarreau);
+					listCarreaux.put(numeroCarreau, g);
 				}
 				else if(caseType.compareTo("C") == 0){
-					System.out.println("Compagnie :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+					//System.out.println("Compagnie :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+					int numeroCarreau = Integer.parseInt(data.get(i)[1]);
+					String nomCarreau = data.get(i)[2];
+					int prixAchat = Integer.parseInt(data.get(i)[3]);
+					Compagnie c = new Compagnie(prixAchat, nomCarreau, numeroCarreau);
+					listCarreaux.put(numeroCarreau, c);
+				
 				}
 				else if(caseType.compareTo("CT") == 0){
-					System.out.println("Case Tirage :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+					//System.out.println("Case Tirage :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+					int numeroCarreau = Integer.parseInt(data.get(i)[1]);
+					String nomCarreau = data.get(i)[2];
+					CarreauArgent ct = new CarreauArgent(nomCarreau, numeroCarreau);
+					listCarreaux.put(numeroCarreau, ct);
 				}
 				else if(caseType.compareTo("CA") == 0){
-					System.out.println("Case Argent :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+					//System.out.println("Case Argent :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+					int numeroCarreau = Integer.parseInt(data.get(i)[1]);
+					String nomCarreau = data.get(i)[2];
+					CarreauArgent ca = new CarreauArgent(nomCarreau, numeroCarreau);
+					listCarreaux.put(numeroCarreau, ca);
+					
 				}
 				else if(caseType.compareTo("CM") == 0){
-					System.out.println("Case Mouvement :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+					//System.out.println("Case Mouvement :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+					int numeroCarreau = Integer.parseInt(data.get(i)[1]);
+					String nomCarreau = data.get(i)[2];
+					CarreauMouvement cm = new CarreauMouvement(nomCarreau, numeroCarreau);
+					listCarreaux.put(numeroCarreau, cm);
 				}
 				else
 					System.err.println("[buildGamePleateau()] : Invalid Data type");
@@ -86,7 +112,7 @@ public class  Monopoly {
 		catch(IOException e){
 			System.err.println("[buildGamePlateau()] : Error while reading file!");
 		}
-		
+		System.out.println("Toute les cases ont bien été créée");
 	}
 	
 	private ArrayList<String[]> readDataFile(String filename, String token) throws FileNotFoundException, IOException
@@ -179,15 +205,6 @@ public class  Monopoly {
 		this.g = g;
 	}
 
-	public Carreau[] getListeCarreaux()
-	{
-		return listeCarreaux;
-	}
-
-	public void setListeCarreaux(Carreau[] listeCarreaux)
-	{
-		this.listeCarreaux = listeCarreaux;
-	}
 
 			
 }
