@@ -138,61 +138,62 @@ public class  Monopoly {
 		  // Inscription des Joueurs
 		  
 		  
-		  LinkedList<Joueur> joueursTemp = new LinkedList<Joueur>();
+		
 		  
 		  Scanner sc = new Scanner(System.in);
 		  int nbJoueur;
 		  System.out.println("Nombre de joueurs :");
 		  nbJoueur = sc.nextInt();
+		  Joueur [] joueursTemp = new Joueur[nbJoueur];
 		  
-		  // Création de joueur
+		  // Création des joueurs et lancers de des
 		   String nom;
 		   nom = sc.nextLine(); // Permet de réinitialiser le scanner, qui contient le caractère \n, car on a utilisé un nextInt()
-		  
+		   Joueur j;
 		  for (int i = 0; i < nbJoueur; i++)
 		  {
 			  System.out.println("Nom du joueur n°" + (i+1) + " : ");
 			  nom = sc.nextLine();
-			  Joueur j = new Joueur(listCarreaux[1], nom, 1500);
-		   
-			  joueursTemp.addLast(j);
+			  roll();//Il faudra gérer dans cette fonction les cas où les joueur fait un doublé
+			  System.out.println("Il a obtenu " + des1 + " et " + des2 + " soit au total " + (des1+des2) + ".");
+			  j = new Joueur(listCarreaux[1], nom, 1500, (des1+des2));
+			  joueursTemp[i] = j;
+			  System.out.println(j.getNomJoueur());
 		  }
 		  
-		  // Lancé de dés
-		  ArrayList<Integer> des = new ArrayList<Integer>();
-		  for (int i = 0; i < nbJoueur; i++) {
-			   roll();
-			   des.add(des1+des2);
-			   System.out.println(joueursTemp.get(i).getNomJoueur() + " a lancé ses dés.");
-			   int total = des1+des2;
-			   System.out.println("Il a obtenu " + des1 + " et " + des2 + " soit au total " + total + ".");
-		  }
-		  
-		  //tri
-		  int tmp;
-		  for(int i = 1 ; i < nbJoueur ; i++)
-		  {
-			  if (i < nbJoueur-1 && des.get(i) > des.get(i+1)) 
-		    	{
-		    		tmp = des.get(i);
-		    		des.set(i, des.get(i+1));
-		    
-		    		des.set(i+1, tmp);
-		    	}
-		  }
-		  
-		  // Ajout dans l'attribut de classe
-		  System.out.println("Nombre de joueurs : " +nbJoueur);
-		  for (int i = 0; i<= nbJoueur; i++)
-		  {
-			  System.out.println(i);
-			  joueurs.addLast(joueursTemp.get(des.get(i)));
-		  }
-		 
-		  for (Joueur i : joueurs)
+		  for (Joueur i : joueursTemp)
 		  {
 			  System.out.println(i.getNomJoueur());
 		  }
+		  
+		  //ajout des joueurs dans le bon ordre dans la linkedList joueurs
+		  Joueur j1;
+		  Joueur j2;
+		  for (int i = 0; i < nbJoueur-1 ; i++)
+		  {
+			  System.out.println("afdsqfdsqfdqsfdsqfdsqfdsqfdsq");
+			  j1 = joueursTemp[i];
+			  System.out.println(j1.getNomJoueur());
+			  j2 = joueursTemp[i+1];
+			  System.out.println(j2.getNomJoueur());
+			  //ça fait de la merde à cause de ce truc en dessous : 
+			  if(j1.getDes() >= j2.getDes())
+			  {
+				  joueurs.add(j1);
+				  
+			  }
+			  else
+			  {
+				  joueurs.add(j2);
+			  }
+			  
+		  }
+		  
+		 
+		  /*for (Joueur i : joueurs)
+		  {
+			  System.out.println(i.getNomJoueur());
+		  }*/
 		  
 		 }
 

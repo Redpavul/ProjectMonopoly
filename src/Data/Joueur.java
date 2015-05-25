@@ -12,15 +12,17 @@ public class Joueur
 	private ProprieteAConstruire[] proprietesAConstruire;
 	private String nomJoueur;
 	private int cash = 1500;
+	private int des;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	public Joueur(Carreau positionCourante, String nomJoueur, int cash)
+	public Joueur(Carreau positionCourante, String nomJoueur, int cash, int des)
 	{
 		super();
 		this.positionCourante = positionCourante;
 		this.nomJoueur = nomJoueur;
 		this.cash = cash;
+		this.des = des;
 	}
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -67,6 +69,14 @@ public class Joueur
 	public void setCash(int cash) {
 		this.cash = cash;
 	}
+	
+	public int getDes() {
+		return des;
+	}
+	public void setDes(int des) {
+		this.des= des;
+	}
+	
 	
 	
 
