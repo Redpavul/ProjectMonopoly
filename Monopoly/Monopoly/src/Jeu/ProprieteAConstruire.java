@@ -1,5 +1,6 @@
 package Jeu;
 
+
 public class ProprieteAConstruire extends CarreauPropriete
 {
 
@@ -8,17 +9,16 @@ public class ProprieteAConstruire extends CarreauPropriete
 	private int nbHotels = 0;
 	private int[] loyerMaison;
 	private int prixMaison;
-	private int nbMaison;
+	private int prixHotel;
 	
-	public ProprieteAConstruire(Groupe groupePropriete, int nbMaisons, int nbHotels, int[] loyerMaison, int prixMaison, int nbMaison) 
+	
+	public ProprieteAConstruire(int prixAchat, String nomCarreau, int numeroCarreau, Groupe groupePropriete, int[] loyerMaison, int prixMaison, int prixHotel) 
 	{
-
+		super(prixAchat, nomCarreau, numeroCarreau);
 		this.groupePropriete = groupePropriete;
-		this.nbMaisons = nbMaisons;
-		this.nbHotels = nbHotels;
 		this.loyerMaison = loyerMaison;
 		this.prixMaison = prixMaison;
-		this.nbMaison = nbMaison;
+		this.prixHotel = prixHotel;
 	}
 
 	public Groupe getGroupePropriete() 
@@ -72,14 +72,14 @@ public class ProprieteAConstruire extends CarreauPropriete
 		this.prixMaison = prixMaison;
 	}
 
-	public int getNbMaison() 
+	public int getPrixHotel() 
 	{
-		return nbMaison;
+		return prixHotel;
 	}
 
-	public void setNbMaison(int nbMaison) 
+	public void setPrixHotel(int prixHotel) 
 	{
-		this.nbMaison = nbMaison;
+		this.prixHotel = prixHotel;
 	}
 	
 	
