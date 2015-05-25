@@ -134,48 +134,71 @@ public class  Monopoly {
 	}
 	
 	private void initialiserPartie() {
-		
-		// Inscription des Joueurs
-		joueurs = new LinkedList<Joueur>();
-		Scanner sc = new Scanner(System.in);
-		int nbJoueur;
-		System.out.println("Nombre de joueurs :");
-		nbJoueur = sc.nextInt();
-		for (int i = 0; i<=nbJoueur; i++) {
-			
-			Scanner sc2 = new Scanner(System.in);
-			String nom;
-			nom = sc.nextLine();
-			Joueur j = new Joueur(listCarreaux[1], nom, 1500);
-			this.getJoueurs().addLast(j);
-			System.out.println("Nom du joueur n°"+(i+1)+" :");
-		}
-		
-		// Lancé de dés
-		ArrayList<Integer> des = new ArrayList<Integer>();
-		for (int i = 1; i <= nbJoueur; i++) {
-			roll();
-			des.add(des1+des2);
-			System.out.println(this.getJoueurs().get(i).getNomJoueur() + " a lancé ses dés.");
-			System.out.println("Il a obtenu " + des1 + " et " + des2 + " soit au total " + (des1+des2) + ".");
-		}
-		int temp;
-		
-		for (int i = 1; i <= nbJoueur-1; i++) {
-			for (int j = i; j <= nbJoueur-1; i++) {
-				if (des.get(j) > des.get(j+1)) {
-					temp = des.get(j);
-					des.set(j, des.get(j+1));
-					des.set(j+1, temp);
-				}
-			}
-		System.out.println("L'ordre de passage est : ");
-		}
-		
-		// Linked List de retour : Tableau contenant le numéro des joueurs par ordre de passage 
-		
-		
-	}
+		  
+		  // Inscription des Joueurs
+		  
+		  
+		  LinkedList<Joueur> joueursTemp = new LinkedList<Joueur>();
+		  
+		  Scanner sc = new Scanner(System.in);
+		  int nbJoueur;
+		  System.out.println("Nombre de joueurs :");
+		  nbJoueur = sc.nextInt();
+		  
+		  // Création de joueur
+		  
+		  for (int i = 0; i<=nbJoueur; i++) {
+		   
+		   Scanner sc2 = new Scanner(System.in);
+		   String nom;
+		   nom = sc.nextLine();
+		   System.out.print("Nom du joueur n°" + (i+1) + " : ");
+		   Joueur j = new Joueur(listCarreaux[1], nom, 1500);
+		   
+		   joueursTemp.addLast(j);
+		  }
+		  
+		  // Lancé de dés
+		  ArrayList<Integer> des = new ArrayList<Integer>();
+		  for (int i = 1; i <= nbJoueur; i++) {
+		   roll();
+		   des.add(des1+des2);
+		   System.out.println(joueursTemp.get(i).getNomJoueur() + " a lancé ses dés.");
+		   int total = des1+des2;
+		   System.out.println("Il a obtenu " + des1 + " et " + des2 + " soit au total " + total + ".");
+		  }
+		  int temp;
+		  //tri
+		  for (int i = 1; i <= nbJoueur-1; i++) 
+		  {
+		   for (int j = i; j <= nbJoueur-1; j++) 
+		   {
+		    if (des.get(j) > des.get(j+1)) 
+		    {
+		     temp = des.get(j);
+		     des.set(j, des.get(j+1));
+		    
+		     des.set(j+1, temp);
+		    }
+		   
+		   }
+		  
+		  }
+		  System.out.println("piou");
+		  // Ajout dans l'attribut de classe
+		  
+		  for (int i = 1; i<= nbJoueur; i++) {
+		   this.getJoueurs().addLast(joueursTemp.get(des.get(i)));
+		  }
+		  System.out.println("piou");
+		  for (Joueur i : joueurs)
+		  {
+			  System.out.println(i.getNomJoueur());
+		  }
+		  
+		 }
+
+
 	
 	private ArrayList<String[]> readDataFile(String filename, String token) throws FileNotFoundException, IOException
 	{
