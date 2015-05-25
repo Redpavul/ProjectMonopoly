@@ -12,13 +12,18 @@ public class Joueur
 	private ProprieteAConstruire[] proprietesAConstruire;
 	private String nomJoueur;
 	private int cash = 1500;
-	
-	public Joueur(Carreau positionCourante, String nomJoueur, int cash) {
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	public Joueur(Carreau positionCourante, String nomJoueur, int cash)
+	{
 		super();
 		this.positionCourante = positionCourante;
 		this.nomJoueur = nomJoueur;
 		this.cash = cash;
 	}
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public Monopoly getMonopoly() {
 		return monopoly;
 	}

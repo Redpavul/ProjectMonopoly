@@ -145,63 +145,50 @@ public class  Monopoly {
 		  System.out.println("Nombre de joueurs :");
 		  nbJoueur = sc.nextInt();
 		  
-		  // CrÃ©ation de joueur
-		   Scanner sc2 = new Scanner(System.in);
+		  // Création de joueur
 		   String nom;
+		   nom = sc.nextLine(); // Permet de réinitialiser le scanner, qui contient le caractère \n, car on a utilisé un nextInt()
 		  
-		  for (int i = 0; i<=nbJoueur; i++) {
-
-		   nom = sc.nextLine();
-		   System.out.print("Nom du joueur nÂ°" + (i+1) + " : ");
-		   Joueur j = new Joueur(listCarreaux[1], nom, 1500);
+		  for (int i = 0; i < nbJoueur; i++)
+		  {
+			  System.out.println("Nom du joueur n°" + (i+1) + " : ");
+			  nom = sc.nextLine();
+			  Joueur j = new Joueur(listCarreaux[1], nom, 1500);
 		   
-		   joueursTemp.addLast(j);
+			  joueursTemp.addLast(j);
 		  }
 		  
-		  // LancÃ© de dÃ©s
+		  // Lancé de dés
 		  ArrayList<Integer> des = new ArrayList<Integer>();
-		  for (int i = 1; i <= nbJoueur; i++) {
-		   roll();
-		   des.add(des1+des2);
-		   System.out.println(joueursTemp.get(i).getNomJoueur() + " a lancÃ© ses dÃ©s.");
-		   int total = des1+des2;
-		   System.out.println("Il a obtenu " + des1 + " et " + des2 + " soit au total " + total + ".");
+		  for (int i = 0; i < nbJoueur; i++) {
+			   roll();
+			   des.add(des1+des2);
+			   System.out.println(joueursTemp.get(i).getNomJoueur() + " a lancé ses dés.");
+			   int total = des1+des2;
+			   System.out.println("Il a obtenu " + des1 + " et " + des2 + " soit au total " + total + ".");
 		  }
-		  int temp;
+		  
 		  //tri
-		  for (int i = 1; i <= nbJoueur-1; i++) 
+		  int tmp;
+		  for(int i = 1 ; i < nbJoueur ; i++)
 		  {
-		   for (int j = i; j <= nbJoueur-1; j++) 
-		   {
-		 
-		    	if (j<nbJoueur-1 && des.get(j) > des.get(j+1)) 
+			  if (i < nbJoueur-1 && des.get(i) > des.get(i+1)) 
 		    	{
-		    		temp = des.get(j);
-		    		des.set(j, des.get(j+1));
+		    		tmp = des.get(i);
+		    		des.set(i, des.get(i+1));
 		    
-		    		des.set(j+1, temp);
+		    		des.set(i+1, tmp);
 		    	}
-		
-		   }
-		  
 		  }
+		  
 		  // Ajout dans l'attribut de classe
-		  System.out.println(nbJoueur);
-		  for (int i = 0; i<= nbJoueur; i++) {
-			  System.out.println(i);
-			  System.out.println();
-		   joueurs.addLast(joueursTemp.get(des.get(i)));
-		  }
-		  
-		  for (int i = 1; i <= nbJoueur-1; i++) 
+		  System.out.println("Nombre de joueurs : " +nbJoueur);
+		  for (int i = 0; i<= nbJoueur; i++)
 		  {
-			  for (int j = 1; j <= nbJoueur-1; j++)
-			  {
-				if()  
-			  }
+			  System.out.println(i);
+			  joueurs.addLast(joueursTemp.get(des.get(i)));
 		  }
-		  
-		  System.out.println("piou");
+		 
 		  for (Joueur i : joueurs)
 		  {
 			  System.out.println(i.getNomJoueur());
@@ -233,89 +220,44 @@ public class  Monopoly {
 
 	
 
-
-	public LinkedList<Joueur> getJoueurs() {
-		return joueurs;
-	}
-
-
-
-	public void setJoueurs(LinkedList<Joueur> joueurs) {
-		this.joueurs = joueurs;
-	}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//getteurs et setteurs
 	
-	public Interface getInterf() {
-		return interf;
-	}
+	public LinkedList<Joueur> getJoueurs() { return joueurs; }
 
-	public void setInterf(Interface interf) {
-		this.interf = interf;
-	}
+	public void setJoueurs(LinkedList<Joueur> joueurs) { this.joueurs = joueurs; }
+	
+	public Interface getInterf() { return interf; }
 
-	public int getNbMaisons() {
-		return nbMaisons;
-	}
+	public void setInterf(Interface interf) { this.interf = interf; }
 
-	public void setNbMaisons(int nbMaisons) {
-		this.nbMaisons = nbMaisons;
-	}
+	public int getNbMaisons() { return nbMaisons; }
 
-	public int getNbHotels() {
-		return nbHotels;
-	}
+	public void setNbMaisons(int nbMaisons) { this.nbMaisons = nbMaisons; }
 
-	public void setNbHotels(int nbHotels) {
-		this.nbHotels = nbHotels;
-	}
+	public int getNbHotels() { return nbHotels; }
 
-	public int getDes1() {
-		return des1;
-	}
+	public void setNbHotels(int nbHotels) { this.nbHotels = nbHotels; }
 
-	private void setDes1(int des1) {
-		this.des1 = des1;
-	}
+	public int getDes1() { return des1; }
 
-	public int getDes2() {
-		return des2;
-	}
+	private void setDes1(int des1) { this.des1 = des1; }
 
-	private void setDes2(int des2) {
-		this.des2 = des2;
-	}
+	public int getDes2() { return des2; }
 
-	public HashMap<String, Groupe> getListGroupes()
-	{
-		return listGroupes;
-	}
+	private void setDes2(int des2) { this.des2 = des2; }
 
-	public void setListGroupes(HashMap<String, Groupe> listGroupes)
-	{
-		this.listGroupes = listGroupes;
-	}
+	public HashMap<String, Groupe> getListGroupes() { return listGroupes; }
 
-	public Groupe getG()
-	{
-		return g;
-	}
+	public void setListGroupes(HashMap<String, Groupe> listGroupes) { this.listGroupes = listGroupes; }
 
-	public void setG(Groupe g)
-	{
-		this.g = g;
-	}
+	public Groupe getG() { return g; }
 
-	public Carreau[] getListCarreaux()
-	{
-		return listCarreaux; 
-	}
+	public void setG(Groupe g) { this.g = g; }
 
-	public void setListCarreaux(Carreau[] listCarreaux)
-	{
-		this.listCarreaux = listCarreaux;
-	}
+	public Carreau[] getListCarreaux() { return listCarreaux;  }
 
-
-			
+	public void setListCarreaux(Carreau[] listCarreaux) { this.listCarreaux = listCarreaux; }			
 }
 
 
