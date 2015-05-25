@@ -6,12 +6,23 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Scanner;
+
+import Data.Carreau;
+import Data.CarreauArgent;
+import Data.CarreauMouvement;
+import Data.Compagnie;
+import Data.CouleurPropriete;
+import Data.Gare;
+import Data.Groupe;
+import Data.Joueur;
+import Data.ProprieteAConstruire;
 
 public class  Monopoly {
     
     
 
-	private Joueur[] joueurs;
 	private Interface interf;
 	private int nbMaisons = 32;
 	private int nbHotels = 12;
@@ -21,6 +32,7 @@ public class  Monopoly {
 	private Carreau [] listCarreaux = new Carreau[41];
 	private int des1 ;
 	private int des2 ;
+	private LinkedList<Joueur> joueurs;
     
 	
 	public Monopoly(String dataFilename)
@@ -57,7 +69,7 @@ public class  Monopoly {
 					int numeroCarreau = Integer.parseInt(data.get(i)[1]);
 					int prixAchat = Integer.parseInt(data.get(i)[4]);
 					ProprieteAConstruire p = new ProprieteAConstruire(prixAchat, nomCarreau, numeroCarreau, g, loyers, prixMaison, prixHotel);
-					//System.out.println(nomCarreau);
+					
 					listCarreaux[numeroCarreau]= p;
 					
 					
@@ -113,11 +125,53 @@ public class  Monopoly {
 		catch(IOException e){
 			System.err.println("[buildGamePlateau()] : Error while reading file!");
 		}
-		for(int i=1;i<=40;i++)
+		/*for(int i=1;i<=40;i++)
 		{
 			Carreau c = listCarreaux[i];
 			System.out.println(c.getNomCarreau());
+		}*/
+	}
+	
+	private void initialiserPartie() {
+		
+		// Inscription des Joueurs
+		
+		Scanner sc = new Scanner(System.in);
+		int nbJoueur;
+		System.out.println("Nombre de joueurs :");
+		nbJoueur = sc.nextInt();
+		
+		for (int i = 0; i<=nbJoueur; i++) {
+			Scanner sc2 = new Scanner(System.in);
+			String nom;
+			nom = sc.nextLine();
+			Joueur j = new Joueur(listCarreaux[1], nom, 1500);
+			this.getJoueurs().addLast(j);
 		}
+		
+		// Lancé de dés
+		ArrayList<Integer> des = new ArrayList<Integer>();
+		for (int i = 1; i <= nbJoueur; i++) {
+			roll();
+			des.add(des1+des2);
+			System.out.println(this.getJoueurs().get(i).getNomJoueur() + " a lancé ses dés.");
+			System.out.println("Il a obtenu " + des1 + " et " + des2 + " soit au total " + des1+des2 + ".");
+		}
+		int temp;
+		
+		for (int i = 1; i <= nbJoueur-1; i++) {
+			for (int j = i; j <= nbJoueur-1; i++) {
+				if (des.get(j) > des.get(j+1)) {
+					temp = des.get(j);
+					des.set(j, des.get(j+1));
+					des.set(j+1, temp);
+				}
+			}
+		}
+		
+		// Tableau de retour : Tableau contenant le numéro des joueurs par ordre de passage 
+		
+		
 	}
 	
 	private ArrayList<String[]> readDataFile(String filename, String token) throws FileNotFoundException, IOException
@@ -142,14 +196,17 @@ public class  Monopoly {
 
 	
 
-	public Joueur[] getJoueurs() {
+
+	public LinkedList<Joueur> getJoueurs() {
 		return joueurs;
 	}
 
-	public void setJoueurs(Joueur[] joueurs) {
+
+
+	public void setJoueurs(LinkedList<Joueur> joueurs) {
 		this.joueurs = joueurs;
 	}
-
+	
 	public Interface getInterf() {
 		return interf;
 	}
@@ -208,6 +265,16 @@ public class  Monopoly {
 	public void setG(Groupe g)
 	{
 		this.g = g;
+	}
+
+	public Carreau[] getListCarreaux()
+	{
+		return listCarreaux; 
+	}
+
+	public void setListCarreaux(Carreau[] listCarreaux)
+	{
+		this.listCarreaux = listCarreaux;
 	}
 
 
