@@ -183,7 +183,7 @@ public class  Monopoly {
 		   for (Joueur i : joueursTemp)
 		    {
 		     System.out.println(i.getNomJoueur());
-		     //JORANE , ici ajouter les gens dans la linked list
+		     joueurs.add(i);
 		    }
 		   }
 
