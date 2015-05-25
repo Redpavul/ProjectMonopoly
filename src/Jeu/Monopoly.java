@@ -161,37 +161,30 @@ public class  Monopoly {
 		     System.out.println(j.getNomJoueur());
 		    }
 		    
-		    for (Joueur i : joueursTemp)
-		    {
-		     System.out.println(i.getNomJoueur());
-		    }
 		    
-		    //ajout des joueurs dans le bon ordre dans la linkedList joueurs
-		    Joueur j1;
-		    Joueur j2;
-		    for (int i = 0; i < nbJoueur-1 ; i++)
-		    {
-		     j1 = joueursTemp[i];
-		     j2 = joueursTemp[i+1];
-		     //ça fait de la merde à cause de ce truc en dessous : 
-		     if(j1.getDes() >= j2.getDes())
-		     {
-		      joueurs.addLast(j1);
-		      
-		     }
-		     else
-		     {
-		      joueurs.addLast(j2);
-		     }
-		     
-		    }
 		    
-		   
+		   Joueur tempo ;
+		   for (int i= 0 ; i<nbJoueur ; i++)
+		   {
+			   for (int g= i ; g<nbJoueur-1 ; g++)
+			   {
+				   if(joueursTemp[g].getDes()<joueursTemp[g+1].getDes())
+				   {
+					   tempo = joueursTemp[g];
+					   joueursTemp[g]=joueursTemp[g+1];
+					   joueursTemp[g+1] = tempo;
+				   }
+			   }
+		   }
 		    /*for (Joueur i : joueurs)
 		    {
 		     System.out.println(i.getNomJoueur());
 		    }*/
-		    
+		   for (Joueur i : joueursTemp)
+		    {
+		     System.out.println(i.getNomJoueur());
+		     //JORANE , ici ajouter les gens dans la linked list
+		    }
 		   }
 
 
