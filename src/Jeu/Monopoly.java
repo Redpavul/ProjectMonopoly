@@ -146,11 +146,11 @@ public class  Monopoly {
 		  nbJoueur = sc.nextInt();
 		  
 		  // Création de joueur
-		  
-		  for (int i = 0; i<=nbJoueur; i++) {
-		   
 		   Scanner sc2 = new Scanner(System.in);
 		   String nom;
+		  
+		  for (int i = 0; i<=nbJoueur; i++) {
+
 		   nom = sc.nextLine();
 		   System.out.print("Nom du joueur n°" + (i+1) + " : ");
 		   Joueur j = new Joueur(listCarreaux[1], nom, 1500);
@@ -173,23 +173,34 @@ public class  Monopoly {
 		  {
 		   for (int j = i; j <= nbJoueur-1; j++) 
 		   {
-		    if (des.get(j) > des.get(j+1)) 
-		    {
-		     temp = des.get(j);
-		     des.set(j, des.get(j+1));
+		 
+		    	if (j<nbJoueur-1 && des.get(j) > des.get(j+1)) 
+		    	{
+		    		temp = des.get(j);
+		    		des.set(j, des.get(j+1));
 		    
-		     des.set(j+1, temp);
-		    }
-		   
+		    		des.set(j+1, temp);
+		    	}
+		
 		   }
 		  
 		  }
-		  System.out.println("piou");
 		  // Ajout dans l'attribut de classe
-		  
-		  for (int i = 1; i<= nbJoueur; i++) {
-		   this.getJoueurs().addLast(joueursTemp.get(des.get(i)));
+		  System.out.println(nbJoueur);
+		  for (int i = 0; i<= nbJoueur; i++) {
+			  System.out.println(i);
+			  System.out.println();
+		   joueurs.addLast(joueursTemp.get(des.get(i)));
 		  }
+		  
+		  for (int i = 1; i <= nbJoueur-1; i++) 
+		  {
+			  for (int j = 1; j <= nbJoueur-1; j++)
+			  {
+				if()  
+			  }
+		  }
+		  
 		  System.out.println("piou");
 		  for (Joueur i : joueurs)
 		  {
