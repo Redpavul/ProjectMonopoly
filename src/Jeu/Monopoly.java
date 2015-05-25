@@ -37,6 +37,7 @@ public class  Monopoly {
 	
 	public Monopoly(String dataFilename)
 	{
+		setJoueurs(new LinkedList<Joueur>());
 		buildGamePlateau(dataFilename);
 		initialiserPartie();
 	}
@@ -133,69 +134,65 @@ public class  Monopoly {
 		}*/
 	}
 	
-	private void initialiserPartie() {
-		  
-		  // Inscription des Joueurs
-		  
-		  
-		
-		  
-		  Scanner sc = new Scanner(System.in);
-		  int nbJoueur;
-		  System.out.println("Nombre de joueurs :");
-		  nbJoueur = sc.nextInt();
-		  Joueur [] joueursTemp = new Joueur[nbJoueur];
-		  
-		  // Création des joueurs et lancers de des
-		   String nom;
-		   nom = sc.nextLine(); // Permet de réinitialiser le scanner, qui contient le caractère \n, car on a utilisé un nextInt()
-		   Joueur j;
-		  for (int i = 0; i < nbJoueur; i++)
-		  {
-			  System.out.println("Nom du joueur n°" + (i+1) + " : ");
-			  nom = sc.nextLine();
-			  roll();//Il faudra gérer dans cette fonction les cas où les joueur fait un doublé
-			  System.out.println("Il a obtenu " + des1 + " et " + des2 + " soit au total " + (des1+des2) + ".");
-			  j = new Joueur(listCarreaux[1], nom, 1500, (des1+des2));
-			  joueursTemp[i] = j;
-			  System.out.println(j.getNomJoueur());
-		  }
-		  
-		  for (Joueur i : joueursTemp)
-		  {
-			  System.out.println(i.getNomJoueur());
-		  }
-		  
-		  //ajout des joueurs dans le bon ordre dans la linkedList joueurs
-		  Joueur j1;
-		  Joueur j2;
-		  for (int i = 0; i < nbJoueur-1 ; i++)
-		  {
-			  System.out.println("afdsqfdsqfdqsfdsqfdsqfdsqfdsq");
-			  j1 = joueursTemp[i];
-			  System.out.println(j1.getNomJoueur());
-			  j2 = joueursTemp[i+1];
-			  System.out.println(j2.getNomJoueur());
-			  //ça fait de la merde à cause de ce truc en dessous : 
-			  if(j1.getDes() >= j2.getDes())
-			  {
-				  joueurs.add(j1);
-				  
-			  }
-			  else
-			  {
-				  joueurs.add(j2);
-			  }
-			  
-		  }
-		  
-		 
-		  /*for (Joueur i : joueurs)
-		  {
-			  System.out.println(i.getNomJoueur());
-		  }*/
-		  
-		 }
+	 private void initialiserPartie() {
+		    
+		    // Inscription des Joueurs
+		    
+		    
+
+		    Scanner sc = new Scanner(System.in);
+		    int nbJoueur;
+		    System.out.println("Nombre de joueurs :");
+		    nbJoueur = sc.nextInt();
+		    Joueur [] joueursTemp = new Joueur[nbJoueur];
+		    
+		    // CrÃ©ation des joueurs et lancers de des
+		     String nom;
+		     nom = sc.nextLine(); // Permet de rÃ©initialiser le scanner, qui contient le caractÃ¨re \n, car on a utilisÃ© un nextInt()
+		     Joueur j;
+		    for (int i = 0; i < nbJoueur; i++)
+		    {
+		     System.out.println("Nom du joueur nÂ°" + (i+1) + " : ");
+		     nom = sc.nextLine();
+		     roll();//Il faudra gÃ©rer dans cette fonction les cas oÃ¹ les joueur fait un doublÃ©
+		     System.out.println("Il a obtenu " + des1 + " et " + des2 + " soit au total " + (des1+des2) + ".");
+		     j = new Joueur(listCarreaux[1], nom, 1500, (des1+des2));
+		     joueursTemp[i] = j;
+		     System.out.println(j.getNomJoueur());
+		    }
+		    
+		    for (Joueur i : joueursTemp)
+		    {
+		     System.out.println(i.getNomJoueur());
+		    }
+		    
+		    //ajout des joueurs dans le bon ordre dans la linkedList joueurs
+		    Joueur j1;
+		    Joueur j2;
+		    for (int i = 0; i < nbJoueur-1 ; i++)
+		    {
+		     j1 = joueursTemp[i];
+		     j2 = joueursTemp[i+1];
+		     //Ã§a fait de la merde Ã  cause de ce truc en dessous : 
+		     if(j1.getDes() >= j2.getDes())
+		     {
+		      joueurs.addLast(j1);
+		      
+		     }
+		     else
+		     {
+		      joueurs.addLast(j2);
+		     }
+		     
+		    }
+		    
+		   
+		    /*for (Joueur i : joueurs)
+		    {
+		     System.out.println(i.getNomJoueur());
+		    }*/
+		    
+		   }
 
 
 	
@@ -221,44 +218,89 @@ public class  Monopoly {
 
 	
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//getteurs et setteurs
+
+	public LinkedList<Joueur> getJoueurs() {
+		return joueurs;
+	}
+
+
+
+	public void setJoueurs(LinkedList<Joueur> joueurs) {
+		this.joueurs = joueurs;
+	}
 	
-	public LinkedList<Joueur> getJoueurs() { return joueurs; }
+	public Interface getInterf() {
+		return interf;
+	}
 
-	public void setJoueurs(LinkedList<Joueur> joueurs) { this.joueurs = joueurs; }
-	
-	public Interface getInterf() { return interf; }
+	public void setInterf(Interface interf) {
+		this.interf = interf;
+	}
 
-	public void setInterf(Interface interf) { this.interf = interf; }
+	public int getNbMaisons() {
+		return nbMaisons;
+	}
 
-	public int getNbMaisons() { return nbMaisons; }
+	public void setNbMaisons(int nbMaisons) {
+		this.nbMaisons = nbMaisons;
+	}
 
-	public void setNbMaisons(int nbMaisons) { this.nbMaisons = nbMaisons; }
+	public int getNbHotels() {
+		return nbHotels;
+	}
 
-	public int getNbHotels() { return nbHotels; }
+	public void setNbHotels(int nbHotels) {
+		this.nbHotels = nbHotels;
+	}
 
-	public void setNbHotels(int nbHotels) { this.nbHotels = nbHotels; }
+	public int getDes1() {
+		return des1;
+	}
 
-	public int getDes1() { return des1; }
+	private void setDes1(int des1) {
+		this.des1 = des1;
+	}
 
-	private void setDes1(int des1) { this.des1 = des1; }
+	public int getDes2() {
+		return des2;
+	}
 
-	public int getDes2() { return des2; }
+	private void setDes2(int des2) {
+		this.des2 = des2;
+	}
 
-	private void setDes2(int des2) { this.des2 = des2; }
+	public HashMap<String, Groupe> getListGroupes()
+	{
+		return listGroupes;
+	}
 
-	public HashMap<String, Groupe> getListGroupes() { return listGroupes; }
+	public void setListGroupes(HashMap<String, Groupe> listGroupes)
+	{
+		this.listGroupes = listGroupes;
+	}
 
-	public void setListGroupes(HashMap<String, Groupe> listGroupes) { this.listGroupes = listGroupes; }
+	public Groupe getG()
+	{
+		return g;
+	}
 
-	public Groupe getG() { return g; }
+	public void setG(Groupe g)
+	{
+		this.g = g;
+	}
 
-	public void setG(Groupe g) { this.g = g; }
+	public Carreau[] getListCarreaux()
+	{
+		return listCarreaux; 
+	}
 
-	public Carreau[] getListCarreaux() { return listCarreaux;  }
+	public void setListCarreaux(Carreau[] listCarreaux)
+	{
+		this.listCarreaux = listCarreaux;
+	}
 
-	public void setListCarreaux(Carreau[] listCarreaux) { this.listCarreaux = listCarreaux; }			
+
+			
 }
 
 
