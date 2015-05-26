@@ -154,38 +154,42 @@ public class  Monopoly {
 		    {
 		     System.out.println("Nom du joueur n°" + (i+1) + " : ");
 		     nom = sc.nextLine();
-		     roll();//Il faudra gérer dans cette fonction les cas où les joueur fait un doublé
+		     roll();//Il faudra gérer dans cette fonction les cas où les joueur fait un double
 		     System.out.println("Il a obtenu " + des1 + " et " + des2 + " soit au total " + (des1+des2) + ".");
-		     j = new Joueur(listCarreaux[1], nom, 1500, (des1+des2));
+		     j = new Joueur(listCarreaux[1], nom, (des1+des2));
 		     joueursTemp[i] = j;
-		     System.out.println(j.getNomJoueur());
 		    }
 		    
+		    triBulleDecroissant(joueursTemp);
 		    
-		    
-		   Joueur tempo ;
-		   for (int i= 0 ; i<nbJoueur ; i++)
-		   {
-			   for (int g= i ; g<nbJoueur-1 ; g++)
-			   {
-				   if(joueursTemp[g].getDes()<joueursTemp[g+1].getDes())
-				   {
-					   tempo = joueursTemp[g];
-					   joueursTemp[g]=joueursTemp[g+1];
-					   joueursTemp[g+1] = tempo;
-				   }
-			   }
-		   }
-		    /*for (Joueur i : joueurs)
-		    {
-		     System.out.println(i.getNomJoueur());
-		    }*/
+
 		   for (Joueur i : joueursTemp)
 		    {
-		     System.out.println(i.getNomJoueur());
-		     joueurs.add(i);
+			   System.out.println(i.getNomJoueur());
+			   joueurs.add(i);
 		    }
 		   }
+	 
+	 public static void triBulleDecroissant(Joueur tableau[]) {
+			int longueur = tableau.length;
+			Joueur tampon ;
+			boolean permut;
+	 
+			do {
+				// hypothèse : le tableau est trié
+				permut = false;
+				for (int i = 0; i < longueur - 1; i++) {
+					// Teste si 2 éléments successifs sont dans le bon ordre ou non
+					if (tableau[i].getDes() < tableau[i + 1].getDes()) {
+						// s'ils ne le sont pas, on échange leurs positions
+						tampon = tableau[i];
+						tableau[i] = tableau[i + 1];
+						tableau[i + 1] = tampon;
+						permut = true;
+					}
+				}
+			} while (permut);
+		}
 
 
 	
