@@ -5,7 +5,7 @@ import Jeu.Monopoly;
 public abstract class Carreau
 {
 
-	private Monopoly monopoly;
+	protected Monopoly monopoly;
 	private int numeroCarreau;
 	private String nomCarreau;
 	

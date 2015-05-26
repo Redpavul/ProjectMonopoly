@@ -6,12 +6,13 @@ public class CarreauTirage extends CarreauAction
 	{
 		//super(nomCarreau, numeroCarreau);
 		private int [] tab;
-		private Monopoly monopoly;
+		//private Monopoly monopoly;
 		private int position;
 		private int nbDeCarte;
 		private boolean carteSortieDePrison;
-		public CarteChance(int id,Monopoly monopoly){
-			this.setMonopoly(monopoly);
+		public CarreauTirage(String nom, int num, int id){
+			super(nom,num)
+			//this.setMonopoly(monopoly);
 			this.setPosition(1);
 			int nbcarte=16;
 			this.setNbDeCarte(nbcarte);
@@ -144,9 +145,14 @@ public class CarreauTirage extends CarreauAction
 			j.setCash(j.getCash()-20);
 		}
 		public void effet7()){
-			System.out.println("Amende pour ivresse 20€");
+			System.out.println("Avancer jusqu'à la case Départ");
 			Joueur j =getMonopoly().getJoueurActif();
 			j.setCash(j.getCash()-20);
+		}
+		public void effet8()){
+			System.out.println("Amende pour ivresse 20€");
+			Joueur j =getMonopoly().getJoueurActif();
+			j.avance(j.getPositionCourante());
 		}*/
 	
 
