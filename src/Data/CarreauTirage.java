@@ -22,6 +22,7 @@ public class CarreauTirage extends CarreauAction
 			int [] tab2 = new int [nbcarte+1];
 			for(int a = 1;a<=nbcarte;a++){
 				tab3[a]=a;
+			}
 				/*System.out.println("");
 				for(int c = 1;c<=nbcarte;c++){
 					System.out.print(""+c+","+tab3[c]+"|");
@@ -57,7 +58,7 @@ public class CarreauTirage extends CarreauAction
 		public int getPosition() {
 			return this.position;
 		}
-		public void setPosition(int position) {
+		public void setPosition(int i){
 			this.position = position;
 		}
 		public int getNbDeCarte() {
@@ -145,15 +146,72 @@ public class CarreauTirage extends CarreauAction
 			Joueur j =getMonopoly().getJoueurActif();
 			j.setCash(j.getCash()-20);
 		}
-		public void effet7()){
+		public void effet7(){
 			System.out.println("Avancer jusqu'à la case Départ");
 			Joueur j =getMonopoly().getJoueurActif();
 			j.avance(40-j.getPositionCourante().getNumero());
 		}
-		public void effet8()){
-			System.out.println("Amende pour ivresse 20€");
+		public void effet8(){
+			System.out.println("Aller en prison, ne passez pas par la case Départ");
 			Joueur j =getMonopoly().getJoueurActif();
-			j.avance(40-j.getPositionCourante().);
+			j.avanceEnPrison();//fonction qui fait avancer un joueur directement à la case départ.
+		}
+		public void effet9(){
+			System.out.println("Rendez-vous à l'Avenue Henri-Martin");
+			Joueur j =getMonopoly().getJoueurActif();
+			if(25-j.getPositionCourante().getNumero()>0){
+				j.avance(25-j.getPositionCourante().getNumero());
+			}else{
+				j.avance(25+40-j.getPositionCourante().getNumero());
+			}
+		}
+		public void effet10(){
+			System.out.println("Rendez-vous à la gare de Lyon");
+			Joueur j =getMonopoly().getJoueurActif();
+			if(16-j.getPositionCourante().getNumero()>0){
+				j.avance(16-j.getPositionCourante().getNumero());
+			}else{
+				j.avance(16+40-j.getPositionCourante().getNumero());
+			}
+		}
+		public void effet11(){
+			System.out.println("Payer pour frais de scolarité 150€");
+			Joueur j =getMonopoly().getJoueurActif();
+			j.setCash(j.getCash()-150);
+		}
+		public void effet12(){
+			System.out.println("Vous avez gagnez le prix de mots croisés. Recevez 100€");
+			Joueur j =getMonopoly().getJoueurActif();
+			j.setCash(j.getCash()+100);
+		}
+		public void effet13(){
+			System.out.println("La Banque vous verse un dividende de 50€");
+			Joueur j =getMonopoly().getJoueurActif();
+			j.setCash(j.getCash()+50);
+		}
+		public void effet14(){
+			System.out.println("Rendez-vous à la Rue de la Paix.");
+			Joueur j =getMonopoly().getJoueurActif();
+			if(39-j.getPositionCourante().getNumero()>0){
+				j.avance(39-j.getPositionCourante().getNumero());
+			}else{
+				j.avance(39+40-j.getPositionCourante().getNumero());
+			}
+		}
+		public void effet15(){
+			System.out.println("Votre immeuble et votre prêt rapportent. Vous devez toucher 150€");
+			Joueur j =getMonopoly().getJoueurActif();
+			j.setCash(j.getCash()+150);
+		}
+		public void effet16(){
+			System.out.println("Accédez au Boulevard de la Villette.");
+			Joueur j =getMonopoly().getJoueurActif();
+			if(12-j.getPositionCourante().getNumero()>0){
+				j.avance(12-j.getPositionCourante().getNumero());
+			}else{
+				j.avance(12+40-j.getPositionCourante().getNumero());
+			}
+		}
 		}*/
 	
 
