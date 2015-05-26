@@ -16,12 +16,11 @@ public class Joueur
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	public Joueur(Carreau positionCourante, String nomJoueur, int cash, int des)
+	public Joueur(Carreau positionCourante, String nomJoueur, int des)
 	{
 		super();
 		this.positionCourante = positionCourante;
 		this.nomJoueur = nomJoueur;
-		this.cash = cash;
 		this.des = des;
 	}
 	
