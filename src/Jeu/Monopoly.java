@@ -30,8 +30,8 @@ public class  Monopoly {
 	private Groupe g;
 	//private HashMap<Integer, Carreau> listCarreaux = new HashMap();
 	private Carreau [] listCarreaux = new Carreau[41];
-	private int des1 ;
-	private int des2 ;
+	private int des1;
+	private int des2;
 	private LinkedList<Joueur> joueurs;
     
 	
@@ -40,6 +40,7 @@ public class  Monopoly {
 		setJoueurs(new LinkedList<Joueur>());
 		buildGamePlateau(dataFilename);
 		initialiserPartie();
+		JouerUnCoup(this.getJoueurs().getFirst());
 	}
 	
 	private void buildGamePlateau(String dataFilename)
@@ -47,7 +48,7 @@ public class  Monopoly {
 		for(CouleurPropriete c : CouleurPropriete.values())
 		{
 			
-			//System.out.println("Le groupe de couleur "+c.toString()+" a bien Ã©tÃ© crÃ©Ã©e");
+			//System.out.println("Le groupe de couleur "+c.toString()+" a bien été créée");
 			g = new Groupe(new ArrayList<ProprieteAConstruire>(), c);
 			listGroupes.put(c.toString(), g);
 			
@@ -59,7 +60,7 @@ public class  Monopoly {
 			for(int i=0; i<data.size(); ++i){
 				String caseType = data.get(i)[0];
 				if(caseType.compareTo("P") == 0){
-					//System.out.println("PropriÃ©tÃ© :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+					//System.out.println("Propriété :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
 					
 					int[] loyers = {Integer.parseInt(data.get(i)[5]), Integer.parseInt(data.get(i)[6]), 
 								Integer.parseInt(data.get(i)[7]), Integer.parseInt(data.get(i)[8]),
@@ -146,15 +147,15 @@ public class  Monopoly {
 		    nbJoueur = sc.nextInt();
 		    Joueur [] joueursTemp = new Joueur[nbJoueur];
 		    
-		    // CrÃ©ation des joueurs et lancers de des
+		    // Création des joueurs et lancers de des
 		     String nom;
-		     nom = sc.nextLine(); // Permet de rÃ©initialiser le scanner, qui contient le caractÃ¨re \n, car on a utilisÃ© un nextInt()
+		     nom = sc.nextLine(); // Permet de réinitialiser le scanner, qui contient le caractère \n, car on a utilisé un nextInt()
 		     Joueur j;
 		    for (int i = 0; i < nbJoueur; i++)
 		    {
-		     System.out.println("Nom du joueur nÂ°" + (i+1) + " : ");
+		     System.out.println("Nom du joueur n°" + (i+1) + " : ");
 		     nom = sc.nextLine();
-		     roll();//Il faudra gÃ©rer dans cette fonction les cas oÃ¹ les joueur fait un double
+		     roll();//Il faudra gérer dans cette fonction les cas oÃ¹ les joueur fait un double
 		     System.out.println("Il a obtenu " + des1 + " et " + des2 + " soit au total " + (des1+des2) + ".");
 		     j = new Joueur(listCarreaux[1], nom, (des1+des2));
 		     joueursTemp[i] = j;
@@ -176,12 +177,12 @@ public class  Monopoly {
 			boolean permut;
 	 
 			do {
-				// hypothÃ¨se : le tableau est triÃ©
+				// hypothèse : le tableau est trié
 				permut = false;
 				for (int i = 0; i < longueur - 1; i++) {
-					// Teste si 2 Ã©lÃ©ments successifs sont dans le bon ordre ou non
+					// Teste si 2 éléments successifs sont dans le bon ordre ou non
 					if (tableau[i].getDes() < tableau[i + 1].getDes()) {
-						// s'ils ne le sont pas, on Ã©change leurs positions
+						// s'ils ne le sont pas, on échange leurs positions
 						tampon = tableau[i];
 						tableau[i] = tableau[i + 1];
 						tableau[i + 1] = tampon;
@@ -192,6 +193,23 @@ public class  Monopoly {
 		}
 
 
+	 
+	 private boolean JouerUnCoup(Joueur j) {
+			 roll();
+			 int des = des1+des2;
+			 j.setDes(des);
+			 System.out.println("Tour de " + j.getNomJoueur() + " :");
+			 System.out.println("Lancé de dés : " + des1 + "+" + des2 + " = " + des);
+			 int numCar = j.getPositionCourante().getNumeroCarreau()+j.getDes();
+			 j.setPositionCourante(this.getListCarreaux()[numCar]);
+			 System.out.println("Nouvelle position : " + j.getPositionCourante());
+			 for (Joueur i : joueurs) {
+				 System.out.println(i.getNomJoueur() + " : case n°" + i.getPositionCourante() + ", " + i.getCash() + "€, couleur " + i.getCouleur());
+				 
+			// AJOUTER nbMaison + NbHotels	 
+			 }
+			 return des1 == des2;
+	 }
 	
 	private ArrayList<String[]> readDataFile(String filename, String token) throws FileNotFoundException, IOException
 	{

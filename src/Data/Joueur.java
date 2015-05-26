@@ -10,6 +10,7 @@ public class Joueur
 	private Gare[] gares;
 	private Carreau positionCourante;
 	private ProprieteAConstruire[] proprietesAConstruire;
+	private String couleur;
 	private String nomJoueur;
 	private int cash = 1500;
 	private int des;
@@ -74,6 +75,14 @@ public class Joueur
 	}
 	public void setDes(int des) {
 		this.des= des;
+	}
+
+	public String getCouleur() {
+		return couleur;
+	}
+
+	public void setCouleur(String couleur) {
+		this.couleur = couleur;
 	}
 	
 	
