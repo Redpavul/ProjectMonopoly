@@ -1,9 +1,10 @@
 package Data;
 
+import Jeu.Monopoly;
+
 public class CarreauTirage extends CarreauAction
 {
-	public CarreauTirage(String nomCarreau, int numeroCarreau)
-	{
+
 		//super(nomCarreau, numeroCarreau);
 		private int [] tab;
 		//private Monopoly monopoly;
@@ -11,7 +12,7 @@ public class CarreauTirage extends CarreauAction
 		private int nbDeCarte;
 		private boolean carteSortieDePrison;
 		public CarreauTirage(String nom, int num, int id){
-			super(nom,num)
+			super(nom,num);
 			//this.setMonopoly(monopoly);
 			this.setPosition(1);
 			int nbcarte=16;
@@ -158,4 +159,3 @@ public class CarreauTirage extends CarreauAction
 
 
 	}
-}

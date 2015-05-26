@@ -171,7 +171,8 @@ public class  Monopoly {
 		    }
 		   }
 	 
-	 public static void triBulleDecroissant(Joueur tableau[]) {
+	 public static void triBulleDecroissant(Joueur tableau[])
+	 {
 			int longueur = tableau.length;
 			Joueur tampon ;
 			boolean permut;
@@ -233,12 +234,11 @@ public class  Monopoly {
 
 	
 
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Get/Set
 	public LinkedList<Joueur> getJoueurs() {
 		return joueurs;
 	}
-
-
 
 	public void setJoueurs(LinkedList<Joueur> joueurs) {
 		this.joueurs = joueurs;
