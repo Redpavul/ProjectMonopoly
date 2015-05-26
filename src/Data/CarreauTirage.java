@@ -147,12 +147,12 @@ public class CarreauTirage extends CarreauAction
 		public void effet7()){
 			System.out.println("Avancer jusqu'à la case Départ");
 			Joueur j =getMonopoly().getJoueurActif();
-			j.setCash(j.getCash()-20);
+			j.avance(40-j.getPositionCourante().getNumero());
 		}
 		public void effet8()){
 			System.out.println("Amende pour ivresse 20€");
 			Joueur j =getMonopoly().getJoueurActif();
-			j.avance(j.getPositionCourante());
+			j.avance(40-j.getPositionCourante().);
 		}*/
 	
 
