@@ -8,7 +8,7 @@ public abstract class Carreau
 	protected Monopoly monopoly;
 	private int numeroCarreau;
 	private String nomCarreau;
-
+	
 	public Carreau(String nomCarreau, int numeroCarreau)
 	{
 		this.numeroCarreau = numeroCarreau;

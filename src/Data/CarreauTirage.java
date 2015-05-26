@@ -26,7 +26,7 @@ public class CarreauTirage extends CarreauAction
 				for(int c = 1;c<=nbcarte;c++){
 					System.out.print(""+c+","+tab3[c]+"|");
 				}*/
-			}
+
 			//System.out.println("");
 			int alea;
 			for(int a = 1;a<=nbcarte;a++){
@@ -157,5 +157,5 @@ public class CarreauTirage extends CarreauAction
 		}*/
 	
 
-
+		
 	}

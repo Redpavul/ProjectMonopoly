@@ -19,14 +19,12 @@ import Data.Groupe;
 import Data.Joueur;
 import Data.ProprieteAConstruire;
 
-public class  Monopoly {
-    
-    
-
+public class  Monopoly
+{
 	private Interface interf;
 	private int nbMaisons = 32;
 	private int nbHotels = 12;
-	private HashMap<String, Groupe> listGroupes = new HashMap();
+	private HashMap<String, Groupe> listGroupes = new HashMap();//Contient la liste des groupes
 	private Groupe g;
 	//private HashMap<Integer, Carreau> listCarreaux = new HashMap();
 	private Carreau [] listCarreaux = new Carreau[41];
@@ -43,22 +41,23 @@ public class  Monopoly {
 		JouerUnCoup(this.getJoueurs().getFirst());
 	}
 	
+	//Fonction permettant de créer le plateau de jeu
 	private void buildGamePlateau(String dataFilename)
 	{
+		//Création des groupes : 1 groupe par couleur
 		for(CouleurPropriete c : CouleurPropriete.values())
 		{
-			
-			//System.out.println("Le groupe de couleur "+c.toString()+" a bien été créée");
-			g = new Groupe(new ArrayList<ProprieteAConstruire>(), c);
+			g = new Groupe(new ArrayList<ProprieteAConstruire>(), c);//On passe une arrayListe vide, car pour l'instant le groupe ne possède pas de propriétés
 			listGroupes.put(c.toString(), g);
 			
 		}
 		try{
 			ArrayList<String[]> data = readDataFile(dataFilename, ",");
 			
-			//TODO: create cases instead of displaying
-			for(int i=0; i<data.size(); ++i){
+			//création des différentes cases du plateau
+			for(int i = 0; i < data.size(); ++i){
 				String caseType = data.get(i)[0];
+				//Propriétés
 				if(caseType.compareTo("P") == 0){
 					//System.out.println("Propriété :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
 					
@@ -77,6 +76,7 @@ public class  Monopoly {
 					
 					
 				}
+				//Gares
 				else if(caseType.compareTo("G") == 0){
 					//System.out.println("Gare :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
 					int numeroCarreau = Integer.parseInt(data.get(i)[1]);
@@ -85,6 +85,7 @@ public class  Monopoly {
 					Gare g = new Gare(prixAchat, nomCarreau, numeroCarreau);
 					listCarreaux[numeroCarreau]= g;
 				}
+				//Compagnies
 				else if(caseType.compareTo("C") == 0){
 					//System.out.println("Compagnie :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
 					int numeroCarreau = Integer.parseInt(data.get(i)[1]);
@@ -94,6 +95,7 @@ public class  Monopoly {
 					listCarreaux[numeroCarreau]= c;
 				
 				}
+				//Case tirage
 				else if(caseType.compareTo("CT") == 0){
 					//System.out.println("Case Tirage :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
 					int numeroCarreau = Integer.parseInt(data.get(i)[1]);
@@ -101,6 +103,7 @@ public class  Monopoly {
 					CarreauArgent ct = new CarreauArgent(nomCarreau, numeroCarreau);
 					listCarreaux[numeroCarreau]= ct;
 				}
+				//Case argent
 				else if(caseType.compareTo("CA") == 0){
 					//System.out.println("Case Argent :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
 					int numeroCarreau = Integer.parseInt(data.get(i)[1]);
@@ -109,6 +112,7 @@ public class  Monopoly {
 					listCarreaux[numeroCarreau]= ca;
 					
 				}
+				//Case mouvement
 				else if(caseType.compareTo("CM") == 0){
 					//System.out.println("Case Mouvement :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
 					int numeroCarreau = Integer.parseInt(data.get(i)[1]);
@@ -135,17 +139,16 @@ public class  Monopoly {
 		}*/
 	}
 	
-	 private void initialiserPartie() {
+	 private void initialiserPartie()
+	 {
 		    
 		    // Inscription des Joueurs
-		    
-		    
-
-		    Scanner sc = new Scanner(System.in);
+		   	Scanner sc = new Scanner(System.in);
 		    int nbJoueur;
+		    
 		    System.out.println("Nombre de joueurs :");
 		    nbJoueur = sc.nextInt();
-		    Joueur [] joueursTemp = new Joueur[nbJoueur];
+		    Joueur [] joueursTemp = new Joueur[nbJoueur];//Tableau contenant les joueurs dans l'ordre de création
 		    
 		    // Création des joueurs et lancers de des
 		     String nom;
@@ -163,13 +166,12 @@ public class  Monopoly {
 		    
 		    triBulleDecroissant(joueursTemp);
 		    
-
-		   for (Joueur i : joueursTemp)
+		    for (Joueur i : joueursTemp)
 		    {
 			   System.out.println(i.getNomJoueur());
 			   joueurs.add(i);
 		    }
-		   }
+	 }
 	 
 	 public static void triBulleDecroissant(Joueur tableau[])
 	 {
