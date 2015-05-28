@@ -27,7 +27,7 @@ public class Monopoly {
     private HashMap<String, Groupe> listGroupes = new HashMap();//Contient la liste des groupes
     private Groupe g;
     //private HashMap<Integer, Carreau> listCarreaux = new HashMap();
-    private Carreau[] listCarreaux = new Carreau[41];
+    private Carreau[] listCarreaux = new Carreau[40];
     private LinkedList<Joueur> joueurs;
 
     public Monopoly(String dataFilename) {
@@ -35,13 +35,12 @@ public class Monopoly {
         buildGamePlateau(dataFilename);
         initialiserPartie();
         boucleDeJeu();
-
-        JouerUnCoup(this.getJoueurs().getFirst());
+        //
     }
 
     //Fonction permettant de cr�er le plateau de jeu
     private void buildGamePlateau(String dataFilename) {
-        //Cr�ation des groupes : 1 groupe par couleur
+        //Création des groupes : 1 groupe par couleur
         for (CouleurPropriete c : CouleurPropriete.values()) {
             g = new Groupe(new ArrayList<ProprieteAConstruire>(), c);//On passe une arrayListe vide, car pour l'instant le groupe ne poss�de pas de propri�t�s
             listGroupes.put(c.toString(), g);
@@ -68,7 +67,7 @@ public class Monopoly {
                     int prixAchat = Integer.parseInt(data.get(i)[4]);
                     ProprieteAConstruire p = new ProprieteAConstruire(prixAchat, nomCarreau, numeroCarreau, g, loyers, prixMaison, prixHotel);
 
-                    listCarreaux[numeroCarreau] = p;
+                    listCarreaux[numeroCarreau-1] = p;
 
                 } //Gares
                 else if (caseType.compareTo("G") == 0) {
@@ -77,7 +76,7 @@ public class Monopoly {
                     String nomCarreau = data.get(i)[2];
                     int prixAchat = Integer.parseInt(data.get(i)[3]);
                     Gare g = new Gare(prixAchat, nomCarreau, numeroCarreau);
-                    listCarreaux[numeroCarreau] = g;
+                    listCarreaux[numeroCarreau-1] = g;
                 } //Compagnies
                 else if (caseType.compareTo("C") == 0) {
                     //System.out.println("Compagnie :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
@@ -85,7 +84,7 @@ public class Monopoly {
                     String nomCarreau = data.get(i)[2];
                     int prixAchat = Integer.parseInt(data.get(i)[3]);
                     Compagnie c = new Compagnie(prixAchat, nomCarreau, numeroCarreau);
-                    listCarreaux[numeroCarreau] = c;
+                    listCarreaux[numeroCarreau-1] = c;
 
                 } //Case tirage
                 else if (caseType.compareTo("CT") == 0) {
@@ -93,14 +92,14 @@ public class Monopoly {
                     int numeroCarreau = Integer.parseInt(data.get(i)[1]);
                     String nomCarreau = data.get(i)[2];
                     CarreauArgent ct = new CarreauArgent(nomCarreau, numeroCarreau);
-                    listCarreaux[numeroCarreau] = ct;
+                    listCarreaux[numeroCarreau-1] = ct;
                 } //Case argent
                 else if (caseType.compareTo("CA") == 0) {
                     //System.out.println("Case Argent :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
                     int numeroCarreau = Integer.parseInt(data.get(i)[1]);
                     String nomCarreau = data.get(i)[2];
                     CarreauArgent ca = new CarreauArgent(nomCarreau, numeroCarreau);
-                    listCarreaux[numeroCarreau] = ca;
+                    listCarreaux[numeroCarreau-1] = ca;
 
                 } //Case mouvement
                 else if (caseType.compareTo("CM") == 0) {
@@ -108,7 +107,7 @@ public class Monopoly {
                     int numeroCarreau = Integer.parseInt(data.get(i)[1]);
                     String nomCarreau = data.get(i)[2];
                     CarreauMouvement cm = new CarreauMouvement(nomCarreau, numeroCarreau);
-                    listCarreaux[numeroCarreau] = cm;
+                    listCarreaux[numeroCarreau-1] = cm;
                 } else {
                     System.err.println("[buildGamePleateau()] : Invalid Data type");
                 }
@@ -181,23 +180,34 @@ public class Monopoly {
         } while (permut);
     }
 
-    private boolean JouerUnCoup(Joueur j) 
+    private boolean jouerUnCoup(Joueur j) 
     {
         int des1,des2 ;
         des1 = roll();
         des2 = roll();
         int des = des1 + des2;
+        
         j.setDes(des);
         System.out.println("Tour de " + j.getNomJoueur() + " :");
         System.out.println("Lancé de dés : " + des1 + "+" + des2 + " = " + des);
         int numCar = j.getPositionCourante().getNumeroCarreau() + j.getDes();
-        j.setPositionCourante(this.getListCarreaux()[numCar]);
+        if(numCar == 40)
+        {
+            j.setPositionCourante(this.getListCarreaux()[numCar]); 
+        }
+        else
+        {
+             j.setPositionCourante(this.getListCarreaux()[numCar % 40]);//Modulo 40 pour que le joueur ne dépasse pas la case 40
+        }
         System.out.println("Nouvelle position : " + j.getPositionCourante().getNomCarreau());
+        j.setCash(j.getCash()-100);
         for (Joueur i : joueurs) {
             System.out.println(i.getNomJoueur() + " : case n°" + i.getPositionCourante().getNumeroCarreau() + ", " + i.getCash() + " €, couleur " + i.getCouleur());
+            
 
             // AJOUTER nbMaison + NbHotels	 
         }
+        
         return des1 == des2;
     }
 
@@ -206,12 +216,17 @@ public class Monopoly {
         Joueur j ;
         while( !isEndGame())
         {
-          j = joueurs.getFirst();
-          
-            
-            
-            
+            j = joueurs.getFirst();
+            jouerUnCoup(j);
+            joueurs.remove(j);
+            //On remet le joueur à la fin de la LinkedList si il n'a pas perdu.
+            if(j.getCash() > 0)
+            {
+                joueurs.addLast(j);              
+            }             
         }
+        
+        System.out.println("Le joueur gagnant est : " + joueurs.getFirst().getNomJoueur());
     }
     
     private boolean isEndGame()
