@@ -180,35 +180,75 @@ public class Monopoly {
         } while (permut);
     }
 
-    private boolean jouerUnCoup(Joueur j) 
+    private void jouerUnCoup(Joueur j) 
     {
-        int des1,des2 ;
-        des1 = roll();
-        des2 = roll();
-        int des = des1 + des2;
         
-        j.setDes(des);
-        System.out.println("Tour de " + j.getNomJoueur() + " :");
-        System.out.println("Lancé de dés : " + des1 + "+" + des2 + " = " + des);
-        int numCar = j.getPositionCourante().getNumeroCarreau() + j.getDes();
-        if(numCar == 40)
+        
+        int des,des1,des2,numCar ;
+        int compteur = 0;
+        
+        if(j.isPrison() )//si le joueur est en prison
         {
-            j.setPositionCourante(this.getListCarreaux()[numCar]); 
+            des1 = roll();
+            des2 = roll();
+            des = des1 + des2;
+
+            j.setDes(des);
+            System.out.println("Tour de " + j.getNomJoueur() + " :");
+            System.out.println("Pour sortir de prison, il faut faire un double");
+            System.out.println("Lancé de dés : " + des1 + "+" + des2 + " = " + des);
+            if(des1 == des2)
+            {
+                j.setPrison(false);
+            }
         }
         else
         {
-             j.setPositionCourante(this.getListCarreaux()[numCar % 40]);//Modulo 40 pour que le joueur ne dépasse pas la case 40
-        }
-        System.out.println("Nouvelle position : " + j.getPositionCourante().getNomCarreau());
-        j.setCash(j.getCash()-100);
-        for (Joueur i : joueurs) {
-            System.out.println(i.getNomJoueur() + " : case n°" + i.getPositionCourante().getNumeroCarreau() + ", " + i.getCash() + " €, couleur " + i.getCouleur());
-            
+        do
+        {
+        
+            des1 = roll();
+            des2 = roll();
+            des = des1 + des2;
 
-            // AJOUTER nbMaison + NbHotels	 
+            j.setDes(des);
+            System.out.println("Tour de " + j.getNomJoueur() + " :");
+            System.out.println("Lancé de dés : " + des1 + "+" + des2 + " = " + des);
+            numCar = j.getPositionCourante().getNumeroCarreau() + j.getDes();
+
+            if(des+numCar>40)
+            {
+               j.setCash(j.getCash()+200);
+               System.out.println("Le joueur : " + j.getNomJoueur() + " est passé par la case départ");
+
+            }
+
+            if(numCar == 40)
+            {
+                j.setPositionCourante(this.getListCarreaux()[numCar - 1]); 
+            }
+            else
+            {
+                 j.setPositionCourante(this.getListCarreaux()[numCar % 40]);//Modulo 40 pour que le joueur ne dépasse pas la case 40
+            }
+            System.out.println("Nouvelle position : " + j.getPositionCourante().getNomCarreau());
+            j.setCash(j.getCash()-300);
+            for (Joueur i : joueurs) 
+            {
+                System.out.println(i.getNomJoueur() + " : case n°" + i.getPositionCourante().getNumeroCarreau() + ", " + i.getCash() + " €, couleur " + i.getCouleur());
+                        // AJOUTER nbMaison + NbHotels	 
+            }
+            compteur++ ;
+        }while(des1 == des2 && compteur < 3);
+        
+        if(compteur == 3)
+        {
+            j.setPositionCourante(this.getListCarreaux()[10]); //Le joueur va en prison
+            j.setPrison(true);
+            System.out.println("En prison ! ");
+        }
         }
         
-        return des1 == des2;
     }
 
     private void boucleDeJeu() 
