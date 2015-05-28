@@ -216,16 +216,17 @@ public class Monopoly {
             System.out.println("Lancé de dés : " + des1 + "+" + des2 + " = " + des);
             numCar = j.getPositionCourante().getNumeroCarreau() + j.getDes();
 
-            if(des+numCar>40)
+            if(des+numCar > 40)
             {
                j.setCash(j.getCash()+200);
-               System.out.println("Le joueur : " + j.getNomJoueur() + " est passé par la case départ");
+               System.out.println("Le joueur : " + j.getNomJoueur() + " est passé par la case départ et a donc gagné 200 €");
 
             }
 
             if(numCar == 40)
             {
-                j.setPositionCourante(this.getListCarreaux()[numCar - 1]); 
+                j.setPositionCourante(this.getListCarreaux()[numCar - 1]);
+                System.out.println("Nouvelle position : " + j.getPositionCourante().getNomCarreau());
             }
             else
             {
