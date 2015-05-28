@@ -28,7 +28,7 @@ public class IHM extends JPanel
 	
 	private void initUI() {
         /* Onglets */
-        plateau = new PlateauUI(this,monopoly)
+        plateau = new PlateauUI(this, getMonopoly())
         {
             protected void paintComponent(Graphics g) 
             {
@@ -48,5 +48,19 @@ public class IHM extends JPanel
         fenetre.addTab(plateau, "Plateau de jeu");     // onglet plateau
         fenetre.addTab(infos, "Infos Joueurs"); // onglet infos
         fenetre.afficher();
+    }
+
+    /**
+     * @return the monopoly
+     */
+    public Monopoly getMonopoly() {
+        return monopoly;
+    }
+
+    /**
+     * @param monopoly the monopoly to set
+     */
+    public void setMonopoly(Monopoly monopoly) {
+        this.monopoly = monopoly;
     }
 }
