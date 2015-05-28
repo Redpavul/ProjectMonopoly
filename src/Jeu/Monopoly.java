@@ -202,7 +202,7 @@ public class Monopoly {
                 j.setPrison(false);
             }
         }
-        else
+        else//si le joueur n'est pas en prison
         {
         do
         {
@@ -272,7 +272,7 @@ public class Monopoly {
     
     private boolean isEndGame()
     {         
-        return joueurs.size()==1;//renvoiyer vrai si il ne reste plus qu'un joueur dans la liste.
+        return joueurs.size()==1;//renvoie vrai si il ne reste plus qu'un joueur dans la liste.
     }
 
     private ArrayList<String[]> readDataFile(String filename, String token) throws FileNotFoundException, IOException {
