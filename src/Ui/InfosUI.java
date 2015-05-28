@@ -60,10 +60,10 @@ public class InfosUI  extends JPanel
                         null,
                         "Créé par : \n" +
                         "Chef de projet : REYMANN Paul\n" +
-                        "Secrétaire		: CONGIO  Jorane\n" +
+                        "Codeur Alpha		: CONGIO  Jorane\n" +
                         "IHMan 			: GLIERE  Swann\n" +
-                        "Codeur n°1		: ARTAUD  Matthieu\n" +
-                        "Codeur n°2		: LALANDE Fabien\n", 
+                        "Codeur Bravo		: ARTAUD  Matthieu\n" +
+                        "Codeur Echo		: LALANDE Fabien\n", 
                         "", 
                         JOptionPane.PLAIN_MESSAGE);
             }
