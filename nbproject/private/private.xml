@@ -3,20 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/users/info/etu-s2/reymannp/Monopoly/Monopoly/src/Jeu/ProprieteAConstruire.java</file>
-            <file>file:/users/info/etu-s2/reymannp/Monopoly/Monopoly/src/Jeu/Joueur.java</file>
-            <file>file:/users/info/etu-s2/reymannp/Monopoly/Monopoly/src/Jeu/CarreauMouvement.java</file>
-            <file>file:/users/info/etu-s2/reymannp/Monopoly/Monopoly/src/Jeu/Carreau.java</file>
-            <file>file:/users/info/etu-s2/reymannp/Monopoly/Monopoly/src/Jeu/CarreauArgent.java</file>
-            <file>file:/users/info/etu-s2/reymannp/Monopoly/Monopoly/src/Jeu/Monopoly.java</file>
-            <file>file:/users/info/etu-s2/reymannp/Monopoly/Monopoly/src/Jeu/CarreauTirage.java</file>
-            <file>file:/users/info/etu-s2/reymannp/Monopoly/Monopoly/src/Jeu/CarreauAction.java</file>
-            <file>file:/users/info/etu-s2/reymannp/Monopoly/Monopoly/src/Jeu/Compagnie.java</file>
-            <file>file:/users/info/etu-s2/reymannp/Monopoly/Monopoly/src/Jeu/Interface.java</file>
-            <file>file:/users/info/etu-s2/reymannp/Monopoly/Monopoly/src/Jeu/Gare.java</file>
-            <file>file:/users/info/etu-s2/reymannp/Monopoly/Monopoly/src/Jeu/Groupe.java</file>
-            <file>file:/users/info/etu-s2/reymannp/Monopoly/Monopoly/src/Jeu/CarreauPropriete.java</file>
-            <file>file:/users/info/etu-s2/reymannp/Monopoly/Monopoly/src/Jeu/CouleurPropriete.java</file>
+            <file>file:/users/info/etu-s2/reymannp/Monopoly/ProjectMonopoly/src/Data/Joueur.java</file>
+            <file>file:/users/info/etu-s2/reymannp/Monopoly/ProjectMonopoly/src/Jeu/IHM.java</file>
+            <file>file:/users/info/etu-s2/reymannp/Monopoly/ProjectMonopoly/src/Jeu/Interface.java</file>
+            <file>file:/users/info/etu-s2/reymannp/Monopoly/ProjectMonopoly/src/Ui/InfosUI.java</file>
         </group>
     </open-files>
 </project-private>

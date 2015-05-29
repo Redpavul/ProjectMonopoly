@@ -33,7 +33,7 @@ public class PlateauUI extends JPanel
 	private void initUIComponents()
 	{
 		Carreau[] list = monopoly.getListCarreaux();
-		for(int i=1;i<=40;i++)
+		for(int i=0;i<40;i++)
 		{
 			Carreau c = list[i];
 			
