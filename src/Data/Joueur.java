@@ -1,6 +1,7 @@
 package Data;
 
 import Jeu.Monopoly;
+import java.util.ArrayList;
 
 public class Joueur {
 
@@ -8,7 +9,7 @@ public class Joueur {
     private Compagnie[] compagnies;
     private Gare[] gares;
     private Carreau positionCourante;
-    private ProprieteAConstruire[] proprietesAConstruire;
+    private ArrayList<ProprieteAConstruire> proprietesAConstruire;
     private String couleur;
     private String nomJoueur;
     private int cash = 1500;
@@ -56,14 +57,6 @@ public class Joueur {
         this.positionCourante = positionCourante;
     }
 
-    public ProprieteAConstruire[] getProprietesAConstruire() {
-        return proprietesAConstruire;
-    }
-
-    public void setProprietesAConstruire(
-            ProprieteAConstruire[] proprietesAConstruire) {
-        this.proprietesAConstruire = proprietesAConstruire;
-    }
 
     public String getNomJoueur() {
         return nomJoueur;
@@ -103,6 +96,14 @@ public class Joueur {
 
     public void setPrison(boolean isPrison) {
         this.prison = isPrison;
+    }
+
+    public ArrayList<ProprieteAConstruire> getProprietesAConstruire() {
+	return proprietesAConstruire;
+    }
+
+    public void setProprietesAConstruire(ArrayList<ProprieteAConstruire> proprietesAConstruire) {
+	this.proprietesAConstruire = proprietesAConstruire;
     }
 
 }

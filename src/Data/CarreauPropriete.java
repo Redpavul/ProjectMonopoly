@@ -15,4 +15,36 @@ public abstract class CarreauPropriete extends Carreau
 		this.prixAchat = prixAchat;
 	}
 
+    public Joueur getProprietaire() {
+	return proprietaire;
+    }
+
+    public void setProprietaire(Joueur proprietaire) {
+	this.proprietaire = proprietaire;
+    }
+
+    public int getLoyerBase() {
+	return loyerBase;
+    }
+
+    public void setLoyerBase(int loyerBase) {
+	this.loyerBase = loyerBase;
+    }
+
+    public int getPrixAchat() {
+	return prixAchat;
+    }
+
+    public void setPrixAchat(int prixAchat) {
+	this.prixAchat = prixAchat;
+    }
+
+    public int getLoyer() {
+	return loyer;
+    }
+
+    public void setLoyer(int loyer) {
+	this.loyer = loyer;
+    }
+
 }

@@ -1,5 +1,15 @@
 package Jeu;
 
+import Data.Carreau;
+import Data.CarreauArgent;
+import Data.CarreauMouvement;
+import Data.CarreauPropriete;
+import Data.Compagnie;
+import Data.CouleurPropriete;
+import Data.Gare;
+import Data.Groupe;
+import Data.Joueur;
+import Data.ProprieteAConstruire;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -8,16 +18,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
-
-import Data.Carreau;
-import Data.CarreauArgent;
-import Data.CarreauMouvement;
-import Data.Compagnie;
-import Data.CouleurPropriete;
-import Data.Gare;
-import Data.Groupe;
-import Data.Joueur;
-import Data.ProprieteAConstruire;
 
 public class Monopoly {
 
@@ -263,12 +263,12 @@ public class Monopoly {
         {
             j = joueurs.getFirst();
             jouerUnCoup(j);
-            joueurs.remove(j);
-            //On remet le joueur à la fin de la LinkedList si il n'a pas perdu.
-            if(j.getCash() > 0)
-            {
-                joueurs.addLast(j);              
-            }             
+            if (j == joueurs.getFirst())
+	    {
+		joueurs.addLast(joueurs.pollFirst());  
+            }
+            //On remet le joueur à la fin de la LinkedList .
+       
         }
         
         System.out.println("Le joueur gagnant est : " + joueurs.getFirst().getNomJoueur());
@@ -391,6 +391,82 @@ public class Monopoly {
 	return joueur;
 	
     }
+    
+    public boolean isPropriete(Carreau c1 ){
+    	CarreauPropriete c2=null;
+		return c1.getClass()==c2.getClass();
+    }
+    public void paye(Joueur j,int montant){
+    	j.setCash(j.getCash()-montant);
+    	
+    }
+    public void loyer(Joueur j,int montant){
+    	j.setCash(j.getCash()+montant);
+    	
+    }
+    public void payer(Joueur j,int montant){
+    	CarreauPropriete c=(CarreauPropriete) this.listCarreaux[j.getPositionCourante().getNumeroCarreau()-1]; 
+    	
+    	if (c.getProprietaire()==null){
+        	if (j.getCash()<= montant){
+        		 System.out.println("vous n'avez pas assez d'argent vous avez perdu !");
+        		 joueurs.removeFirst();
+        	}else{
+        		System.out.println("vous devez "+ montant +"€ a la banque !");
+        		paye(j,montant);
+        	}
+    	}else{
+    		Joueur j2=c.getProprietaire();
+    	if (j.getCash()<= montant){
+    		System.out.println("vous n'avez pas assez d'argent vous avez perdu mais vous avez payer "+ j.getCash() +"€ a " + j2.getNomJoueur());
+    		loyer(j2,j.getCash());
+    		joueurs.removeFirst();
+    	}else{
+    		paye(j,montant);
+    		loyer(j,montant);
+    		//test
+    	}
+    	}
+    	
+    }
+    
+    public void arrivPropriete(Joueur j){
+    	int prix;
+    	boolean bon= false;
+        Scanner sc = new Scanner(System.in);
+    	ProprieteAConstruire c=(ProprieteAConstruire) this.listCarreaux[j.getPositionCourante().getNumeroCarreau()-1]; 
+    	if (c.getProprietaire()==null){
+    		prix=c.getPrixAchat();
+    		 System.out.println("joueur " + j.getNomJoueur() + " voulez vous acheter la propriété " + c.getNomCarreau() + " pour un prix de " + prix + " ? (oui/non)");
+    		 
+    		 while(!bon){
+	    		 String choix = sc.nextLine();
+	             if(choix=="oui"){
+	            	 bon=true;
+	            	 if(j.getCash()>=prix){
+	            		 payer(j,prix);
+	            		 c.setProprietaire(j);
+	            		 j.getProprietesAConstruire().add(c);
+	            		 
+	            	 }else{
+	            		 System.out.println("vous n'avez pas assez d'argent achat annuler");
+	            	 }
+	             }else if(choix=="non"){
+	            	 bon=true; 
+	             }
+    		 }
+    		 
+    	}else{
+    		Joueur j2=c.getProprietaire();
+    		int montant=c.getLoyer();
+    		System.out.println("joueur " + j.getNomJoueur() + " vous êtes arrivé sur le/la " + c.getNomCarreau() + " qui appartiens a " + j2.getNomJoueur() + " vous lui devez " + montant + "€ ");
+    		payer(j,montant);
+    		
+    	}
+    	
+    }
+    
+    
     public LinkedList<Joueur> getJoueurs() {
         return joueurs;
     }
