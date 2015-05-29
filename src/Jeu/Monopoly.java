@@ -29,12 +29,15 @@ public class Monopoly {
     //private HashMap<Integer, Carreau> listCarreaux = new HashMap();
     private Carreau[] listCarreaux = new Carreau[40];
     private LinkedList<Joueur> joueurs;
+    
 
-    public Monopoly(String dataFilename) {
+    public Monopoly(String dataFilename)
+    {
         setJoueurs(new LinkedList<Joueur>());
         buildGamePlateau(dataFilename);
         initialiserPartie();
-        boucleDeJeu();
+	triche();
+        //boucleDeJeu();
         //
     }
 
@@ -159,7 +162,8 @@ public class Monopoly {
         }
     }
 
-    public static void triBulleDecroissant(Joueur tableau[]) {
+    public static void triBulleDecroissant(Joueur tableau[])
+    {
         int longueur = tableau.length;
         Joueur tampon;
         boolean permut;
@@ -293,9 +297,100 @@ public class Monopoly {
         return (int) (Math.random() * 6) + 1;
     
     }
+    
+    public void triche()
+    {
+	Scanner sc = new Scanner(System.in);
+	Joueur joueur;
+	int choix, numCase;
+	
+	System.out.println("Vous êtes en mode triche. Vous pouvez choisir sur quelle case placer le joueur courant et gérer plusieurs choses \n ");
+	joueur = getJoueurNom();
+	do {
+                        System.out.println("\n******************************************************************");
+                        System.out.println("*                           Mode triche                          *");
+                        System.out.println("******************************************************************");
+                        System.out.println("                                                                 *");
+                        System.out.println("      * 1  - Changer la case sur laquelle le joueur se trouve    *");
+                        System.out.println("      * 2  - Mettre le joueur en prison                          *");
+                        System.out.println("      * 3  - Faire passer le joueur par la case départ           *");
+			System.out.println("                                                                 *");
+                        System.out.println("******************************************************************");
+                        System.out.println("      * 0- Quitter                                               *");
+                        System.out.println("******************************************************************");
+                        System.out.print("      Votre Choix : ");
 
+                        choix = sc.nextInt();
+                        switch (choix) {
+                                case 1:
+				{
+				    System.out.println("Veuillez choisir sur quel numéro de case placer le joueur : ");
+				    numCase = sc.nextInt();
+				    deplacerJoueur(numCase, joueur);
+				    break;
+				}
+				
+				case 2:
+				{
+				    System.out.println("Prison !");
+				    joueur.setPrison(true);
+				    break;
+				}
+				
+				case 3:
+				{
+				    break;
+				}                         
+
+                                default:
+				    break;
+                        } // switch
+                } while (choix != 0);
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void deplacerJoueur(int numCase, Joueur joueur)
+    {
+	Scanner sc = new Scanner(System.in);
+	while(numCase > 40 || numCase < 1)
+	{
+	    System.out.println("Mauvaise saisie.Veuillez recommencer : ");
+	    numCase = sc.nextInt();
+	}
+	joueur.setPositionCourante(listCarreaux[numCase-1]);
+	
+    }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Get/Set
+    public Joueur getJoueurNom()
+    {//Permet de récupérer un Joueur à partir de son nom
+	Scanner sc = new Scanner(System.in);
+	String nomJoueur;
+	Joueur joueur = null;
+	
+	System.out.println("Veuillez saisir le nom du joueur : ");
+	nomJoueur = sc.nextLine();
+	
+	do	
+	{
+	    for(Joueur j : joueurs)
+	    {    if(j.getNomJoueur().equalsIgnoreCase(nomJoueur))
+		{
+		   joueur = j;
+
+		}
+	    }
+	    if(joueur == null)
+	    {
+		System.out.println("Mauvais nom de joueur. Veuillez recommencer la saisie : ");
+		nomJoueur = sc.nextLine();
+	    }
+	    
+	}while(joueur == null);
+	
+	return joueur;
+	
+    }
     public LinkedList<Joueur> getJoueurs() {
         return joueurs;
     }
@@ -327,7 +422,6 @@ public class Monopoly {
     public void setNbHotels(int nbHotels) {
         this.nbHotels = nbHotels;
     }
-
 
     public HashMap<String, Groupe> getListGroupes() {
         return listGroupes;
