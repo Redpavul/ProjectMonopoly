@@ -22,6 +22,7 @@ public class Joueur {
         this.positionCourante = positionCourante;
         this.nomJoueur = nomJoueur;
         this.des = des;
+        proprietesAConstruire=new ArrayList<ProprieteAConstruire>();
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

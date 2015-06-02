@@ -36,8 +36,8 @@ public class Monopoly {
         setJoueurs(new LinkedList<Joueur>());
         buildGamePlateau(dataFilename);
         initialiserPartie();
-	triche();
-        //boucleDeJeu();
+//      triche();
+        boucleDeJeu();
         //
     }
 
@@ -237,7 +237,11 @@ public class Monopoly {
                  j.setPositionCourante(this.getListCarreaux()[numCar % 40]);//Modulo 40 pour que le joueur ne dépasse pas la case 40
             }
             System.out.println("Nouvelle position : " + j.getPositionCourante().getNomCarreau());
-            j.setCash(j.getCash()-300);
+            if(isPropriete(j.getPositionCourante())){
+            	arrivPropriete(j);
+            }else{
+            	
+            }
             for (Joueur i : joueurs) 
             {
                 System.out.println(i.getNomJoueur() + " : case n°" + i.getPositionCourante().getNumeroCarreau() + ", " + i.getCash() + " €, couleur " + i.getCouleur());
@@ -392,7 +396,8 @@ public class Monopoly {
     }
     
     public boolean isPropriete(Carreau c1 ){
-    	CarreauPropriete c2=null;
+    	
+    	ProprieteAConstruire c2=new ProprieteAConstruire(1,"test",52, g, null, nbHotels, nbHotels);
 		return c1.getClass()==c2.getClass();
     }
     public void paye(Joueur j,int montant){
@@ -432,15 +437,16 @@ public class Monopoly {
     public void arrivPropriete(Joueur j){
     	int prix;
     	boolean bon= false;
-        Scanner sc = new Scanner(System.in);
+        Scanner sca = new Scanner(System.in);
     	ProprieteAConstruire c=(ProprieteAConstruire) this.listCarreaux[j.getPositionCourante().getNumeroCarreau()-1]; 
     	if (c.getProprietaire()==null){
     		prix=c.getPrixAchat();
     		 System.out.println("joueur " + j.getNomJoueur() + " voulez vous acheter la propriété " + c.getNomCarreau() + " pour un prix de " + prix + " ? (oui/non)");
-    		 
-    		 while(!bon){
-	    		 String choix = sc.nextLine();
-	             if(choix=="oui"){
+    		 String s="oui";
+    		 while(bon==false){
+	    		 String choix = sca.nextLine();
+	    		 System.out.println(choix);
+	             if(choix.contentEquals(s)){
 	            	 bon=true;
 	            	 if(j.getCash()>=prix){
 	            		 payer(j,prix);
@@ -450,7 +456,7 @@ public class Monopoly {
 	            	 }else{
 	            		 System.out.println("vous n'avez pas assez d'argent achat annuler");
 	            	 }
-	             }else if(choix=="non"){
+	             }else if(choix.contentEquals("non")){
 	            	 bon=true; 
 	             }
     		 }
