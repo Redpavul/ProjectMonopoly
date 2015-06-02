@@ -15,8 +15,8 @@ public class Joueur {
     private int cash = 1500;
     private int des;
     private boolean prison;
+    private int carteSortieDePrison;
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public Joueur(Carreau positionCourante, String nomJoueur, int des) {
         super();
         this.positionCourante = positionCourante;
@@ -25,7 +25,6 @@ public class Joueur {
         proprietesAConstruire=new ArrayList<ProprieteAConstruire>();
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public Monopoly getMonopoly() {
         return monopoly;
     }
@@ -106,5 +105,13 @@ public class Joueur {
     public void setProprietesAConstruire(ArrayList<ProprieteAConstruire> proprietesAConstruire) {
 	this.proprietesAConstruire = proprietesAConstruire;
     }
+
+	public int getCarteSortieDePrison() {
+		return carteSortieDePrison;
+	}
+
+	public void setCarteSortieDePrison(int carteSortieDePrison) {
+		this.carteSortieDePrison = carteSortieDePrison;
+	}
 
 }

@@ -239,6 +239,7 @@ public class Monopoly {
             System.out.println("Nouvelle position : " + j.getPositionCourante().getNomCarreau());
             if(isPropriete(j.getPositionCourante())){
             	arrivPropriete(j);
+            	j.setCash(100);
             }else{
             	
             }
@@ -428,7 +429,7 @@ public class Monopoly {
     	}else{
     		paye(j,montant);
     		loyer(j,montant);
-    		//test
+    		
     	}
     	}
     	
@@ -442,11 +443,10 @@ public class Monopoly {
     	if (c.getProprietaire()==null){
     		prix=c.getPrixAchat();
     		 System.out.println("joueur " + j.getNomJoueur() + " voulez vous acheter la propriété " + c.getNomCarreau() + " pour un prix de " + prix + " ? (oui/non)");
-    		 String s="oui";
     		 while(bon==false){
 	    		 String choix = sca.nextLine();
 	    		 System.out.println(choix);
-	             if(choix.contentEquals(s)){
+	             if(choix.contentEquals("oui")){
 	            	 bon=true;
 	            	 if(j.getCash()>=prix){
 	            		 payer(j,prix);
@@ -463,8 +463,14 @@ public class Monopoly {
     		 
     	}else{
     		Joueur j2=c.getProprietaire();
-    		int montant=c.getLoyer();
-    		System.out.println("joueur " + j.getNomJoueur() + " vous êtes arrivé sur le/la " + c.getNomCarreau() + " qui appartiens a " + j2.getNomJoueur() + " vous lui devez " + montant + "€ ");
+    		int montant;
+    		if(c.getNbHotels()==0){
+    			montant=c.getLoyerMaison()[c.getNbMaisons()];
+    		}else{
+    			 montant=c.getLoyerMaison()[5];
+    		}
+    
+			System.out.println("joueur " + j.getNomJoueur() + " vous êtes arrivé sur le/la " + c.getNomCarreau() + " qui appartiens a " + j2.getNomJoueur() + " vous lui devez " + montant + "€ ");
     		payer(j,montant);
     		
     	}
