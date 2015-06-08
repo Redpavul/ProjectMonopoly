@@ -53,13 +53,6 @@ public class Monopoly {
 	//
     }
 
-<<<<<<< HEAD
-    public int[] creerPaquet(int nbCarte) {
-	int[] tab3 = new int[nbCarte + 1];
-	int[] tab2 = new int[nbCarte + 1];
-	for (int a = 1; a <= nbCarte; a++) {//on cr�e un paquet de carte tri�
-	    tab3[a] = a;
-=======
 	public int[] creerPaquet(int nbCarte){
 		int [] tab3 = new int [nbCarte+1];
 		int [] tab2 = new int [nbCarte+1];
@@ -82,58 +75,6 @@ public class Monopoly {
 		System.out.println("");*/
 		return(tab2);
 	}
-	
-	public int[] getTabChance() {
-		return tabChance;
-	}
-	public void setTabChance(int[] tabChance) {
-		this.tabChance = tabChance;
-	}
-	public int[] getTabCaisse() {
-		return tabCaisse;
-	}
-	public void setTabCaisse(int[] tabCaisse) {
-		this.tabCaisse = tabCaisse;
-	}
-	public int getPositionChance() {
-		return this.positionChance;
-	}
-	public void setPositionChance(int positionChance){
-		this.positionChance = positionChance;
-	}
-	public int getNbDeCarteChance() {
-		return this.nbDeCarteChance;
-	}
-	public void setNbDeCarteChance(int nbDeCarteChance) {
-		this.nbDeCarteChance = nbDeCarteChance;
-	}
-	public int getPositionCaisse() {
-		return this.positionCaisse;
-	}
-	public void setPositionCaisse(int positionCaisse){
-		this.positionCaisse = positionCaisse;
-	}
-	public int getNbDeCarteCaisse() {
-		return this.nbDeCarteCaisse;
->>>>>>> 3e9100097d3d4e1cd96951dc68d59c04264f0733
-	}
-	int alea;
-	for (int a = 1; a <= nbCarte; a++) {//on pioche al�atoirement chaque carte 
-	    //du premier paquer vers un second paquet
-	    alea = (int) (Math.random() * (nbCarte - a + 1)) + 1;
-	    tab2[a] = tab3[alea];
-	    for (int b = alea; b < nbCarte; b++) {
-		tab3[b] = tab3[b + 1];
-	    }
-	    tab3[nbCarte] = 0;
-	}
-	/*for(int c = 1;c<=nbCarte;c++){
-	 System.out.print(""+c+","+tab2[c]+"|");
-	 }
-	 System.out.println("");*/
-	return (tab2);
-    }
-
    
 
     //Fonction permettant de cr�er le plateau de jeu
@@ -262,39 +203,11 @@ public class Monopoly {
 
 		triBulleDecroissant(joueursTemp);
 
-<<<<<<< HEAD
-	// Cr�ation des joueurs et lancers de des
-	String nom;
-	CouleurPropriete couleur;
-	nom = sc.nextLine(); // Permet de r�initialiser le scanner, qui contient le caract�re \n, car on a utilis� un nextInt()
-	CouleurPropriete[] coul = CouleurPropriete.values();
-	Joueur j;
 
-	for (int i = 0; i < nbJoueur; i++) {
-	    des1 = roll();
-	    des2 = roll();
-	    couleur = coul[i];
-	    System.out.println("Nom du joueur n°" + (i + 1) + " : ");
-	    nom = sc.nextLine();
-	    roll();//Il faudra g�rer dans cette fonction les cas où les joueur fait un double
-	    System.out.println("Il a obtenu " + des1 + " et " + des2 + " soit au total " + (des1 + des2) + ".");
-	    j = new Joueur(listCarreaux[0], nom, (des1 + des2), couleur);
-	    joueursTemp[i] = j;
-	}
-
-	triBulleDecroissant(joueursTemp);
-
-	for (Joueur i : joueursTemp)
-	{
-	    joueurs.add(i);
-	}
-=======
 		for (Joueur i : joueursTemp) {
 			System.out.println(i.getNomJoueur());
 			joueurs.add(i);
 	}
-
->>>>>>> 3e9100097d3d4e1cd96951dc68d59c04264f0733
     }
     
     
@@ -608,11 +521,8 @@ private void jouerUnCoup(Joueur j)
 
     public boolean isPropriete(Carreau c1) {
 
-<<<<<<< HEAD
-	ProprieteAConstruire c2 = new ProprieteAConstruire(1, "test", 52, g, null, nbHotelsDispo, nbMaisonsDispo);
-=======
 	ProprieteAConstruire c2 = new ProprieteAConstruire(1, "test", 52, g, null, nbHotelsDispo, nbHotelsDispo);
->>>>>>> 3e9100097d3d4e1cd96951dc68d59c04264f0733
+
 	return c1.getClass() == c2.getClass();
     }
 
@@ -733,26 +643,16 @@ private void jouerUnCoup(Joueur j)
 	return nbMaisonsDispo;
     }
 
-<<<<<<< HEAD
-    public void setNbMaisonsDispo(int nbMaisons) {
-	this.nbMaisonsDispo = nbMaisons;
-=======
     public void setNbMaisonsDispo(int nbMaisonsDispo) {
 	this.nbMaisonsDispo = nbMaisonsDispo;
->>>>>>> 3e9100097d3d4e1cd96951dc68d59c04264f0733
     }
 
     public int getNbHotelsDispo() {
 	return nbHotelsDispo;
     }
 
-<<<<<<< HEAD
-    public void setNbHotelsDispo(int nbHotels) {
-	this.nbHotelsDispo = nbHotels;
-=======
     public void setNbHotelsDispo(int nbHotelsDispo) {
 	this.nbHotelsDispo = nbHotelsDispo;
->>>>>>> 3e9100097d3d4e1cd96951dc68d59c04264f0733
     }
 
     public HashMap<String, Groupe> getListGroupes() {
