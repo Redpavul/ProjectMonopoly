@@ -22,8 +22,8 @@ import java.util.Scanner;
 public class Monopoly {
 
     private Interface interf;
-    private int nbMaisons = 32;
-    private int nbHotels = 12;
+    private int nbMaisonsDispo = 32;
+    private int nbHotelsDispo = 12;
     private HashMap<String, Groupe> listGroupes = new HashMap();//Contient la liste des groupes
     private Groupe g;
     private Carreau[] listCarreaux = new Carreau[40];
@@ -508,7 +508,7 @@ public class Monopoly {
 
     public boolean isPropriete(Carreau c1) {
 
-	ProprieteAConstruire c2 = new ProprieteAConstruire(1, "test", 52, g, null, nbHotels, nbHotels);
+	ProprieteAConstruire c2 = new ProprieteAConstruire(1, "test", 52, g, null, nbHotelsDispo, nbHotelsDispo);
 	return c1.getClass() == c2.getClass();
     }
 
@@ -630,20 +630,20 @@ public class Monopoly {
 	this.interf = interf;
     }
 
-    public int getNbMaisons() {
-	return nbMaisons;
+    public int getNbMaisonsDispo() {
+	return nbMaisonsDispo;
     }
 
-    public void setNbMaisons(int nbMaisons) {
-	this.nbMaisons = nbMaisons;
+    public void setNbMaisonsDispo(int nbMaisonsDispo) {
+	this.nbMaisonsDispo = nbMaisonsDispo;
     }
 
-    public int getNbHotels() {
-	return nbHotels;
+    public int getNbHotelsDispo() {
+	return nbHotelsDispo;
     }
 
-    public void setNbHotels(int nbHotels) {
-	this.nbHotels = nbHotels;
+    public void setNbHotelsDispo(int nbHotelsDispo) {
+	this.nbHotelsDispo = nbHotelsDispo;
     }
 
     public HashMap<String, Groupe> getListGroupes() {

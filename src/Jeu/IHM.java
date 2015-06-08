@@ -11,7 +11,6 @@ import Ui.FenetreUI;
 import Ui.InfosUI;
 import Ui.PlateauUI;
 
-test
 
 
 

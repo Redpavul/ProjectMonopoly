@@ -7,6 +7,7 @@ public class Groupe
 
 	private ArrayList<ProprieteAConstruire> proprietes;
 	private CouleurPropriete couleur;
+	private int prixMaison;
 	
 	
 	public Groupe(ArrayList<ProprieteAConstruire> proprietes, CouleurPropriete couleur) 
@@ -37,6 +38,16 @@ public class Groupe
 	public void setCouleur(CouleurPropriete couleur) 
 	{
 		this.couleur = couleur;
+	}
+	
+	public int getPrixMaison() 
+	{
+		return prixMaison;
+	}
+
+	public void setPrixMaison(int prixMaison) 
+	{
+		this.prixMaison = prixMaison;
 	}
 	
 }
