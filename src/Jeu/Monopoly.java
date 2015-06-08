@@ -26,169 +26,176 @@ public class Monopoly {
     private int nbHotels = 12;
     private HashMap<String, Groupe> listGroupes = new HashMap();//Contient la liste des groupes
     private Groupe g;
-    //private HashMap<Integer, Carreau> listCarreaux = new HashMap();
     private Carreau[] listCarreaux = new Carreau[40];
     private LinkedList<Joueur> joueurs;
+    private int[] tabChance;
+    private int[] tabCaisse;
+    private int positionChance;
+    private int nbDeCarteChance=16;
+    private int positionCaisse;
+    private int nbDeCarteCaisse;
+    private boolean carteSortieDePrisonChance;
+    private boolean carteSortieDePrisonCaisse;
     
 
-    public Monopoly(String dataFilename)
-    {
-        setJoueurs(new LinkedList<Joueur>());
-        buildGamePlateau(dataFilename);
-        initialiserPartie();
-	triche();
-        //boucleDeJeu();
-        //
+    public Monopoly(String dataFilename) {
+	setJoueurs(new LinkedList<Joueur>());
+	buildGamePlateau(dataFilename);
+	initialiserPartie();
+//      triche();
+	boucleDeJeu();
+	//
     }
 
     //Fonction permettant de cr�er le plateau de jeu
     private void buildGamePlateau(String dataFilename) {
-        //Création des groupes : 1 groupe par couleur
-        for (CouleurPropriete c : CouleurPropriete.values()) {
-            g = new Groupe(new ArrayList<ProprieteAConstruire>(), c);//On passe une arrayListe vide, car pour l'instant le groupe ne poss�de pas de propri�t�s
-            listGroupes.put(c.toString(), g);
+	//Création des groupes : 1 groupe par couleur
+	for (CouleurPropriete c : CouleurPropriete.values()) {
+	    g = new Groupe(new ArrayList<ProprieteAConstruire>(), c);//On passe une arrayListe vide, car pour l'instant le groupe ne poss�de pas de propri�t�s
+	    listGroupes.put(c.toString(), g);
 
-        }
-        try {
-            ArrayList<String[]> data = readDataFile(dataFilename, ",");
+	}
+	try {
+	    ArrayList<String[]> data = readDataFile(dataFilename, ",");
 
-            //cr�ation des diff�rentes cases du plateau
-            for (int i = 0; i < data.size(); ++i) {
-                String caseType = data.get(i)[0];
-                //Propri�t�s
-                if (caseType.compareTo("P") == 0) {
-					//System.out.println("Propri�t� :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+	    //cr�ation des diff�rentes cases du plateau
+	    for (int i = 0; i < data.size(); ++i) {
+		String caseType = data.get(i)[0];
+		//Propri�t�s
+		if (caseType.compareTo("P") == 0) {
+		    //System.out.println("Propri�t� :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
 
-                    int[] loyers = {Integer.parseInt(data.get(i)[5]), Integer.parseInt(data.get(i)[6]),
-                        Integer.parseInt(data.get(i)[7]), Integer.parseInt(data.get(i)[8]),
-                        Integer.parseInt(data.get(i)[9]), Integer.parseInt(data.get(i)[10])};
-                    int prixMaison = Integer.parseInt(data.get(i)[11]);
-                    int prixHotel = Integer.parseInt(data.get(i)[12]);
-                    Groupe g = listGroupes.get(data.get(i)[3]);
-                    String nomCarreau = data.get(i)[2];
-                    int numeroCarreau = Integer.parseInt(data.get(i)[1]);
-                    int prixAchat = Integer.parseInt(data.get(i)[4]);
-                    ProprieteAConstruire p = new ProprieteAConstruire(prixAchat, nomCarreau, numeroCarreau, g, loyers, prixMaison, prixHotel);
+		    int[] loyers = {Integer.parseInt(data.get(i)[5]), Integer.parseInt(data.get(i)[6]),
+			Integer.parseInt(data.get(i)[7]), Integer.parseInt(data.get(i)[8]),
+			Integer.parseInt(data.get(i)[9]), Integer.parseInt(data.get(i)[10])};
+		    int prixMaison = Integer.parseInt(data.get(i)[11]);
+		    int prixHotel = Integer.parseInt(data.get(i)[12]);
+		    Groupe g = listGroupes.get(data.get(i)[3]);
+		    String nomCarreau = data.get(i)[2];
+		    int numeroCarreau = Integer.parseInt(data.get(i)[1]);
+		    int prixAchat = Integer.parseInt(data.get(i)[4]);
+		    ProprieteAConstruire p = new ProprieteAConstruire(prixAchat, nomCarreau, numeroCarreau, g, loyers, prixMaison, prixHotel);
 
-                    listCarreaux[numeroCarreau-1] = p;
+		    listCarreaux[numeroCarreau - 1] = p;
 
-                } //Gares
-                else if (caseType.compareTo("G") == 0) {
-                    //System.out.println("Gare :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
-                    int numeroCarreau = Integer.parseInt(data.get(i)[1]);
-                    String nomCarreau = data.get(i)[2];
-                    int prixAchat = Integer.parseInt(data.get(i)[3]);
-                    Gare g = new Gare(prixAchat, nomCarreau, numeroCarreau);
-                    listCarreaux[numeroCarreau-1] = g;
-                } //Compagnies
-                else if (caseType.compareTo("C") == 0) {
-                    //System.out.println("Compagnie :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
-                    int numeroCarreau = Integer.parseInt(data.get(i)[1]);
-                    String nomCarreau = data.get(i)[2];
-                    int prixAchat = Integer.parseInt(data.get(i)[3]);
-                    Compagnie c = new Compagnie(prixAchat, nomCarreau, numeroCarreau);
-                    listCarreaux[numeroCarreau-1] = c;
+		} //Gares
+		else if (caseType.compareTo("G") == 0) {
+		    //System.out.println("Gare :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+		    int numeroCarreau = Integer.parseInt(data.get(i)[1]);
+		    String nomCarreau = data.get(i)[2];
+		    int prixAchat = Integer.parseInt(data.get(i)[3]);
+		    Gare g = new Gare(prixAchat, nomCarreau, numeroCarreau);
+		    listCarreaux[numeroCarreau - 1] = g;
+		} //Compagnies
+		else if (caseType.compareTo("C") == 0) {
+		    //System.out.println("Compagnie :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+		    int numeroCarreau = Integer.parseInt(data.get(i)[1]);
+		    String nomCarreau = data.get(i)[2];
+		    int prixAchat = Integer.parseInt(data.get(i)[3]);
+		    Compagnie c = new Compagnie(prixAchat, nomCarreau, numeroCarreau);
+		    listCarreaux[numeroCarreau - 1] = c;
 
-                } //Case tirage
-                else if (caseType.compareTo("CT") == 0) {
-                    //System.out.println("Case Tirage :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
-                    int numeroCarreau = Integer.parseInt(data.get(i)[1]);
-                    String nomCarreau = data.get(i)[2];
-                    CarreauArgent ct = new CarreauArgent(nomCarreau, numeroCarreau);
-                    listCarreaux[numeroCarreau-1] = ct;
-                } //Case argent
-                else if (caseType.compareTo("CA") == 0) {
-                    //System.out.println("Case Argent :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
-                    int numeroCarreau = Integer.parseInt(data.get(i)[1]);
-                    String nomCarreau = data.get(i)[2];
-                    CarreauArgent ca = new CarreauArgent(nomCarreau, numeroCarreau);
-                    listCarreaux[numeroCarreau-1] = ca;
+		} //Case tirage
+		else if (caseType.compareTo("CT") == 0) {
+		    //System.out.println("Case Tirage :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+		    int numeroCarreau = Integer.parseInt(data.get(i)[1]);
+		    String nomCarreau = data.get(i)[2];
+		    CarreauArgent ct = new CarreauArgent(nomCarreau, numeroCarreau);
+		    listCarreaux[numeroCarreau - 1] = ct;
+		} //Case argent
+		else if (caseType.compareTo("CA") == 0) {
+		    //System.out.println("Case Argent :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+		    int numeroCarreau = Integer.parseInt(data.get(i)[1]);
+		    String nomCarreau = data.get(i)[2];
+		    CarreauArgent ca = new CarreauArgent(nomCarreau, numeroCarreau);
+		    listCarreaux[numeroCarreau - 1] = ca;
 
-                } //Case mouvement
-                else if (caseType.compareTo("CM") == 0) {
-                    //System.out.println("Case Mouvement :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
-                    int numeroCarreau = Integer.parseInt(data.get(i)[1]);
-                    String nomCarreau = data.get(i)[2];
-                    CarreauMouvement cm = new CarreauMouvement(nomCarreau, numeroCarreau);
-                    listCarreaux[numeroCarreau-1] = cm;
-                } else {
-                    System.err.println("[buildGamePleateau()] : Invalid Data type");
-                }
-            }
+		} //Case mouvement
+		else if (caseType.compareTo("CM") == 0) {
+		    //System.out.println("Case Mouvement :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+		    int numeroCarreau = Integer.parseInt(data.get(i)[1]);
+		    String nomCarreau = data.get(i)[2];
+		    CarreauMouvement cm = new CarreauMouvement(nomCarreau, numeroCarreau);
+		    listCarreaux[numeroCarreau - 1] = cm;
+		} else {
+		    System.err.println("[buildGamePleateau()] : Invalid Data type");
+		}
+	    }
 
-        } catch (FileNotFoundException e) {
-            System.err.println("[buildGamePlateau()] : File is not found!");
-        } catch (IOException e) {
-            System.err.println("[buildGamePlateau()] : Error while reading file!");
-        }
-        /*for(int i=1;i<=40;i++)
-         {
-         Carreau c = listCarreaux[i];
-         System.out.println(c.getNomCarreau());
-         }*/
+	} catch (FileNotFoundException e) {
+	    System.err.println("[buildGamePlateau()] : File is not found!");
+	} catch (IOException e) {
+	    System.err.println("[buildGamePlateau()] : Error while reading file!");
+	}
+	/*for(int i=1;i<=40;i++)
+	 {
+	 Carreau c = listCarreaux[i];
+	 System.out.println(c.getNomCarreau());
+	 }*/
     }
 
     private void initialiserPartie() {
 
-        // Inscription des Joueurs
-        int des1,des2;
-        Scanner sc = new Scanner(System.in);
-        int nbJoueur;
+	// Inscription des Joueurs
+	int des1, des2;
+	Scanner sc = new Scanner(System.in);
+	int nbJoueur;
 
-        System.out.println("Nombre de joueurs :");
-        nbJoueur = sc.nextInt();
-        Joueur[] joueursTemp = new Joueur[nbJoueur];//Tableau contenant les joueurs dans l'ordre de cr�ation
+	System.out.println("Nombre de joueurs :");
+	nbJoueur = sc.nextInt();
+	Joueur[] joueursTemp = new Joueur[nbJoueur];//Tableau contenant les joueurs dans l'ordre de cr�ation
 
-        // Cr�ation des joueurs et lancers de des
-        String nom;
-        nom = sc.nextLine(); // Permet de r�initialiser le scanner, qui contient le caract�re \n, car on a utilis� un nextInt()
-        Joueur j;
-        for (int i = 0; i < nbJoueur; i++) {
-            des1 = roll();
-            des2 = roll();
-            System.out.println("Nom du joueur n°" + (i + 1) + " : ");
-            nom = sc.nextLine();
-            roll();//Il faudra g�rer dans cette fonction les cas où les joueur fait un double
-            System.out.println("Il a obtenu " + des1 + " et " + des2 + " soit au total " + (des1 + des2) + ".");
-            j = new Joueur(listCarreaux[1], nom, (des1 + des2));
-            joueursTemp[i] = j;
-        }
+	// Cr�ation des joueurs et lancers de des
+	String nom;
+	CouleurPropriete couleur ;
+	nom = sc.nextLine(); // Permet de r�initialiser le scanner, qui contient le caract�re \n, car on a utilis� un nextInt()
+	CouleurPropriete[] coul = CouleurPropriete.values();
+	Joueur j;
+	
+	for (int i = 0; i < nbJoueur; i++) {
+	    des1 = roll();
+	    des2 = roll();
+	    couleur = coul[i];
+	    System.out.println("Nom du joueur n°" + (i + 1) + " : ");
+	    nom = sc.nextLine();
+	    roll();//Il faudra g�rer dans cette fonction les cas où les joueur fait un double
+	    System.out.println("Il a obtenu " + des1 + " et " + des2 + " soit au total " + (des1 + des2) + ".");
+	    j = new Joueur(listCarreaux[0], nom, (des1 + des2),couleur);
+	    joueursTemp[i] = j;
+	}
 
-        triBulleDecroissant(joueursTemp);
+	triBulleDecroissant(joueursTemp);
 
-        for (Joueur i : joueursTemp) {
-            System.out.println(i.getNomJoueur());
-            joueurs.add(i);
-        }
+	for (Joueur i : joueursTemp) {
+	    System.out.println(i.getNomJoueur());
+	    joueurs.add(i);
+	}
     }
 
-    public static void triBulleDecroissant(Joueur tableau[])
-    {
-        int longueur = tableau.length;
-        Joueur tampon;
-        boolean permut;
+    public static void triBulleDecroissant(Joueur tableau[]) {
+	int longueur = tableau.length;
+	Joueur tampon;
+	boolean permut;
 
-        do {
-            // hypoth�se : le tableau est tri�
-            permut = false;
-            for (int i = 0; i < longueur - 1; i++) {
-                // Teste si 2 �l�ments successifs sont dans le bon ordre ou non
-                if (tableau[i].getDes() < tableau[i + 1].getDes()) {
-                    // s'ils ne le sont pas, on �change leurs positions
-                    tampon = tableau[i];
-                    tableau[i] = tableau[i + 1];
-                    tableau[i + 1] = tampon;
-                    permut = true;
-                }
-            }
-        } while (permut);
+	do {
+	    // hypoth�se : le tableau est tri�
+	    permut = false;
+	    for (int i = 0; i < longueur - 1; i++) {
+		// Teste si 2 �l�ments successifs sont dans le bon ordre ou non
+		if (tableau[i].getDes() < tableau[i + 1].getDes()) {
+		    // s'ils ne le sont pas, on �change leurs positions
+		    tampon = tableau[i];
+		    tableau[i] = tableau[i + 1];
+		    tableau[i + 1] = tampon;
+		    permut = true;
+		}
+	    }
+	} while (permut);
     }
 
     private void jouerUnCoup(Joueur j) 
     {
-        
-        
-        int des,des1,des2,numCar ;
+        int des,des1,des2, ancienCar, newCar ;
         int compteur = 0;
         
         if(j.isPrison() )//si le joueur est en prison
@@ -208,319 +215,379 @@ public class Monopoly {
         }
         else//si le joueur n'est pas en prison
         {
-        do
-        {
-        
-            des1 = roll();
-            des2 = roll();
-            des = des1 + des2;
-
-            j.setDes(des);
-            System.out.println("Tour de " + j.getNomJoueur() + " :");
-            System.out.println("Lancé de dés : " + des1 + "+" + des2 + " = " + des);
-            numCar = j.getPositionCourante().getNumeroCarreau() + j.getDes();
-
-            if(des+numCar > 40)
-            {
-               j.setCash(j.getCash()+200);
-               System.out.println("Le joueur : " + j.getNomJoueur() + " est passé par la case départ et a donc gagné 200 €");
-
-            }
-
-            if(numCar == 40)
-            {
-                j.setPositionCourante(this.getListCarreaux()[numCar - 1]);
-                System.out.println("Nouvelle position : " + j.getPositionCourante().getNomCarreau());
-            }
-            else
-            {
-                 j.setPositionCourante(this.getListCarreaux()[numCar % 40]);//Modulo 40 pour que le joueur ne dépasse pas la case 40
-            }
-            System.out.println("Nouvelle position : " + j.getPositionCourante().getNomCarreau());
-            j.setCash(j.getCash()-300);
-            for (Joueur i : joueurs) 
-            {
-                System.out.println(i.getNomJoueur() + " : case n°" + i.getPositionCourante().getNumeroCarreau() + ", " + i.getCash() + " €, couleur " + i.getCouleur());
-                        // AJOUTER nbMaison + NbHotels	 
-            }
-            compteur++ ;
-        }while(des1 == des2 && compteur < 3);
-        
-        if(compteur == 3)
-        {
-            j.setPositionCourante(this.getListCarreaux()[10]); //Le joueur va en prison
-            j.setPrison(true);
-            System.out.println("En prison ! ");
-        }
-        }
-        
-    }
-
-    private void boucleDeJeu() 
-    {
-        Joueur j ;
-        while( !isEndGame())
-        {
-            j = joueurs.getFirst();
-            jouerUnCoup(j);
-            if (j == joueurs.getFirst())
+	    do
 	    {
-		joueurs.addLast(joueurs.pollFirst());  
-            }
-            //On remet le joueur à la fin de la LinkedList .
-       
+
+		des1 = roll();
+		des2 = roll();
+		des = des1 + des2;
+		j.setDes(des);
+		System.out.println("Tour de " + j.getNomJoueur() + " :");
+		System.out.println("Lancé de dés : " + des1 + "+" + des2 + " = " + des);
+		ancienCar = j.getPositionCourante().getNumeroCarreau();
+		System.out.println(ancienCar);
+		newCar =   (ancienCar + j.getDes());//numCar = case courante du joueur + son score au dés
+		System.out.println(newCar);
+
+
+		//Permet de savoir si le joueur est passé par la case départ
+		if(isPasseDepart(ancienCar, newCar))
+		{
+		   j.setCash(j.getCash()+200);
+		   System.out.println("Le joueur : " + j.getNomJoueur() + " est passé par la case départ et a donc gagné 200 €");
+
+		}
+
+		//40 % 40 = 0, donc il faut une condition spéciales pour ça.
+		if(newCar == 40)
+		{
+		    j.setPositionCourante(this.getListCarreaux()[newCar - 1]);
+		    System.out.println("Nouvelle position : " + j.getPositionCourante().getNomCarreau());
+		}
+		else
+		{
+		     j.setPositionCourante(this.getListCarreaux()[(newCar % 40)-1]);//Modulo 40 pour que le joueur ne dépasse pas la case 40
+		}
+		System.out.println("Nouvelle position : " + j.getPositionCourante().getNomCarreau());
+
+		for (Joueur i : joueurs) 
+		{
+		    System.out.println(i.getNomJoueur() + " : case n°" + i.getPositionCourante().getNumeroCarreau() + ", " + i.getCash() + " €, couleur " + i.getCouleur());
+			    // AJOUTER nbMaison + NbHotels	 
+		}
+		compteur++ ;
+		actionTour(j);
+	    }while(des1 == des2 && compteur < 3);
+
+	    if(compteur == 3)
+	    {
+		j.setPositionCourante(this.getListCarreaux()[10]); //Le joueur va en prison
+		j.setPrison(true);
+		System.out.println("Vous avez fait trois doubles de suite. En prison ! ");
+	    }
         }
         
-        System.out.println("Le joueur gagnant est : " + joueurs.getFirst().getNomJoueur());
     }
-    
-    private boolean isEndGame()
-    {         
-        return joueurs.size()==1;//renvoie vrai si il ne reste plus qu'un joueur dans la liste.
+
+    private void boucleDeJeu() {
+	Joueur j;
+	while (!isEndGame()) {
+	    j = joueurs.getFirst();
+
+	    jouerUnCoup(j);
+	    if (j == joueurs.getFirst()) {
+		joueurs.addLast(joueurs.pollFirst());
+	    }
+            //On remet le joueur à la fin de la LinkedList .
+
+	}
+
+	System.out.println("Le joueur gagnant est : " + joueurs.getFirst().getNomJoueur());
+    }
+
+    private boolean isEndGame() {
+	return joueurs.size() == 1;//renvoie vrai si il ne reste plus qu'un joueur dans la liste.
     }
 
     private ArrayList<String[]> readDataFile(String filename, String token) throws FileNotFoundException, IOException {
-        ArrayList<String[]> data = new ArrayList<String[]>();
+	ArrayList<String[]> data = new ArrayList<String[]>();
 
-        BufferedReader reader = new BufferedReader(new FileReader(filename));
-        String line = null;
-        while ((line = reader.readLine()) != null) {
-            data.add(line.split(token));
-        }
-        reader.close();
+	BufferedReader reader = new BufferedReader(new FileReader(filename));
+	String line = null;
+	while ((line = reader.readLine()) != null) {
+	    data.add(line.split(token));
+	}
+	reader.close();
 
-        return data;
+	return data;
     }
 
-    public int roll() 
-    {
-        return (int) (Math.random() * 6) + 1;
-    
+    public int roll() {
+	return (int) (Math.random() * 6) + 1;
+
     }
+
     
-    public void triche()
+    public void actionTour(Joueur j)
     {
 	Scanner sc = new Scanner(System.in);
-	Joueur joueur;
 	int choix, numCase;
-	
-	System.out.println("Vous êtes en mode triche. Vous pouvez choisir sur quelle case placer le joueur courant et gérer plusieurs choses \n ");
-	joueur = getJoueurNom();
+	Object c = j.getPositionCourante();
 	do {
-                        System.out.println("\n******************************************************************");
-                        System.out.println("*                           Mode triche                          *");
-                        System.out.println("******************************************************************");
-                        System.out.println("                                                                 *");
-                        System.out.println("      * 1  - Changer la case sur laquelle le joueur se trouve    *");
-                        System.out.println("      * 2  - Mettre le joueur en prison                          *");
-                        System.out.println("      * 3  - Faire passer le joueur par la case départ           *");
-			System.out.println("                                                                 *");
-                        System.out.println("******************************************************************");
-                        System.out.println("      * 0- Quitter                                               *");
-                        System.out.println("******************************************************************");
-                        System.out.print("      Votre Choix : ");
+	    System.out.println("\n******************************************************************");
+	    System.out.println("*                           Tour de Jeu                          *");
+	    System.out.println("******************************************************************");
+	    System.out.println("                                                                 *");
+	    if(c instanceof CarreauPropriete )
+	    {
+		 CarreauPropriete cp = (CarreauPropriete) this.listCarreaux[j.getPositionCourante().getNumeroCarreau() - 1];
+		 if(cp.getProprietaire()!=null && (j.getCash() >= cp.getPrixAchat()));
+		 {
+		    System.out.println("*       1  - Acheter la case sur laquelle on se trouve           *");
+		 }
+	    }
+	    System.out.println("*       2  - Construire			                         *");
+	    System.out.println("*       3  - Entrer dans le mode triche				 *");
+	    System.out.println("                                                                 *");
+	    System.out.println("******************************************************************");
+	    System.out.println("      * 0  - Fin du tour                                         *");
+	    System.out.println("******************************************************************");
+	    System.out.print("      Votre Choix : ");
 
-                        choix = sc.nextInt();
-                        switch (choix) {
-                                case 1:
-				{
-				    System.out.println("Veuillez choisir sur quel numéro de case placer le joueur : ");
-				    numCase = sc.nextInt();
-				    deplacerJoueur(numCase, joueur);
-				    break;
-				}
-				
-				case 2:
-				{
-				    System.out.println("Prison !");
-				    joueur.setPrison(true);
-				    break;
-				}
-				
-				case 3:
-				{
-				    break;
-				}                         
+	    choix = sc.nextInt();
+	    switch (choix) {
+		case 1: {
+		    arrivPropriete(j);
+		    break;
+		}
 
-                                default:
-				    break;
-                        } // switch
-                } while (choix != 0);
+		case 2: {
+		    
+		    break;
+		}
+
+		case 3:
+		{
+		    triche(j);
+		    break;
+		}
+
+		default:
+		    break;
+	    } // switch
+	} while (choix != 0);
     }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    public void deplacerJoueur(int numCase, Joueur joueur)
-    {
+    
+    public void triche(Joueur j ) {
 	Scanner sc = new Scanner(System.in);
-	while(numCase > 40 || numCase < 1)
-	{
+	int choix, numCase;
+
+	System.out.println("Vous êtes en mode triche. Vous pouvez choisir sur quelle case placer le joueur courant et gérer plusieurs choses \n ");
+	do {
+	    System.out.println("\n******************************************************************");
+	    System.out.println("*                           Mode triche                          *");
+	    System.out.println("******************************************************************");
+	    System.out.println("                                                                 *");
+	    System.out.println("      * 1  - Changer la case sur laquelle le joueur se trouve    *");
+	    System.out.println("      * 2  - Mettre le joueur en prison                          *");
+	    System.out.println("      * 3  - Faire passer le joueur par la case départ           *");
+	    System.out.println("                                                                 *");
+	    System.out.println("******************************************************************");
+	    System.out.println("      * 0  - Quitter                                             *");
+	    System.out.println("******************************************************************");
+	    System.out.print("      Votre Choix : ");
+
+	    choix = sc.nextInt();
+	    switch (choix) {
+		case 1: {
+		    System.out.println("Veuillez choisir sur quel numéro de case placer le joueur : ");
+		    numCase = sc.nextInt();
+		    deplacerJoueur(numCase, j);
+		    break;
+		}
+
+		case 2: {
+		    System.out.println("Prison !");
+		    j.setPrison(true);
+		    break;
+		}
+
+		case 3: {
+		    j.setCash(j.getCash()+200);
+		    System.out.println("Le joueur : " + j.getNomJoueur() + " est passé par la case départ et a donc gagné 200 €");
+		    break;
+		}
+
+		default:
+		    break;
+	    } // switch
+	} while (choix != 0);
+    }
+
+    public void deplacerJoueur(int numCase, Joueur joueur) {
+	Scanner sc = new Scanner(System.in);
+	while (numCase > 40 || numCase < 1) {
 	    System.out.println("Mauvaise saisie.Veuillez recommencer : ");
 	    numCase = sc.nextInt();
 	}
-	joueur.setPositionCourante(listCarreaux[numCase-1]);
-	
+	joueur.setPositionCourante(listCarreaux[numCase - 1]);
+
     }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Get/Set
-    public Joueur getJoueurNom()
-    {//Permet de récupérer un Joueur à partir de son nom
+
+    public Joueur getJoueurNom() {//Permet de récupérer un Joueur à partir de son nom
 	Scanner sc = new Scanner(System.in);
 	String nomJoueur;
 	Joueur joueur = null;
-	
+
 	System.out.println("Veuillez saisir le nom du joueur : ");
 	nomJoueur = sc.nextLine();
-	
-	do	
-	{
-	    for(Joueur j : joueurs)
-	    {    if(j.getNomJoueur().equalsIgnoreCase(nomJoueur))
-		{
-		   joueur = j;
+
+	do {
+	    for (Joueur j : joueurs) {
+		if (j.getNomJoueur().equalsIgnoreCase(nomJoueur)) {
+		    joueur = j;
 
 		}
 	    }
-	    if(joueur == null)
-	    {
+	    if (joueur == null) {
 		System.out.println("Mauvais nom de joueur. Veuillez recommencer la saisie : ");
 		nomJoueur = sc.nextLine();
 	    }
-	    
-	}while(joueur == null);
-	
+
+	} while (joueur == null);
+
 	return joueur;
+
+    }
+
+    public boolean isPropriete(Carreau c1) {
+
+	ProprieteAConstruire c2 = new ProprieteAConstruire(1, "test", 52, g, null, nbHotels, nbHotels);
+	return c1.getClass() == c2.getClass();
+    }
+
+    public void paye(Joueur j, int montant) {
+	j.setCash(j.getCash() - montant);
+
+    }
+     public boolean isPasseDepart(int ancienneCase, int nouvelleCase)
+    {//Permet de savoir si le joueur est passé par la case départ (retourne vrai si le joueur est passé par la caseDépart);
+	return ancienneCase > nouvelleCase;
+    }
+
+    public void loyer(Joueur j, int montant) {
+	j.setCash(j.getCash() + montant);
+
+    }
+
+    public void payer(Joueur j, int montant) {
+	CarreauPropriete c = (CarreauPropriete) this.listCarreaux[j.getPositionCourante().getNumeroCarreau() - 1];
+	//CarreauPropriete c = (CarreauPropriete) this.listCarreaux[j.getPositionCourante().getNumeroCarreau() - 1];
 	
+	if (c.getProprietaire() == null) {
+	    if (j.getCash() >= montant) {
+
+		System.out.println("Vous devez " + montant + "€ à la banque !");
+		paye(j, montant);
+	    }
+	} else {
+	    Joueur j2 = c.getProprietaire();
+	    if (j.getCash() <= montant && j!=j2) {
+		System.out.println("\nVous n'avez pas assez d'argent pour payer, vous avez perdu ! Vous avez pu payer " + j.getCash() + "€ à " + j2.getNomJoueur()+"\n");
+		loyer(j2, j.getCash());
+		joueurs.removeFirst();
+	    } else if(j!=j2) {
+		paye(j, montant);
+		loyer(j2, montant);
+
+	    }
+	}
+
+    }
+
+    public void arrivPropriete(Joueur j) {
+	int prix;
+	boolean bon = true;
+	Scanner sca = new Scanner(System.in);
+	ProprieteAConstruire c = (ProprieteAConstruire) this.listCarreaux[j.getPositionCourante().getNumeroCarreau() - 1];
+	if (c.getProprietaire() == null) {
+	    
+	    prix = c.getPrixAchat();
+	    if (j.getCash() >= prix) 
+	    {
+		System.out.println("joueur " + j.getNomJoueur() + " voulez vous acheter la propriété " + c.getNomCarreau() + " pour un prix de " + prix + " ? (oui/non)");
+		while (bon ) 
+		{
+		    String choix = sca.nextLine();
+		    if (choix.contentEquals("oui")) 
+		    {
+			bon = false;
+			payer(j, prix);
+			c.setProprietaire(j);
+			j.getProprietesAConstruire().add(c);
+		    } 
+		    else if (choix.contentEquals("non")) 
+		    {
+			bon = true;
+		    }
+		}
+
+	    }
+	} else {
+	    Joueur j2 = c.getProprietaire();
+	    int montant;
+	    if (c.getNbHotels() == 0) {
+		montant = c.getLoyerMaison()[c.getNbMaisons()];
+	    } else {
+		montant = c.getLoyerMaison()[5];
+	    }
+	    if(j!=j2)
+	    {
+		System.out.println("joueur " + j.getNomJoueur() + " vous êtes arrivé sur le/la " + c.getNomCarreau() + " qui appartiens a " + j2.getNomJoueur() + " vous lui devez " + montant + "€ ");
+		payer(j, montant);
+	    }
+
+	}
+
     }
     
-    public boolean isPropriete(Carreau c1 ){
-    	CarreauPropriete c2=null;
-		return c1.getClass()==c2.getClass();
-    }
-    public void paye(Joueur j,int montant){
-    	j.setCash(j.getCash()-montant);
-    	
-    }
-    public void loyer(Joueur j,int montant){
-    	j.setCash(j.getCash()+montant);
-    	
-    }
-    public void payer(Joueur j,int montant){
-    	CarreauPropriete c=(CarreauPropriete) this.listCarreaux[j.getPositionCourante().getNumeroCarreau()-1]; 
-    	
-    	if (c.getProprietaire()==null){
-        	if (j.getCash()<= montant){
-        		 System.out.println("vous n'avez pas assez d'argent vous avez perdu !");
-        		 joueurs.removeFirst();
-        	}else{
-        		System.out.println("vous devez "+ montant +"€ a la banque !");
-        		paye(j,montant);
-        	}
-    	}else{
-    		Joueur j2=c.getProprietaire();
-    	if (j.getCash()<= montant){
-    		System.out.println("vous n'avez pas assez d'argent vous avez perdu mais vous avez payer "+ j.getCash() +"€ a " + j2.getNomJoueur());
-    		loyer(j2,j.getCash());
-    		joueurs.removeFirst();
-    	}else{
-    		paye(j,montant);
-    		loyer(j,montant);
-    		//test
-    	}
-    	}
-    	
-    }
-    
-    public void arrivPropriete(Joueur j){
-    	int prix;
-    	boolean bon= false;
-        Scanner sc = new Scanner(System.in);
-    	ProprieteAConstruire c=(ProprieteAConstruire) this.listCarreaux[j.getPositionCourante().getNumeroCarreau()-1]; 
-    	if (c.getProprietaire()==null){
-    		prix=c.getPrixAchat();
-    		 System.out.println("joueur " + j.getNomJoueur() + " voulez vous acheter la propriété " + c.getNomCarreau() + " pour un prix de " + prix + " ? (oui/non)");
-    		 
-    		 while(!bon){
-	    		 String choix = sc.nextLine();
-	             if(choix=="oui"){
-	            	 bon=true;
-	            	 if(j.getCash()>=prix){
-	            		 payer(j,prix);
-	            		 c.setProprietaire(j);
-	            		 j.getProprietesAConstruire().add(c);
-	            		 
-	            	 }else{
-	            		 System.out.println("vous n'avez pas assez d'argent achat annuler");
-	            	 }
-	             }else if(choix=="non"){
-	            	 bon=true; 
-	             }
-    		 }
-    		 
-    	}else{
-    		Joueur j2=c.getProprietaire();
-    		int montant=c.getLoyer();
-    		System.out.println("joueur " + j.getNomJoueur() + " vous êtes arrivé sur le/la " + c.getNomCarreau() + " qui appartiens a " + j2.getNomJoueur() + " vous lui devez " + montant + "€ ");
-    		payer(j,montant);
-    		
-    	}
-    	
-    }
-    
-    
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Get/Set
+
     public LinkedList<Joueur> getJoueurs() {
-        return joueurs;
+	return joueurs;
     }
 
     public void setJoueurs(LinkedList<Joueur> joueurs) {
-        this.joueurs = joueurs;
+	this.joueurs = joueurs;
     }
 
     public Interface getInterf() {
-        return interf;
+	return interf;
     }
 
     public void setInterf(Interface interf) {
-        this.interf = interf;
+	this.interf = interf;
     }
 
     public int getNbMaisons() {
-        return nbMaisons;
+	return nbMaisons;
     }
 
     public void setNbMaisons(int nbMaisons) {
-        this.nbMaisons = nbMaisons;
+	this.nbMaisons = nbMaisons;
     }
 
     public int getNbHotels() {
-        return nbHotels;
+	return nbHotels;
     }
 
     public void setNbHotels(int nbHotels) {
-        this.nbHotels = nbHotels;
+	this.nbHotels = nbHotels;
     }
 
     public HashMap<String, Groupe> getListGroupes() {
-        return listGroupes;
+	return listGroupes;
     }
 
     public void setListGroupes(HashMap<String, Groupe> listGroupes) {
-        this.listGroupes = listGroupes;
+	this.listGroupes = listGroupes;
     }
 
     public Groupe getG() {
-        return g;
+	return g;
     }
 
     public void setG(Groupe g) {
-        this.g = g;
+	this.g = g;
     }
 
     public Carreau[] getListCarreaux() {
-        return listCarreaux;
+	return listCarreaux;
     }
 
     public void setListCarreaux(Carreau[] listCarreaux) {
-        this.listCarreaux = listCarreaux;
+	this.listCarreaux = listCarreaux;
     }
 
 }

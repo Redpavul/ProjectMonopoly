@@ -38,7 +38,5 @@ public class Groupe
 	{
 		this.couleur = couleur;
 	}
-
-	
 	
 }

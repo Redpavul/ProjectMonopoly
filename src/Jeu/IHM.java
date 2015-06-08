@@ -34,7 +34,7 @@ public class IHM extends JPanel
             {
                 super.paintComponent(g);
  
-                ImageIcon m = new ImageIcon("plateaumonop.jpg");
+                ImageIcon m = new ImageIcon("monop.jpg");
                 Image monImage = m.getImage();
                 g.drawImage(monImage, 0, 0,this);
  

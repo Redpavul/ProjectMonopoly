@@ -2,6 +2,7 @@ package Data;
 
 import Jeu.Monopoly;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Joueur {
 
@@ -10,21 +11,23 @@ public class Joueur {
     private Gare[] gares;
     private Carreau positionCourante;
     private ArrayList<ProprieteAConstruire> proprietesAConstruire;
-    private String couleur;
+    private CouleurPropriete couleur;
     private String nomJoueur;
     private int cash = 1500;
     private int des;
     private boolean prison;
+    private int carteSortieDePrison;
+    private HashMap<Groupe,Integer> groupeDePropriete; //Hashmap qui permet de savoir combien de propriété d'un groupe à un joueur
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public Joueur(Carreau positionCourante, String nomJoueur, int des) {
+    public Joueur(Carreau positionCourante, String nomJoueur, int des, CouleurPropriete couleur) {
         super();
         this.positionCourante = positionCourante;
         this.nomJoueur = nomJoueur;
         this.des = des;
+	this.couleur = couleur;
+        proprietesAConstruire=new ArrayList<ProprieteAConstruire>();
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public Monopoly getMonopoly() {
         return monopoly;
     }
@@ -82,11 +85,11 @@ public class Joueur {
         this.des = des;
     }
 
-    public String getCouleur() {
+    public CouleurPropriete getCouleur() {
         return couleur;
     }
 
-    public void setCouleur(String couleur) {
+    public void setCouleur(CouleurPropriete couleur) {
         this.couleur = couleur;
     }
 
@@ -104,6 +107,22 @@ public class Joueur {
 
     public void setProprietesAConstruire(ArrayList<ProprieteAConstruire> proprietesAConstruire) {
 	this.proprietesAConstruire = proprietesAConstruire;
+    }
+
+	public int getCarteSortieDePrison() {
+		return carteSortieDePrison;
+	}
+
+	public void setCarteSortieDePrison(int carteSortieDePrison) {
+		this.carteSortieDePrison = carteSortieDePrison;
+	}
+
+    public HashMap<Groupe,Integer> getGroupeDePropriete() {
+	return groupeDePropriete;
+    }
+
+    public void setGroupeDePropriete(HashMap<Groupe,Integer> groupeDePropriete) {
+	this.groupeDePropriete = groupeDePropriete;
     }
 
 }
