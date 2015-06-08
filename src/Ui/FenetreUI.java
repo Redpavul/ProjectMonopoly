@@ -1,6 +1,7 @@
 package Ui;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -20,48 +21,34 @@ public class FenetreUI extends JFrame
 {
 	
 	private IHM ihm;
-	private JTabbedPane tabs;
+
 	private JPanel panel;
 	
     public FenetreUI(IHM ihm) {
+    	
         super("Monopoly");
-        
+        initUIComponents();
         this.ihm = ihm;
         
-        initUIComponents();
-
         
     }
     
-    
+        private void initUIComponents() {
+
+    	panel = new JPanel();
+        add(panel);
+        
+        setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout(2,1)); 
+        setVisible(true); 
+
+    }
     public void afficher() {
         setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         setSize(1920, 1080);
-        setVisible(true);                        
+        setVisible(true); 
     }
     
-    public void addTab(JPanel onglet, String titre) {
-    	panel = new JPanel();
-        tabs.addTab(titre, onglet);
-    }
-    private void initUIComponents() {
-        /*
-         * Contenu avec des onglets
-         */
-        tabs = new JTabbedPane();
-        tabs.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                if (tabs.getSelectedIndex() == 0) {
-                                    
-                } else {
-                                                     
-                }
-            }
-        });
-        
-        setLayout(new BorderLayout());        
-        add(tabs, BorderLayout.CENTER);
 
-    }
+
 }

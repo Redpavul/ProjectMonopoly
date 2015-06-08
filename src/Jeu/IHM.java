@@ -1,9 +1,11 @@
 package Jeu;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
@@ -30,9 +32,12 @@ public class IHM extends JPanel
 	
 	private void initUI() {
         /* Onglets */
-        plateau = new PlateauUI(this, getMonopoly())
-        {
-            protected void paintComponent(Graphics g) 
+        plateau = new PlateauUI(this, getMonopoly()){
+
+
+			private static final long serialVersionUID = 1L;
+
+			protected void paintComponent(Graphics g) 
             {
                 super.paintComponent(g);
  
@@ -47,8 +52,12 @@ public class IHM extends JPanel
 
         /* Fenêtre principale */
         fenetre = new FenetreUI(this);
-
-        fenetre.addTab(plateau, "Plateau de jeu");     // onglet plateau
+        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        plateau.setPreferredSize(new Dimension(500,500));
+        this.add(plateau);
+        this.add(infos);
+        fenetre.add(this);
+         
         
         fenetre.afficher();
     }

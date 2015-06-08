@@ -22,6 +22,7 @@ public class InfosUI  extends JPanel
     public InfosUI(IHM ihm) {
         super();
         this.ihm=ihm;
+
         initUIComponents();
     }
     
