@@ -30,23 +30,89 @@ public class Monopoly {
     private LinkedList<Joueur> joueurs;
     private int[] tabChance;
     private int[] tabCaisse;
-    private int positionChance;
+    private int positionChance=1;
     private int nbDeCarteChance=16;
-    private int positionCaisse;
-    private int nbDeCarteCaisse;
-    private boolean carteSortieDePrisonChance;
-    private boolean carteSortieDePrisonCaisse;
+    private int positionCaisse=1;
+    private int nbDeCarteCaisse=16;
+    private boolean carteSortieDePrisonChance=true;
+    private boolean carteSortieDePrisonCaisse=true;
     
 
     public Monopoly(String dataFilename) {
 	setJoueurs(new LinkedList<Joueur>());
 	buildGamePlateau(dataFilename);
+	//System.out.print("Paquet carte Chance: ");
+	this.setTabChance(creerPaquet(this.getNbDeCarteChance()));
+	//System.out.print("Paquet carte Caisse: ");
+	this.setTabCaisse(creerPaquet(this.getNbDeCarteCaisse()));
 	initialiserPartie();
 //      triche();
 	boucleDeJeu();
+	this.setTabChance(creerPaquet(this.getNbDeCarteChance()));
+	this.setTabCaisse(creerPaquet(this.getNbDeCarteCaisse()));
+
 	//
     }
 
+	public int[] creerPaquet(int nbCarte){
+		int [] tab3 = new int [nbCarte+1];
+		int [] tab2 = new int [nbCarte+1];
+		for(int a = 1;a<=nbCarte;a++){//on crée un paquet de carte trié
+			tab3[a]=a;
+		}
+		int alea;
+		for(int a = 1;a<=nbCarte;a++){//on pioche aléatoirement chaque carte 
+									  //du premier paquer vers un second paquet
+			alea=(int)(Math.random()*(nbCarte-a+1))+1;
+			tab2[a]=tab3[alea];
+			for(int b = alea;b<nbCarte;b++){
+				tab3[b]=tab3[b+1];
+			}
+			tab3[nbCarte]=0;
+		}
+		/*for(int c = 1;c<=nbCarte;c++){
+			System.out.print(""+c+","+tab2[c]+"|");
+		}
+		System.out.println("");*/
+		return(tab2);
+	}
+	
+	public int[] getTabChance() {
+		return tabChance;
+	}
+	public void setTabChance(int[] tabChance) {
+		this.tabChance = tabChance;
+	}
+	public int[] getTabCaisse() {
+		return tabCaisse;
+	}
+	public void setTabCaisse(int[] tabCaisse) {
+		this.tabCaisse = tabCaisse;
+	}
+	public int getPositionChance() {
+		return this.positionChance;
+	}
+	public void setPositionChance(int positionChance){
+		this.positionChance = positionChance;
+	}
+	public int getNbDeCarteChance() {
+		return this.nbDeCarteChance;
+	}
+	public void setNbDeCarteChance(int nbDeCarteChance) {
+		this.nbDeCarteChance = nbDeCarteChance;
+	}
+	public int getPositionCaisse() {
+		return this.positionCaisse;
+	}
+	public void setPositionCaisse(int positionCaisse){
+		this.positionCaisse = positionCaisse;
+	}
+	public int getNbDeCarteCaisse() {
+		return this.nbDeCarteCaisse;
+	}
+	public void setNbDeCarteCaisse(int nbDeCarteCaisse) {
+		this.nbDeCarteCaisse = nbDeCarteCaisse;
+	}
     //Fonction permettant de crï¿½er le plateau de jeu
     private void buildGamePlateau(String dataFilename) {
 	//CrÃ©ation des groupes : 1 groupe par couleur
