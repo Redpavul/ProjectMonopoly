@@ -41,6 +41,7 @@ public class Groupe
 	}
 	
 	public int getPrixMaison() 
+<<<<<<< HEAD
         {
                 return prixMaison;
         }
@@ -50,4 +51,15 @@ public class Groupe
                 this.prixMaison = prixMaison;
         }
 
+=======
+	{
+		return prixMaison;
+	}
+
+	public void setPrixMaison(int prixMaison) 
+	{
+		this.prixMaison = prixMaison;
+	}
+	
+>>>>>>> 3e9100097d3d4e1cd96951dc68d59c04264f0733
 }

@@ -13,6 +13,7 @@ import Ui.PlateauUI;
 
 
 
+
 public class IHM extends JPanel
 {
 	private PlateauUI plateau;

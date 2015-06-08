@@ -34,5 +34,13 @@ public abstract class Carreau
 	{
 		this.nomCarreau = nomCarreau;
 	}
+	public Monopoly getMonopoly()
+	{
+		return monopoly;
+	}
 
+	public void setMonopoly(Monopoly mono)
+	{
+		this.monopoly = mono;
+	}
 }
