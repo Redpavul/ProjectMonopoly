@@ -19,14 +19,17 @@ public class PlateauUI extends JPanel
 
 	protected IHM ihm;
 	private Monopoly monopoly;
+	private InfosUI infos;
 	
 	public PlateauUI(IHM ihm, Monopoly monopoly)
 	{
 		super();
 		this.ihm= ihm;
 		this.monopoly=monopoly;
+		infos = new InfosUI(ihm);
 		initUIComponents();
 		setBackground(Color.gray);
+		
 		
 		
 		
@@ -38,8 +41,8 @@ public class PlateauUI extends JPanel
 		for(int i=0;i<40;i++)
 		{
 			Carreau c = list[i];
-			//String s = c.getNomCarreau();
-			JButton s=new JButton(c.getNomCarreau());
+			//c.getNomCarreau();
+			JButton s=new JButton(""+i);
 			s.setOpaque(false);
 			s.setContentAreaFilled(false);
 			s.setBorderPainted(true);
@@ -74,13 +77,6 @@ public class PlateauUI extends JPanel
 			 }
 			 
 			 
-			 
-//			if(i==0 || i==10 || i==20 || i==30){
-//				s.setPreferredSize(new Dimension(118, 118));
-//				s.setBounds(783, 783, 118, 118);
-//			}else{
-//				s.setPreferredSize(new Dimension(76, 120));
-//			}
 
 			
 			this.add(s);

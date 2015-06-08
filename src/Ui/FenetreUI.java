@@ -24,7 +24,7 @@ public class FenetreUI extends JFrame
 	private JPanel panel;
 	
     public FenetreUI(IHM ihm) {
-        super("Gestion de contacts et d'\u00E9v\u00E9nements");
+        super("Monopoly");
         
         this.ihm = ihm;
         
@@ -36,12 +36,12 @@ public class FenetreUI extends JFrame
     
     public void afficher() {
         setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        setSize(1200, 800);
+        setSize(1920, 1080);
         setVisible(true);                        
     }
     
     public void addTab(JPanel onglet, String titre) {
-    	//panel = new JPanel();
+    	panel = new JPanel();
         tabs.addTab(titre, onglet);
     }
     private void initUIComponents() {

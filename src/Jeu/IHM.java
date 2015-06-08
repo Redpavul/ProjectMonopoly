@@ -1,5 +1,6 @@
 package Jeu;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -45,8 +46,9 @@ public class IHM extends JPanel
 
         /* Fenêtre principale */
         fenetre = new FenetreUI(this);
+
         fenetre.addTab(plateau, "Plateau de jeu");     // onglet plateau
-        fenetre.addTab(infos, "Infos Joueurs"); // onglet infos
+        
         fenetre.afficher();
     }
 
