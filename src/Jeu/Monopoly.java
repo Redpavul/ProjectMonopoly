@@ -22,8 +22,8 @@ import java.util.Scanner;
 public class Monopoly {
 
     private Interface interf;
-    private int nbMaisons = 32;
-    private int nbHotels = 12;
+    private int nbMaisonsDispo = 32;
+    private int nbHotelsDispo = 12;
     private HashMap<String, Groupe> listGroupes = new HashMap();//Contient la liste des groupes
     private Groupe g;
     private Carreau[] listCarreaux = new Carreau[40];
@@ -353,6 +353,8 @@ private void jouerUnCoup(Joueur j)
 	Scanner sc = new Scanner(System.in);
 	int choix, numCase;
 	Object c = j.getPositionCourante();
+	ProprieteAConstruire p;
+	
 	do {
 	    System.out.println("\n******************************************************************");
 	    System.out.println("                    Tour de " + j.getNomJoueur() + "      ");
@@ -382,6 +384,12 @@ private void jouerUnCoup(Joueur j)
 
 		case 2: {
 
+		    j.afficherProprietesJoueur();
+		    System.out.println("Faites vos choix");
+		    int i = sc.nextInt();
+		    p= (ProprieteAConstruire) j.choix(i);
+		    
+		    p.construire();
 		    break;
 		}
 
@@ -504,7 +512,7 @@ private void jouerUnCoup(Joueur j)
 
     public boolean isPropriete(Carreau c1) {
 
-	ProprieteAConstruire c2 = new ProprieteAConstruire(1, "test", 52, g, null, nbHotels, nbHotels);
+	ProprieteAConstruire c2 = new ProprieteAConstruire(1, "test", 52, g, null, nbHotelsDispo, nbMaisonsDispo);
 	return c1.getClass() == c2.getClass();
     }
 
@@ -607,20 +615,20 @@ private void jouerUnCoup(Joueur j)
 	this.interf = interf;
     }
 
-    public int getNbMaisons() {
-	return nbMaisons;
+    public int getNbMaisonsDispo() {
+	return nbMaisonsDispo;
     }
 
-    public void setNbMaisons(int nbMaisons) {
-	this.nbMaisons = nbMaisons;
+    public void setNbMaisonsDispo(int nbMaisons) {
+	this.nbMaisonsDispo = nbMaisons;
     }
 
-    public int getNbHotels() {
-	return nbHotels;
+    public int getNbHotelsDispo() {
+	return nbHotelsDispo;
     }
 
-    public void setNbHotels(int nbHotels) {
-	this.nbHotels = nbHotels;
+    public void setNbHotelsDispo(int nbHotels) {
+	this.nbHotelsDispo = nbHotels;
     }
 
     public HashMap<String, Groupe> getListGroupes() {

@@ -1,87 +1,113 @@
 package Data;
 
+import java.util.Scanner;
 
-public class ProprieteAConstruire extends CarreauPropriete
-{
+public class ProprieteAConstruire extends CarreauPropriete {
 
-	private Groupe groupePropriete;
-	private int nbMaisons = 0;
-	private int nbHotels = 0;
-	private int[] loyerMaison;
-	private int prixMaison;
-	private int prixHotel;
-	
-	
-	public ProprieteAConstruire(int prixAchat, String nomCarreau, int numeroCarreau, Groupe groupePropriete, int[] loyerMaison, int prixMaison, int prixHotel) 
-	{
-		super(prixAchat, nomCarreau, numeroCarreau);
-		this.groupePropriete = groupePropriete;
-		this.loyerMaison = loyerMaison;
-		this.prixMaison = prixMaison;
-		this.prixHotel = prixHotel;
+    private Groupe groupePropriete;
+    private int nbMaisons = 0;
+    private int nbHotels = 0;
+    private int[] loyerMaison;
+
+    public ProprieteAConstruire(int prixAchat, String nomCarreau, int numeroCarreau, Groupe groupePropriete, int[] loyerMaison, int prixMaison, int prixHotel) {
+	super(prixAchat, nomCarreau, numeroCarreau);
+	this.groupePropriete = groupePropriete;
+	this.loyerMaison = loyerMaison;
+
+    }
+
+    public void construire() {
+	Joueur j2 = this.getProprietaire();
+	Joueur j = j2.getMonopoly().getJoueurs().getFirst();
+	Groupe gr = this.getGroupePropriete();
+	int nbMaison = this.getNbMaisons();
+	boolean estConstructible = true;
+	for (ProprieteAConstruire prop : gr.getProprietes()) {
+	    Joueur pr = prop.getProprietaire();
+	    int nbMais = prop.getNbMaisons();
+	    int nbHot = prop.getNbHotels();
+
+	    if (pr != j) {
+		estConstructible = false;
+	    }
+	    if (nbMais < nbMaison && nbHot == 0) {
+		estConstructible = false;
+	    }
 	}
 
-	public Groupe getGroupePropriete() 
-	{
-		return groupePropriete;
-	}
+	if (estConstructible == true) {
+	    int prix = gr.getPrixMaison();
+	    int nbHotel = this.getNbHotels();
+	    int arg = j.getCash();
+	    Scanner sc = new Scanner(System.in);
+	    if (nbHotel == 0 && arg >= prix) {
+		int nbHotelDispo = j.getMonopoly().getNbHotelsDispo();
+		int nbMaisonDispo = j.getMonopoly().getNbMaisonsDispo();
+		if (nbMaison == 4) {
+		    if (nbHotelDispo > 0) {
+			System.out.println("Acheter un hotel sur cette propriete ? (oui/non)");
+			String reponse;
+			do {
+			    reponse = sc.nextLine();
+			} while (reponse != "oui" && reponse != "non");
 
-	public void setGroupePropriete(Groupe groupePropriete) 
-	{
-		this.groupePropriete = groupePropriete;
+			if (reponse == "oui") {
+			    j.setCash(arg - prix);
+			    this.setNbMaisons(0);
+			    j.getMonopoly().setNbMaisonsDispo(nbMaisonDispo + 4);
+			    this.setNbHotels(1);
+			    j.getMonopoly().setNbHotelsDispo(nbHotelDispo - 1);
+			}
+		    }
+		} else {
+		    if (nbMaisonDispo > 0) {
+			System.out.println("Acheter une maison sur cette propriete ? (oui/non)");
+			String reponse;
+			do {
+			    reponse = sc.nextLine();
+			} while (reponse != "oui" && reponse != "non");
+			if (reponse == "oui") {
+			    j.setCash(arg - prix);
+			    this.setNbMaisons(nbMaison + 1);
+			    j.getMonopoly().setNbMaisonsDispo(nbMaisonDispo - 1);
+			}
+		    }
+		}
+	    }
 	}
+    }
 
-	public int getNbMaisons() 
-	{
-		
-		return nbMaisons;
-	}
+    public Groupe getGroupePropriete() {
+	return groupePropriete;
+    }
 
-	public void setNbMaisons(int nbMaisons)
-	{
-		this.nbMaisons = nbMaisons;
-	}
+    public void setGroupePropriete(Groupe groupePropriete) {
+	this.groupePropriete = groupePropriete;
+    }
 
-	public int getNbHotels() 
-	{
-		return nbHotels;
-	}
+    public int getNbMaisons() {
 
-	public void setNbHotels(int nbHotels) 
-	{
-		this.nbHotels = nbHotels;
-	}
+	return nbMaisons;
+    }
 
-	public int[] getLoyerMaison() 
-	{
-		return loyerMaison;
-	}
+    public void setNbMaisons(int nbMaisons) {
+	this.nbMaisons = nbMaisons;
+    }
 
-	public void setLoyerMaison(int[] loyerMaison) 
-	{
-		this.loyerMaison = loyerMaison;
-	}
+    public int getNbHotels() {
+	return nbHotels;
+    }
 
-	public int getPrixMaison() 
-	{
-		return prixMaison;
-	}
+    public void setNbHotels(int nbHotels) {
+	this.nbHotels = nbHotels;
+    }
 
-	public void setPrixMaison(int prixMaison) 
-	{
-		this.prixMaison = prixMaison;
-	}
+    public int[] getLoyerMaison() {
+	return loyerMaison;
+    }
 
-	public int getPrixHotel() 
-	{
-		return prixHotel;
-	}
-
-	public void setPrixHotel(int prixHotel) 
-	{
-		this.prixHotel = prixHotel;
-	}
-	
-	
+    public void setLoyerMaison(int[] loyerMaison) {
+	this.loyerMaison = loyerMaison;
+    }
 
 }

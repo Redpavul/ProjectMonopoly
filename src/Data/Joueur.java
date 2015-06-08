@@ -124,5 +124,30 @@ public class Joueur {
     public void setGroupeDePropriete(HashMap<Groupe,Integer> groupeDePropriete) {
 	this.groupeDePropriete = groupeDePropriete;
     }
+    
+    public void afficherProprietesJoueur()
+    {
+	for(CarreauPropriete p : proprietes)
+	{
+	    System.out.println(p.getNomCarreau());
+	}
+    }
+    
+    public CarreauPropriete choix(int indice)
+    {
+	
+	int i = 1 ;
+	for(CarreauPropriete p : proprietes)
+	{
+	    System.out.println(p.getNomCarreau());
+	    if(i==indice)
+	    {
+		return p;
+	    }
+	    i++;
+	} 
+	return null;
+
+    }
 
 }
