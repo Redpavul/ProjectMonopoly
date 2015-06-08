@@ -202,41 +202,51 @@ public class Monopoly {
 
     private void initialiserPartie() {
 
-	// Inscription des Joueurs
-	int des1, des2;
-	Scanner sc = new Scanner(System.in);
-	int nbJoueur;
+		// Inscription des Joueurs
+		int des1, des2;
+		Scanner sc = new Scanner(System.in);
 
-	System.out.println("Nombre de joueurs :");
-	nbJoueur = sc.nextInt();
-	Joueur[] joueursTemp = new Joueur[nbJoueur];//Tableau contenant les joueurs dans l'ordre de cr�ation
+		System.out.println("Nombre de joueurs :");
+		int nbJoueur;
+		nbJoueur = sc.nextInt();
+		
+		Joueur[] joueursTemp = new Joueur[nbJoueur];// Tableau contenant les
+													// joueurs dans l'ordre de
+													// cr�ation
 
-	// Cr�ation des joueurs et lancers de des
-	String nom;
-	CouleurPropriete couleur ;
-	nom = sc.nextLine(); // Permet de r�initialiser le scanner, qui contient le caract�re \n, car on a utilis� un nextInt()
-	CouleurPropriete[] coul = CouleurPropriete.values();
-	Joueur j;
-	
-	for (int i = 0; i < nbJoueur; i++) {
-	    des1 = roll();
-	    des2 = roll();
-	    couleur = coul[i];
-	    System.out.println("Nom du joueur n°" + (i + 1) + " : ");
-	    nom = sc.nextLine();
-	    roll();//Il faudra g�rer dans cette fonction les cas où les joueur fait un double
-	    System.out.println("Il a obtenu " + des1 + " et " + des2 + " soit au total " + (des1 + des2) + ".");
-	    j = new Joueur(listCarreaux[0], nom, (des1 + des2),couleur);
-	    joueursTemp[i] = j;
+		// Cr�ation des joueurs et lancers de des
+		String nom;
+		CouleurPropriete couleur;
+		nom = sc.nextLine(); // Permet de r�initialiser le scanner, qui contient
+								// le caract�re \n, car on a utilis� un
+								// nextInt()
+		CouleurPropriete[] coul = CouleurPropriete.values();
+		Joueur j;
+
+		for (int i = 0; i < nbJoueur; i++) {
+			des1 = roll();
+			des2 = roll();
+			couleur = coul[i];
+			System.out.println("Nom du joueur n°" + (i + 1) + " : ");
+			nom = sc.nextLine();
+			roll();// Il faudra g�rer dans cette fonction les cas où les joueur
+					// fait un double
+			System.out.println("Il a obtenu " + des1 + " et " + des2
+					+ " soit au total " + (des1 + des2) + ".");
+			j = new Joueur(listCarreaux[0], nom, (des1 + des2), couleur);
+			joueursTemp[i] = j;
+		}
+
+		triBulleDecroissant(joueursTemp);
+
+		for (Joueur i : joueursTemp) {
+			System.out.println(i.getNomJoueur());
+			joueurs.add(i);
 	}
 
-	triBulleDecroissant(joueursTemp);
-
-	for (Joueur i : joueursTemp) {
-	    System.out.println(i.getNomJoueur());
-	    joueurs.add(i);
-	}
     }
+    
+    
 
     public static void triBulleDecroissant(Joueur tableau[]) {
 	int longueur = tableau.length;
