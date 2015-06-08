@@ -10,7 +10,7 @@ public class Joueur {
     private Compagnie[] compagnies;
     private Gare[] gares;
     private Carreau positionCourante;
-    private ArrayList<ProprieteAConstruire> proprietesAConstruire;
+    private ArrayList<CarreauPropriete> proprietes;
     private CouleurPropriete couleur;
     private String nomJoueur;
     private int cash = 1500;
@@ -25,7 +25,7 @@ public class Joueur {
         this.nomJoueur = nomJoueur;
         this.des = des;
 	this.couleur = couleur;
-        proprietesAConstruire=new ArrayList<ProprieteAConstruire>();
+       proprietes = new ArrayList<CarreauPropriete>();
     }
 
     public Monopoly getMonopoly() {
@@ -101,19 +101,19 @@ public class Joueur {
         this.prison = isPrison;
     }
 
-    public ArrayList<ProprieteAConstruire> getProprietesAConstruire() {
-	return proprietesAConstruire;
+    public ArrayList<CarreauPropriete> getProprietes() {
+	return proprietes;
     }
 
-    public void setProprietesAConstruire(ArrayList<ProprieteAConstruire> proprietesAConstruire) {
-	this.proprietesAConstruire = proprietesAConstruire;
+    public void setProprietes(ArrayList<CarreauPropriete> proprietesAConstruire) {
+	this.proprietes = proprietesAConstruire;
     }
 
 	public int getCarteSortieDePrison() {
 		return carteSortieDePrison;
 	}
 
-	public void setCarteSortieDePrison(int carteSortieDePrison) {
+	public void setCarteSortieDePrisoProprieteAConstruiren(int carteSortieDePrison) {
 		this.carteSortieDePrison = carteSortieDePrison;
 	}
 

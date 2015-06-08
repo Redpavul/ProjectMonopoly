@@ -8,28 +8,20 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-
 public class Interface implements Runnable {
 
     private IHM ihm;
-    
-    public void run() 
-    {
-        
-        Monopoly monopoly = new Monopoly("data.txt");
-        ihm = new IHM(monopoly);
-    }    
-    
 
+    public void run() {
 
-	
-	
-	public static void main(String[] args)
-	{ 
-		
-		java.awt.EventQueue.invokeLater(new Interface());
-		
-	}
-	
+	Monopoly monopoly = new Monopoly("data.txt");
+	ihm = new IHM(monopoly);
+    }
+
+    public static void main(String[] args) {
+
+	java.awt.EventQueue.invokeLater(new Interface());
+
+    }
 
 }
