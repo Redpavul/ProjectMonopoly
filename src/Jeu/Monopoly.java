@@ -57,11 +57,11 @@ public class Monopoly {
 	public int[] creerPaquet(int nbCarte){
 		int [] tab3 = new int [nbCarte+1];
 		int [] tab2 = new int [nbCarte+1];
-		for(int a = 1;a<=nbCarte;a++){//on crée un paquet de carte trié
+		for(int a = 1;a<=nbCarte;a++){//on crï¿½e un paquet de carte triï¿½
 			tab3[a]=a;
 		}
 		int alea;
-		for(int a = 1;a<=nbCarte;a++){//on pioche aléatoirement chaque carte 
+		for(int a = 1;a<=nbCarte;a++){//on pioche alï¿½atoirement chaque carte 
 									  //du premier paquer vers un second paquet
 			alea=(int)(Math.random()*(nbCarte-a+1))+1;
 			tab2[a]=tab3[alea];
@@ -550,6 +550,20 @@ public class Monopoly {
 	}
 
     }
+    
+    
+    public void payer(Joueur j, int montant, Joueur j2) {
+    	if (j.getCash() <= montant) {
+	    	System.out.println("\nVous n'avez pas assez d'argent pour payer, vous avez perdu ! Vous avez pu payer " + j.getCash() + "â‚¬ Ã  " + j2.getNomJoueur()+"\n");
+	    	loyer(j2, j.getCash());
+	    	joueurs.removeFirst();
+	    } else if(j!=j2) {
+	    	System.out.println(""+j.getNomJoueur()+"Vous devez " + montant + "â‚¬ Ã  "+j2.getNomJoueur()+" !");
+	    	paye(j, montant);
+	    	loyer(j2, montant);
+	    }
+    }
+    
 
     public void arrivPropriete(Joueur j) {
 	int prix;
