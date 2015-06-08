@@ -8,5 +8,12 @@ public class CarreauArgent extends CarreauAction
 	{
 		super(nomCarreau, numeroCarreau);
 	}
+	public int getMontant() {
+		return montant;
+	}
+	public void setMontant(int montant) {
+		this.montant = montant;
+	}
+
 
 }
