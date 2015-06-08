@@ -54,8 +54,8 @@ public class ProprieteAConstruire extends CarreauPropriete
 	}
 
 	public void construire() {
-		Joueur j = this.getProprietaire();
-		j.getMonopoly().getJoueurs().getFirst();
+		Joueur j2 = this.getProprietaire();
+		Joueur j = j2.getMonopoly().getJoueurs().getFirst();
 		Groupe gr = this.getGroupePropriete();
 		int nbMaison = this.getNbMaisons();
 		boolean estConstructible = true;
