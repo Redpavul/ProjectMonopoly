@@ -47,15 +47,15 @@ public class IHM extends JPanel
  
             }
         };
-        infos = new InfosUI(this);
+        setInfos(new InfosUI(this));
         
 
         /* Fenêtre principale */
         fenetre = new FenetreUI(this);
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-        plateau.setPreferredSize(new Dimension(500,500));
+        plateau.setPreferredSize(new Dimension(800,800));
         this.add(plateau);
-        this.add(infos);
+        this.add(getInfos());
         fenetre.add(this);
          
         
@@ -75,4 +75,12 @@ public class IHM extends JPanel
     public void setMonopoly(Monopoly monopoly) {
         this.monopoly = monopoly;
     }
+
+	public InfosUI getInfos() {
+		return infos;
+	}
+
+	public void setInfos(InfosUI infos) {
+		this.infos = infos;
+	}
 }

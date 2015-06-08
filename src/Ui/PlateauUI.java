@@ -3,10 +3,13 @@ package Ui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -19,14 +22,13 @@ public class PlateauUI extends JPanel
 
 	protected IHM ihm;
 	private Monopoly monopoly;
-	private InfosUI infos;
 	
 	public PlateauUI(IHM ihm, Monopoly monopoly)
 	{
 		super();
 		this.ihm= ihm;
 		this.monopoly=monopoly;
-		infos = new InfosUI(ihm);
+
 		initUIComponents();
 		setBackground(Color.gray);
 		
@@ -42,11 +44,12 @@ public class PlateauUI extends JPanel
 		{
 			Carreau c = list[i];
 			//c.getNomCarreau();
-			JButton s=new JButton(""+i);
+			JButton s=new JButton("");
+			String test =""+i;
+			s.setName(test);
 			s.setOpaque(false);
 			s.setContentAreaFilled(false);
 			s.setBorderPainted(true);
-			
 			 this.setLayout(null);
 			 if (i==0){
 
@@ -75,6 +78,14 @@ public class PlateauUI extends JPanel
 
 				 s.setBounds(783, 44+((i-30)*74), 118, 74);
 			 }
+		    	s.addActionListener(new ActionListener() {
+		            public void actionPerformed(ActionEvent e) {
+		                String message;
+		                
+		                System.out.println("" +s.getName());
+		                ihm.getInfos().setSelec( Integer.parseInt(s.getName()));
+		            }
+		        });
 			 
 			 
 
