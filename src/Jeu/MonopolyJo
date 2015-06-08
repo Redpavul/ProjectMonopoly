@@ -240,7 +240,10 @@ public class Monopoly {
 		     j.setPositionCourante(this.getListCarreaux()[newCar % 40]);//Modulo 40 pour que le joueur ne dépasse pas la case 40
 		}
 		System.out.println("Nouvelle position : " + j.getPositionCourante().getNomCarreau());
-		j.setCash(j.getCash()-300);
+                if (isPropriete(j.getPositionCourante())) {
+		    arrivPropriete(j);
+		    
+		}
 		for (Joueur i : joueurs) 
 		{
 		    System.out.println(i.getNomJoueur() + " : case n°" + i.getPositionCourante().getNumeroCarreau() + ", " + i.getCash() + " €, couleur " + i.getCouleur());
