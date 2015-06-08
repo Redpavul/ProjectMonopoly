@@ -27,7 +27,7 @@ public class InfosUI  extends JPanel
 	private JButton jouer;
 	private JButton construire;
 	private JPanel joueurs;
-	private JPanel caseSelectionée;
+	private JPanel caseSelectionee;
 	private JPanel bouttons;
 	private JTextArea propriete;
 	public int selec;
@@ -52,7 +52,7 @@ public class InfosUI  extends JPanel
         setBackground(Color.gray);
         this.ihm=ihm;
         joueurs = new JPanel();
-        caseSelectionée = new JPanel();
+        caseSelectionee = new JPanel();
         bouttons = new JPanel();
         propriete= new JTextArea();
         initUIComponents();
@@ -63,7 +63,7 @@ public class InfosUI  extends JPanel
         this.setLayout(new GridLayout(3, 1));
         joueurs.setLayout(new GridLayout(1, 6));
         bouttons.setLayout(new GridLayout(1, 3));
-        caseSelectionée.setLayout(new GridLayout(1,2));
+        caseSelectionee.setLayout(new GridLayout(1,2));
         
         int j = 1 ;
         //On ajoute le bouton au content pane de la JFrame
@@ -154,10 +154,10 @@ public class InfosUI  extends JPanel
                         "Codeur Bravo		: ARTAUD  Matthieu\n" +
                         "Codeur Echo		: LALANDE Fabien\n");
     	}
-    	caseSelectionée.add(propriete);
+    	caseSelectionee.add(propriete);
     	
     	this.add(joueurs);
-    	this.add(caseSelectionée);
+    	this.add(caseSelectionee);
     	this.add(bouttons);
     }
         	
