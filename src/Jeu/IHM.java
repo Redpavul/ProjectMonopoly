@@ -11,6 +11,8 @@ import Ui.FenetreUI;
 import Ui.InfosUI;
 import Ui.PlateauUI;
 
+test
+
 
 
 public class IHM extends JPanel
