@@ -1,5 +1,7 @@
 package Data;
 
+import Jeu.Monopoly;
+
 public class CarreauTirage extends CarreauAction {
 
     public CarreauTirage(String nom, int num) {
@@ -120,11 +122,12 @@ public class CarreauTirage extends CarreauAction {
 
     }
 
-    /*public void effetChance2()
+    public void effetChance2()
     {
 	System.out.println("Reculez de trois cases.");
-	j.setPosition(j.getPositionCourante().getNumeroCarreau()-3);
-    }
+	Joueur j = getMonopoly().getJoueurs().getFirst();
+	j.setPositionCourante(getMonopoly().getListCarreaux()[j.getPositionCourante().getNumeroCarreau()-3]);
+	    }
 
     public void effetChance3() {
 	System.out.println("Vous �tes impos�s pour les r�parations de voirie � raison de :");
@@ -175,7 +178,7 @@ public class CarreauTirage extends CarreauAction {
     public void effetChance7() {
 	System.out.println("Avancer jusqu'� la case D�part");
 	Joueur j = getMonopoly().getJoueurs().getFirst();
-	j.setPosition(40 - j.getPositionCourante().getNumeroCarreau());
+	j.setPositionCourante(getMonopoly().getListCarreaux()[40 - j.getPositionCourante().getNumeroCarreau()]);
     }
 
     public void effetChance8() {
@@ -188,20 +191,20 @@ public class CarreauTirage extends CarreauAction {
 	System.out.println("Rendez-vous � l'Avenue Henri-Martin");
 	Joueur j = getMonopoly().getJoueurs().getFirst();
 	if (25 - j.getPositionCourante().getNumeroCarreau() > 0) {
-	    j.setPosition(25 - j.getPositionCourante().getNumeroCarreau());
-	} else {
-	    j.setPosition(25 + 40 - j.getPositionCourante().getNumeroCarreau());
-	}
+	    j.setPositionCourante(getMonopoly().getListCarreaux()[25 - j.getPositionCourante().getNumeroCarreau()]);
+			} else {
+	    j.setPositionCourante(getMonopoly().getListCarreaux()[40 + 25 - j.getPositionCourante().getNumeroCarreau()]);
+			}
     }
 
     public void effetChance10() {
 	System.out.println("Rendez-vous � la gare de Lyon");
 	Joueur j = getMonopoly().getJoueurs().getFirst();
 	if (16 - j.getPositionCourante().getNumeroCarreau() > 0) {
-	    j.setPosition(16 - j.getPositionCourante().getNumeroCarreau());
-	} else {
-	    j.setPosition(16 + 40 - j.getPositionCourante().getNumeroCarreau());
-	}
+	    j.setPositionCourante(getMonopoly().getListCarreaux()[16 - j.getPositionCourante().getNumeroCarreau()]);
+			} else {
+	    j.setPositionCourante(getMonopoly().getListCarreaux()[40 + 16 - j.getPositionCourante().getNumeroCarreau()]);
+			}
     }
 
     public void effetChance11() {
@@ -226,10 +229,10 @@ public class CarreauTirage extends CarreauAction {
 	System.out.println("Rendez-vous � la Rue de la Paix.");
 	Joueur j = getMonopoly().getJoueurs().getFirst();
 	if (39 - j.getPositionCourante().getNumeroCarreau() > 0) {
-	    j.setPosition(39 - j.getPositionCourante().getNumeroCarreau());
-	} else {
-	    j.setPosition(39 + 40 - j.getPositionCourante().getNumeroCarreau());
-	}
+	    j.setPositionCourante(getMonopoly().getListCarreaux()[39 - j.getPositionCourante().getNumeroCarreau()]);
+			} else {
+	    j.setPositionCourante(getMonopoly().getListCarreaux()[40 + 39 - j.getPositionCourante().getNumeroCarreau()]);
+			}
     }
 
     public void effetChance15() {
@@ -242,10 +245,10 @@ public class CarreauTirage extends CarreauAction {
 	System.out.println("Acc�dez au Boulevard de la Villette.");
 	Joueur j = getMonopoly().getJoueurs().getFirst();
 	if (12 - j.getPositionCourante().getNumeroCarreau() > 0) {
-	    j.setPosition(12 - j.getPositionCourante().getNumeroCarreau());
-	} else {
-	    j.setPosition(12 + 40 - j.getPositionCourante().getNumeroCarreau());
-	}
+	    j.setPositionCourante(getMonopoly().getListCarreaux()[12 - j.getPositionCourante().getNumeroCarreau()]);
+			} else {
+	    j.setPositionCourante(getMonopoly().getListCarreaux()[40 + 12 - j.getPositionCourante().getNumeroCarreau()]);
+			}
 
     }
 
@@ -253,7 +256,7 @@ public class CarreauTirage extends CarreauAction {
 	if (getMonopoly().getCarteSortieDePrisonCaisse()) {
 	    System.out.println("Vous recevez une carte sortie de Prison");
 	    Joueur j = getMonopoly().getJoueurs().getFirst();
-	    j.setCarteSortieDePrison = (j.getCarteSortieDePrison + 1);
+	    j.setCarteSortieDePrison(j.getCarteSortieDePrison() + 1);
 	    System.out.println("vous �tes lib�r� de prison. Cette carte peut �tre conserv�e jusqu'� ce qu'elle soit utilis�e.");
 	    getMonopoly().setCarteSortieDePrisonCaisse(false);
 	    return true;
@@ -272,10 +275,17 @@ public class CarreauTirage extends CarreauAction {
     public void effetCaisse3() {
 	System.out.println("C'est votre anniversaire, chaque joueur doit vous donner 10�");
 	Joueur j = getMonopoly().getJoueurs().getFirst();
-
+	Monopoly m = getMonopoly();
 	for (Joueur joueur : getMonopoly().getJoueurs()) {
 	    if (joueur != j) {
-		getMonopoly().payer(joueur,10,j)
+		int arg=joueur.getCash();
+		if(arg>=10){
+			joueur.setCash(joueur.getCash()-10);
+			j.setCash(j.getCash()+10);
+		}else{
+			joueur.setCash(joueur.getCash()-arg);
+			j.setCash(j.getCash()+arg);
+		}
 	    }
 	}
     }
@@ -290,9 +300,9 @@ public class CarreauTirage extends CarreauAction {
 	System.out.println("Retournez � Belleville");
 	Joueur j = getMonopoly().getJoueurs().getFirst();
 	if (2 - j.getPositionCourante().getNumeroCarreau() > 0) {
-	    j.setPosition(2 - j.getPositionCourante().getNumeroCarreau());
+		j.setPositionCourante(getMonopoly().getListCarreaux()[2 - j.getPositionCourante().getNumeroCarreau()]);
 	} else {
-	    j.setPosition(2 + 40 - j.getPositionCourante().getNumeroCarreau());
+		j.setPositionCourante(getMonopoly().getListCarreaux()[40 + 2 - j.getPositionCourante().getNumeroCarreau()]);
 	}
     }
 
@@ -341,7 +351,7 @@ public class CarreauTirage extends CarreauAction {
     public void effetCaisse13() {
 	System.out.println("Avancer jusqu'� la case D�part");
 	Joueur j = getMonopoly().getJoueurs().getFirst();
-	j.setPosition(40 - j.getPositionCourante().getNumeroCarreau());
+	j.setPositionCourante(getMonopoly().getListCarreaux()[40 - j.getPositionCourante().getNumeroCarreau()]);
     }
 
     public void effetCaisse14() {
@@ -360,5 +370,5 @@ public class CarreauTirage extends CarreauAction {
 	System.out.println("Vous avez gagn� le deuxi�me prix de beaut�: recevez 10�");
 	Joueur j = getMonopoly().getJoueurs().getFirst();
 	j.setCash(j.getCash() + 10);
-    }*/
+    }
 }
