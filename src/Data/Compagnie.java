@@ -13,7 +13,7 @@ public class Compagnie extends CarreauPropriete
 	
 	public void calculLoyerCompagnie() {
 		Joueur jProprio = this.getProprietaire();
-		int nb = jProprio.getCompagnies().length;
+		int nb = jProprio.getCompagnies().size();
 		Joueur j = this.getMonopoly().getJoueurs().getFirst();
 		int des = j.getDes();
 		int prix;

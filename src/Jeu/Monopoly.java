@@ -718,4 +718,20 @@ public class Monopoly {
 	public int roll() {
 		return (int) (Math.random() * 6) + 1;
 	}
+
+    public boolean getCarteSortieDePrisonChance() {
+	return carteSortieDePrisonChance;
+    }
+
+    public void setCarteSortieDePrisonChance(boolean carteSortieDePrisonChance) {
+	this.carteSortieDePrisonChance = carteSortieDePrisonChance;
+    }
+
+    public boolean getCarteSortieDePrisonCaisse() {
+	return carteSortieDePrisonCaisse;
+    }
+
+    public void setCarteSortieDePrisonCaisse(boolean carteSortieDePrisonCaisse) {
+	this.carteSortieDePrisonCaisse = carteSortieDePrisonCaisse;
+    }
 }

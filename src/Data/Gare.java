@@ -11,7 +11,7 @@ public class Gare extends CarreauPropriete
 	
 	public void calculLoyerGare() {
 		Joueur jProprio = this.getProprietaire();
-		int nb = jProprio.getGares().length;
+		int nb = jProprio.getGares().size();
 		int p = nb * 50;
 		System.out.println(jProprio + " est proprietaire de " + nb + " gares, vous devez donc lui payer " + p + " unitées");
 		Joueur j = this.getMonopoly().getJoueurs().getFirst();
