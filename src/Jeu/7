@@ -393,9 +393,6 @@ public class Monopoly {
 					System.out.println("Ch"+choix);
 				}
 				else if(!choix1 && ch == '1')
-				{
-					System.out.print("Ce choix n'est pas disponible. Veuillez entrez un autre choix : ");
-				}
 				else{
 					System.out.print("Choisissez un nombre entre 0 et 3 : ");
 				}
@@ -718,21 +715,5 @@ public class Monopoly {
 
 	public int roll() {
 		return (int) (Math.random() * 6) + 1;
-	}
-
-	public boolean getCarteSortieDePrisonChance() {
-		return this.carteSortieDePrisonChance;
-	}
-
-	public void setCarteSortieDePrisonChance(boolean carteSortieDePrisonChance){
-		this.carteSortieDePrisonChance = carteSortieDePrisonChance;
-	}
-
-	public boolean getCarteSortieDePrisonCaisse() {
-		return this.carteSortieDePrisonCaisse;
-	}
-
-	public void setCarteSortieDePrisonCaisse(boolean carteSortieDePrisonCaisse){
-		this.carteSortieDePrisonCaisse = carteSortieDePrisonCaisse;
 	}
 }

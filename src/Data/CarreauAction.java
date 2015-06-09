@@ -6,4 +6,7 @@ public abstract class CarreauAction extends Carreau
 	{
 		super(nomCarreau, numeroCarreau);
 	}
+	public void action(){
+		System.out.print("marche pas");
+	}
 }

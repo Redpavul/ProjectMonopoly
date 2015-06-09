@@ -16,8 +16,12 @@ public enum CouleurPropriete
     private CouleurPropriete(String label) { 
         this.label = label; 
     }
-	
+    
     public String toString()
+    {
+	return label;
+    }
+    public String toStringCouleur()
     {
 	String couleur = "";
 	if(this == bleuFonce)

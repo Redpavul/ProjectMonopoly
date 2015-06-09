@@ -22,6 +22,7 @@ public class PlateauUI extends JPanel
 
 	protected IHM ihm;
 	private Monopoly monopoly;
+	JButton s=new JButton("");
 	
 	public PlateauUI(IHM ihm, Monopoly monopoly)
 	{
@@ -35,6 +36,7 @@ public class PlateauUI extends JPanel
 		
 		
 		
+		
 	}
 
 	private void initUIComponents()
@@ -44,7 +46,7 @@ public class PlateauUI extends JPanel
 		{
 			Carreau c = list[i];
 			//c.getNomCarreau();
-			JButton s=new JButton("");
+			
 			String test =""+i;
 			s.setName(test);
 			s.setOpaque(false);

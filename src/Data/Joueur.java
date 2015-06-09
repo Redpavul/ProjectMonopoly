@@ -4,8 +4,8 @@ import Jeu.Monopoly;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Joueur {
-
+public class Joueur
+{
     private Monopoly monopoly;
     private Compagnie[] compagnies;
     private Gare[] gares;
@@ -15,6 +15,7 @@ public class Joueur {
     private String nomJoueur;
     private int cash = 1500;
     private int des;
+    private int nbToursPrison = 0;
     private boolean prison;
     private int carteSortieDePrison;
     private HashMap<Groupe,Integer> groupeDePropriete; //Hashmap qui permet de savoir combien de propriété d'un groupe à un joueur
@@ -148,6 +149,14 @@ public class Joueur {
 	} 
 	return null;
 
+    }
+
+    public int getNbToursPrison() {
+	return nbToursPrison;
+    }
+
+    public void setNbToursPrison(int nbToursPrison) {
+	this.nbToursPrison = nbToursPrison;
     }
 
 }
