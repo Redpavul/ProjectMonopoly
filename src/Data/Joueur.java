@@ -20,7 +20,7 @@ public class Joueur {
     private int carteSortieDePrison;
     private HashMap<Groupe, Integer> groupeDePropriete; //Hashmap qui permet de savoir combien de propriété d'un groupe à un joueur
 
-    public Joueur(Carreau positionCourante, String nomJoueur, int des, CouleurPropriete couleur) {
+    public Joueur(Carreau positionCourante, String nomJoueur, CouleurPropriete couleur) {
 	super();
 	this.positionCourante = positionCourante;
 	this.nomJoueur = nomJoueur;
