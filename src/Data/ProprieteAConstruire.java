@@ -84,6 +84,9 @@ public class ProprieteAConstruire extends CarreauPropriete {
 		System.out.println("Vous n'avez pas le droit de construire");
 	    }
 	}
+	 else {
+		System.out.println("Vous n'avez pas le droit de construire");
+	}
     }
 
   /*  public void arrivPropriete(Joueur j) {
