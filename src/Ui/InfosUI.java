@@ -140,35 +140,35 @@ public class InfosUI  extends JPanel
         });
 
     	Carreau c = getInfoSelec();
-    	if (getSelec()==0 ||getSelec()==10 ||getSelec()==20 ||getSelec()==30 ||getSelec()==2 ||getSelec()==7 ||getSelec()==17 ||getSelec()==22 ||getSelec()==33 ||getSelec()==36 ){
-        	propriete.append("nom : "+c.getNomCarreau()+"\n" +
-                    "\n" +
-                    "\n" +
-                    "\n" +
-                    "\n" +
-                    "\n");
-    	}else if(getSelec()==4 ||getSelec()==38){
-        	propriete.append("nom : "+c.getNomCarreau()+"\n" +
-                    "prix : "+((CarreauArgent) c).getMontant()+"\n" +
-                    "\n" +
-                    "\n" +
-                    "\n" +
-                    "\n");
-    	}else if(getSelec()==5 ||getSelec()==15||getSelec()==25 ||getSelec()==35 ||getSelec()==12 ||getSelec()==28){
-        	propriete.append("nom : "+c.getNomCarreau()+"\n" +
-                    "prix : "+((CarreauArgent) c).getMontant()+"\n" +
-                    "Codeur Alpha		: CONGIO  Jorane\n" +
-                    "IHMan 			: GLIERE  Swann\n" +
-                    "Codeur Bravo		: ARTAUD  Matthieu\n" +
-                    "Codeur Echo		: LALANDE Fabien\n");
-    	}else{
-    	propriete.append("nom : \n" +
-                        "Chef de projet : REYMANN Paul\n" +
-                        "Codeur Alpha		: CONGIO  Jorane\n" +
-                        "IHMan 			: GLIERE  Swann\n" +
-                        "Codeur Bravo		: ARTAUD  Matthieu\n" +
-                        "Codeur Echo		: LALANDE Fabien\n");
-    	}
+//    	if (getSelec()==0 ||getSelec()==10 ||getSelec()==20 ||getSelec()==30 ||getSelec()==2 ||getSelec()==7 ||getSelec()==17 ||getSelec()==22 ||getSelec()==33 ||getSelec()==36 ){
+//        	propriete.append("nom : "+c.getNomCarreau()+"\n" +
+//                    "\n" +
+//                    "\n" +
+//                    "\n" +
+//                    "\n" +
+//                    "\n");
+//    	}else if(getSelec()==4 ||getSelec()==38){
+//        	propriete.append("nom : "+c.getNomCarreau()+"\n" +
+//                    "prix : "+((CarreauArgent) c).getMontant()+"\n" +
+//                    "\n" +
+//                    "\n" +
+//                    "\n" +
+//                    "\n");
+//    	}else if(getSelec()==5 ||getSelec()==15||getSelec()==25 ||getSelec()==35 ||getSelec()==12 ||getSelec()==28){
+//        	propriete.append("nom : "+c.getNomCarreau()+"\n" +
+//                    "prix : "+((CarreauArgent) c).getMontant()+"\n" +
+//                    "Codeur Alpha		: CONGIO  Jorane\n" +
+//                    "IHMan 			: GLIERE  Swann\n" +
+//                    "Codeur Bravo		: ARTAUD  Matthieu\n" +
+//                    "Codeur Echo		: LALANDE Fabien\n");
+//    	}else{
+//    	propriete.append("nom : \n" +
+//                        "Chef de projet : REYMANN Paul\n" +
+//                        "Codeur Alpha		: CONGIO  Jorane\n" +
+//                        "IHMan 			: GLIERE  Swann\n" +
+//                        "Codeur Bravo		: ARTAUD  Matthieu\n" +
+//                        "Codeur Echo		: LALANDE Fabien\n");
+//    	}
     	caseSelectionee.add(propriete);
     	
 

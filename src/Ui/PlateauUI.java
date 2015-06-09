@@ -22,7 +22,7 @@ public class PlateauUI extends JPanel
 
 	protected IHM ihm;
 	private Monopoly monopoly;
-	JButton s=new JButton("");
+	
 	
 	public PlateauUI(IHM ihm, Monopoly monopoly)
 	{
@@ -44,6 +44,7 @@ public class PlateauUI extends JPanel
 		Carreau[] list = monopoly.getListCarreaux();
 		for(int i=0;i<40;i++)
 		{
+			JButton s=new JButton("");
 			Carreau c = list[i];
 			//c.getNomCarreau();
 			
@@ -55,7 +56,7 @@ public class PlateauUI extends JPanel
 			 this.setLayout(null);
 			 if (i==0){
 
-					s.setBounds(783, 783, 118, 118);
+				s.setBounds(783, 783, 118, 118);
 			 }else if(i>0 && i<10){
 
 				 s.setBounds(783-(i*74), 783, 74, 118);
