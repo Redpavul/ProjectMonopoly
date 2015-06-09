@@ -120,7 +120,7 @@ public class CarreauTirage extends CarreauAction {
 
     }
 
-    public void effetChance2()
+    /*public void effetChance2()
     {
 	System.out.println("Reculez de trois cases.");
 	getMonopoly().getJoueurs().getFirst().reculer(3);
@@ -361,5 +361,5 @@ public class CarreauTirage extends CarreauAction {
 	System.out.println("Vous avez gagn� le deuxi�me prix de beaut�: recevez 10�");
 	Joueur j = getMonopoly().getJoueurs().getFirst();
 	j.setCash(j.getCash() + 10);
-    }
+    }*/
 }

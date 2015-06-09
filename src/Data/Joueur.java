@@ -27,6 +27,8 @@ public class Joueur {
 	this.des = des;
 	this.couleur = couleur;
 	proprietes = new ArrayList<ProprieteAConstruire>();
+	gares = new ArrayList<Gare>();
+	compagnies = new ArrayList<Compagnie>();
     }
 
     public Monopoly getMonopoly() {

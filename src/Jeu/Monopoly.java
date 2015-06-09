@@ -176,6 +176,7 @@ public class Monopoly {
 		int des2;
 		Scanner sc = new Scanner(System.in);
 		String nom;
+		String changement;
 		CouleurPropriete couleur;
 		int nbJoueur=0;
 		System.out.print("Nombre de joueurs : ");
@@ -201,7 +202,15 @@ public class Monopoly {
 			des2 = roll();
 			couleur = coul[i];
 			System.out.println("Nom du joueur n°" + (i + 1) + " : ");
-			nom = sc.nextLine();
+			changement = sc.nextLine();
+			if(changement.length() > 10)
+			{
+			    nom = changement.substring(0, 10); // Maximum de dix caractère pour le log en IHM
+			}
+			else
+			{
+			    nom = changement;
+			}
 			System.out.println("Il a obtenu " + des1 + " et " + des2
 					+ " soit au total " + (des1 + des2) + ".");
 			Joueur j = new Joueur(listCarreaux[0], nom, (des1 + des2), couleur);
@@ -286,7 +295,6 @@ public class Monopoly {
 			deplacerJoueur(ancienCar, newCar, j); //On met le joueur à sa nouvelle position sur le plateau.
 			actionTour(j);
 			compteur++;
-			actionTour(j);
 		} while (des1 == des2 && compteur < 3);
 
 		if (compteur == 3) //Si le joueur fait trois doubles d'affilé, il va en prison
@@ -315,8 +323,9 @@ public class Monopoly {
 		des1 = roll();
 		des2 = roll();
 		des = des1 + des2;
-		System.out.println("Lancé : " + (des1 + des2));
-		if (toursPrison < 3) {
+		System.out.println("Lancé : " + des);
+		if (toursPrison < 3)
+		{
 			if (des1 != des2) {
 				if (j.getCarteSortieDePrison() > 0) {
 					System.out.println("Vous possèdez une carte vous permettant de sortir de prison. L'utiliser ? (oui/non)");
@@ -334,13 +343,24 @@ public class Monopoly {
 				} else {
 					System.out.println("Vous restez en prison.");
 				}
-			} else {
+			}
+			else
+			{
 				j.setPrison(false);
 				j.setNbToursPrison(0);
 				System.out.println("Vous avez fait un double et sortez de prison.");
 				lancerDesAvancer();
 
 			}
+		}
+		else
+		{
+		    j.setPrison(false);
+				j.setNbToursPrison(0);
+				j.setCash(j.getCash() - 50);
+				System.out.println("Vous avez passé plus de 3 tours en prison. Vous devez 50€ à la banque et sortez de prison.");
+				lancerDesAvancer();
+
 		}
 	}
 
@@ -362,47 +382,41 @@ public class Monopoly {
 		int choix;
 		Object c = j.getPositionCourante();
 		ProprieteAConstruire p;
-		boolean choix1=false;
+		CarreauPropriete cp;
+		
 
+		System.out.println(j.getPositionCourante().getNomCarreau());
+		
 		do {
 			System.out.println("\n******************************************************************");
 			System.out.println("                    Tour de " + j.getNomJoueur() + "      ");
 			System.out.println("******************************************************************");
 			System.out.println("                                                                 *");
-			if (c instanceof CarreauPropriete) {
-				CarreauPropriete cp = (CarreauPropriete) this.listCarreaux[j.getPositionCourante().getNumeroCarreau() - 1];
-				if (cp.getProprietaire() != null && (j.getCash() >= cp.getPrixAchat()));
-				{
-					System.out.println("*       1  - Acheter la case sur laquelle on se trouve           *");
-					choix1 = true;
-				}
-			}
-			System.out.println("*       2  - Construire			                         *");
-			System.out.println("*       3  - Entrer dans le mode triche				 *");
+			System.out.println("*       1  - Acheter la case sur laquelle on se trouve           *");
+			System.out.println("*       2  - Construire			                     *");
+			System.out.println("*       3  - Entrer dans le mode triche			     *");
 			System.out.println("                                                                 *");
 			System.out.println("******************************************************************");
 			System.out.println("        0  - Fin du tour                                         ");
 			System.out.println("******************************************************************");
 			System.out.print("      Votre Choix : ");
-			choix = -1;
-
-			while(choix==-1)
-			{
-				String stringChoix = sc.nextLine();
-				char ch= stringChoix.charAt(0);//ch>48  ch<58  1--9
-				if((ch>47&&ch<52&&(choix1||ch!=49))&&stringChoix.length()==1){
-					choix=ch-48;
-					System.out.println("Ch"+choix);
-				}
-				else if(!choix1 && ch == '1'){
-				}else{
-					System.out.print("Choisissez un nombre entre 0 et 3 : ");
-				}
-			}
+			choix = sc.nextInt();
+			
 
 			switch (choix) {
 				case 1: {
-							arrivPropriete(j);
+							if(j.getPositionCourante() instanceof CarreauPropriete )
+							{
+							    if(((CarreauPropriete) j.getPositionCourante()).getProprietaire()==null)
+							    {
+							    ((CarreauPropriete) j.getPositionCourante()).acheterPropriete(j);
+							    }
+							}
+							else
+							{
+							    System.out.println("Vous ne pouvez pas acheter cette case ! ");
+							}
+							
 							break;
 						}
 
@@ -425,6 +439,17 @@ public class Monopoly {
 				default:
 						break;
 			} // switch
+			
+			if(j.getPositionCourante() instanceof CarreauPropriete)
+			{
+			    cp = (CarreauPropriete) j.getPositionCourante();
+				    if (cp.getProprietaire()!= null && cp.getProprietaire()!=j)  
+				    {
+					cp.payerLoyer(j);
+				    }
+					
+			}
+							
 		} while (choix != 0);
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -509,98 +534,7 @@ public class Monopoly {
 				+ "sur la case n° " + j.getPositionCourante().getNumeroCarreau());
 	}
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	public void payer(Joueur j, int montant) {
-		CarreauPropriete c = (CarreauPropriete) this.listCarreaux[j.getPositionCourante().getNumeroCarreau() - 1];
-		//CarreauPropriete c = (CarreauPropriete) this.listCarreaux[j.getPositionCourante().getNumeroCarreau() - 1];
-
-		if (c.getProprietaire() == null) {
-			if (j.getCash() >= montant) {
-
-				System.out.println("Vous devez " + montant + "€ à la banque !");
-				paye(j, montant);
-			}
-		} else {
-			Joueur j2 = c.getProprietaire();
-			if (j.getCash() <= montant && j != j2) {
-				System.out.println("\nVous n'avez pas assez d'argent pour payer, vous avez perdu ! Vous avez pu payer " + j.getCash() + "€ à " + j2.getNomJoueur() + "\n");
-				loyer(j2, j.getCash());
-				joueurs.removeFirst();
-			} else if (j != j2) {
-				paye(j, montant);
-				loyer(j2, montant);
-
-			}
-		}
-
-	}
-
-	public void paye(Joueur j, int montant) {
-		j.setCash(j.getCash() - montant);
-
-	}
-
-	public void payer(Joueur j, int montant, Joueur j2) {
-		if (j.getCash() <= montant) {
-			System.out.println("\nVous n'avez pas assez d'argent pour payer, vous avez perdu ! Vous avez pu payer " + j.getCash() + "€ à " + j2.getNomJoueur() + "\n");
-			loyer(j2, j.getCash());
-			joueurs.removeFirst();
-		} else if (j != j2) {
-			System.out.println("" + j.getNomJoueur() + "Vous devez " + montant + "€ à " + j2.getNomJoueur() + " !");
-			paye(j, montant);
-			loyer(j2, montant);
-		}
-	}
-
-	public void loyer(Joueur j, int montant) {
-		j.setCash(j.getCash() + montant);
-
-	}
-
-	public void arrivPropriete(Joueur j) {
-		int prix;
-		boolean bon = true;
-		Scanner sca = new Scanner(System.in);
-		CarreauPropriete c = (CarreauPropriete) this.listCarreaux[j.getPositionCourante().getNumeroCarreau() - 1];
-		if (c.getProprietaire() == null) {
-
-			prix = c.getPrixAchat();
-			if (j.getCash() >= prix) {
-				System.out.println(j.getPositionCourante());
-				System.out.println("joueur " + j.getNomJoueur() + " voulez vous acheter la propriété " + c.getNomCarreau() + " pour un prix de " + prix + " ? (oui/non)");
-				while (bon) {
-					String choix = sca.nextLine();
-					if (choix.contentEquals("oui")) {
-						bon = false;
-						payer(j, prix);
-						c.setProprietaire(j);
-						j.getProprietes().add(c);
-					} else if (choix.contentEquals("non")) {
-						bon = true;
-					}
-				}
-
-			}
-		} else {
-			Joueur j2 = c.getProprietaire();
-			int montant;
-			ProprieteAConstruire p = (ProprieteAConstruire) c;
-			if (p.getNbHotels() == 0) {
-				montant = p.getLoyerMaison()[p.getNbMaisons()];
-			} else {
-				montant = p.getLoyerMaison()[5];
-			}
-			if (j != j2) {
-				System.out.println("joueur " + j.getNomJoueur() + " vous êtes arrivé sur le/la " + c.getNomCarreau() + " qui appartiens a " + j2.getNomJoueur() + " vous lui devez " + montant + "€ ");
-				payer(j, montant);
-			}
-
-		}
-
-	}
-
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//Get/Set
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public LinkedList<Joueur> getJoueurs() {
 		return joueurs;
 	}
@@ -653,7 +587,7 @@ public class Monopoly {
 		for (Joueur i : joueurs) {
 			System.out.println(i.getNomJoueur() + " : case n°"
 					+ i.getPositionCourante().getNumeroCarreau()
-					+ ", " + i.getCash() + " €, couleur " + i.getCouleur());
+					+ ", " + i.getCash() + " €, couleur " + i.getCouleur().toStringCouleur());
 
 		}
 	}
