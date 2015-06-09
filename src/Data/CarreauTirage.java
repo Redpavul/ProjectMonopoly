@@ -123,7 +123,7 @@ public class CarreauTirage extends CarreauAction {
     public void effetChance2()
     {
 	System.out.println("Reculez de trois cases.");
-	getMonopoly().getJoueurs().getFirst().reculer(3);
+	j.setPosition(j.getPositionCourante().getNumeroCarreau()-3);
     }
 
     public void effetChance3() {
@@ -175,7 +175,7 @@ public class CarreauTirage extends CarreauAction {
     public void effetChance7() {
 	System.out.println("Avancer jusqu'� la case D�part");
 	Joueur j = getMonopoly().getJoueurs().getFirst();
-	j.avance(40 - j.getPositionCourante().getNumeroCarreau());
+	j.setPosition(40 - j.getPositionCourante().getNumeroCarreau());
     }
 
     public void effetChance8() {
@@ -188,9 +188,9 @@ public class CarreauTirage extends CarreauAction {
 	System.out.println("Rendez-vous � l'Avenue Henri-Martin");
 	Joueur j = getMonopoly().getJoueurs().getFirst();
 	if (25 - j.getPositionCourante().getNumeroCarreau() > 0) {
-	    j.avance(25 - j.getPositionCourante().getNumeroCarreau());
+	    j.setPosition(25 - j.getPositionCourante().getNumeroCarreau());
 	} else {
-	    j.avance(25 + 40 - j.getPositionCourante().getNumeroCarreau());
+	    j.setPosition(25 + 40 - j.getPositionCourante().getNumeroCarreau());
 	}
     }
 
@@ -198,9 +198,9 @@ public class CarreauTirage extends CarreauAction {
 	System.out.println("Rendez-vous � la gare de Lyon");
 	Joueur j = getMonopoly().getJoueurs().getFirst();
 	if (16 - j.getPositionCourante().getNumeroCarreau() > 0) {
-	    j.avance(16 - j.getPositionCourante().getNumeroCarreau());
+	    j.setPosition(16 - j.getPositionCourante().getNumeroCarreau());
 	} else {
-	    j.avance(16 + 40 - j.getPositionCourante().getNumeroCarreau());
+	    j.setPosition(16 + 40 - j.getPositionCourante().getNumeroCarreau());
 	}
     }
 
@@ -226,9 +226,9 @@ public class CarreauTirage extends CarreauAction {
 	System.out.println("Rendez-vous � la Rue de la Paix.");
 	Joueur j = getMonopoly().getJoueurs().getFirst();
 	if (39 - j.getPositionCourante().getNumeroCarreau() > 0) {
-	    j.avance(39 - j.getPositionCourante().getNumeroCarreau());
+	    j.setPosition(39 - j.getPositionCourante().getNumeroCarreau());
 	} else {
-	    j.avance(39 + 40 - j.getPositionCourante().getNumeroCarreau());
+	    j.setPosition(39 + 40 - j.getPositionCourante().getNumeroCarreau());
 	}
     }
 
@@ -242,9 +242,9 @@ public class CarreauTirage extends CarreauAction {
 	System.out.println("Acc�dez au Boulevard de la Villette.");
 	Joueur j = getMonopoly().getJoueurs().getFirst();
 	if (12 - j.getPositionCourante().getNumeroCarreau() > 0) {
-	    j.avance(12 - j.getPositionCourante().getNumeroCarreau());
+	    j.setPosition(12 - j.getPositionCourante().getNumeroCarreau());
 	} else {
-	    j.avance(12 + 40 - j.getPositionCourante().getNumeroCarreau());
+	    j.setPosition(12 + 40 - j.getPositionCourante().getNumeroCarreau());
 	}
 
     }
@@ -275,8 +275,7 @@ public class CarreauTirage extends CarreauAction {
 
 	for (Joueur joueur : getMonopoly().getJoueurs()) {
 	    if (joueur != j) {
-		joueur.paye(10);
-		j.loyer(10);
+		getMonopoly().payer(joueur,10,j)
 	    }
 	}
     }
@@ -291,9 +290,9 @@ public class CarreauTirage extends CarreauAction {
 	System.out.println("Retournez � Belleville");
 	Joueur j = getMonopoly().getJoueurs().getFirst();
 	if (2 - j.getPositionCourante().getNumeroCarreau() > 0) {
-	    j.avance(2 - j.getPositionCourante().getNumeroCarreau());
+	    j.setPosition(2 - j.getPositionCourante().getNumeroCarreau());
 	} else {
-	    j.avance(2 + 40 - j.getPositionCourante().getNumeroCarreau());
+	    j.setPosition(2 + 40 - j.getPositionCourante().getNumeroCarreau());
 	}
     }
 
@@ -342,7 +341,7 @@ public class CarreauTirage extends CarreauAction {
     public void effetCaisse13() {
 	System.out.println("Avancer jusqu'� la case D�part");
 	Joueur j = getMonopoly().getJoueurs().getFirst();
-	j.avance(40 - j.getPositionCourante().getNumeroCarreau());
+	j.setPosition(40 - j.getPositionCourante().getNumeroCarreau());
     }
 
     public void effetCaisse14() {
