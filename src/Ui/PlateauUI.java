@@ -86,6 +86,7 @@ public class PlateauUI extends JPanel
 		                
 		                System.out.println("" +s.getName());
 		                ihm.getInfos().setSelec( Integer.parseInt(s.getName()));
+		                ihm.getInfos().selection();
 		            }
 		        });
 			 

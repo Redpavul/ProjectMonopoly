@@ -2,11 +2,14 @@ package Ui;
 
 import Data.Carreau;
 import Data.CarreauArgent;
+import Data.CarreauPropriete;
 import Data.Joueur;
+import Data.ProprieteAConstruire;
 import Jeu.IHM;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,8 +32,11 @@ public class InfosUI  extends JPanel
 	private JPanel joueurs;
 	private JPanel caseSelectionee;
 	private JPanel bouttons;
+	private JLabel space;
 	private JTextArea propriete;
+	private JTextArea logs;
 	public int selec;
+	private boolean typeSelec;
 	
     public int getSelec() {
 		return selec;
@@ -54,7 +60,13 @@ public class InfosUI  extends JPanel
         joueurs = new JPanel();
         caseSelectionee = new JPanel();
         bouttons = new JPanel();
+        space = new JLabel("");
+        
         propriete= new JTextArea();
+        propriete.setEditable(false);
+        logs= new JTextArea();
+        logs.setEditable(false);
+        typeSelec=false;
         initUIComponents();
     }
     
@@ -109,7 +121,7 @@ public class InfosUI  extends JPanel
         });
     	construire.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	//if(){
+            	if(typeSelec==false){
             		
 	            	
 	                String message;
@@ -121,9 +133,12 @@ public class InfosUI  extends JPanel
 	                        "veulliez en selectionner une ", 
 	                        "", 
 	                        JOptionPane.PLAIN_MESSAGE);
-            //	}else{ construire(); }
+            	}else{ //construire(); 
+            		}
+            	
             }
         });
+
     	Carreau c = getInfoSelec();
     	if (getSelec()==0 ||getSelec()==10 ||getSelec()==20 ||getSelec()==30 ||getSelec()==2 ||getSelec()==7 ||getSelec()==17 ||getSelec()==22 ||getSelec()==33 ||getSelec()==36 ){
         	propriete.append("nom : "+c.getNomCarreau()+"\n" +
@@ -156,9 +171,71 @@ public class InfosUI  extends JPanel
     	}
     	caseSelectionee.add(propriete);
     	
+
+    	selection();
+    	caseSelectionee.add(propriete);
+    //	caseSelectionee.add(space);
+    	caseSelectionee.add(logs);
+
     	this.add(joueurs);
     	this.add(caseSelectionee);
     	this.add(bouttons);
+    }
+    public void selection() 
+    {
+    Carreau c = getInfoSelec();
+	if (getSelec()==30 ||getSelec()==2 ||getSelec()==7 ||getSelec()==17 ||getSelec()==22 ||getSelec()==33 ||getSelec()==36 ){
+    	propriete.setText("nom : "+c.getNomCarreau()+"\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "\n");
+    	this.typeSelec=false;
+	}else if(getSelec()==0 ||getSelec()==10 ||getSelec()==20 ||getSelec()==4 ||getSelec()==38){
+    	propriete.setText("nom : "+c.getNomCarreau()+"\n" +
+                "prix : "+((CarreauArgent) c).getMontant()+"\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "\n");
+    	this.typeSelec=false;
+	}else if(getSelec()==5 ||getSelec()==15||getSelec()==25 ||getSelec()==35 ||getSelec()==12 ||getSelec()==28){
+		String proprio;
+		if(((CarreauPropriete) c).getProprietaire()!=null){
+    		
+    		proprio=((CarreauPropriete) c).getProprietaire().getNomJoueur();
+    	}else{
+    		proprio="banque";}
+		propriete.setText("nom : "+c.getNomCarreau()+"\n" +
+                "prix : "+((CarreauPropriete) c).getPrixAchat()+"\n" +
+                "Propiétaire : "+proprio+"\n" +
+                "\n" +
+                "\n" +
+                "\n");
+		this.typeSelec=false;
+	}else{
+		int montant;
+		String proprio;
+		if (((ProprieteAConstruire) c).getNbHotels() == 0) {
+			montant = ((ProprieteAConstruire) c).getLoyerMaison()[((ProprieteAConstruire) c).getNbMaisons()];
+		    } else {
+			montant = ((ProprieteAConstruire) c).getLoyerMaison()[5];
+		    }
+    	if(((CarreauPropriete) c).getProprietaire()!=null){
+    		proprio=((CarreauPropriete) c).getProprietaire().getNomJoueur();
+    	}else{
+    		proprio="banque";}
+    	propriete.setText("nom : "+c.getNomCarreau()+"\n" +
+                "prix : "+((ProprieteAConstruire) c).getPrixAchat()+"\n" +
+                "Propiétaire : "+proprio+"\n" +
+                "nb maison : "+((ProprieteAConstruire) c).getNbMaisons()+"\n" +
+                "nb hotel : "+((ProprieteAConstruire) c).getNbHotels()+"\n" +
+                "loyer : "+montant+"\n" +
+                "prix de construction : "+((ProprieteAConstruire) c).getGroupePropriete().getPrixMaison()+"\n" +
+                "\n");
+    	this.typeSelec=true;
+	}
     }
         	
 }

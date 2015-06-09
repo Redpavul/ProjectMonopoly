@@ -2,6 +2,7 @@ package Data;
 
 import java.util.Scanner;
 
+import Jeu.Monopoly;
 
 
 public class ProprieteAConstruire extends CarreauPropriete

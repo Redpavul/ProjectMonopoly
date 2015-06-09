@@ -4,6 +4,7 @@ import Data.Carreau;
 import Data.CarreauArgent;
 import Data.CarreauMouvement;
 import Data.CarreauPropriete;
+import Data.CarreauTirage;
 import Data.Compagnie;
 import Data.CouleurPropriete;
 import Data.Gare;
@@ -76,9 +77,8 @@ public class Monopoly {
 	//Fonction permettant de cr�er le plateau de jeu
 	private void buildGamePlateau(String dataFilename) {
 		//Création des groupes : 1 groupe par couleur
-		Groupe g;
 		for (CouleurPropriete c : CouleurPropriete.values()) {
-			g = new Groupe(new ArrayList<ProprieteAConstruire>(), c);//On passe une arrayListe vide, car pour l'instant le groupe ne poss�de pas de propri�t�s
+			Groupe g = new Groupe(new ArrayList<ProprieteAConstruire>(), c);//On passe une arrayListe vide, car pour l'instant le groupe ne poss�de pas de propri�t�s
 			listGroupes.put(c.toString(), g);
 
 		}
@@ -101,7 +101,10 @@ public class Monopoly {
 					String nomCarreau = data.get(i)[2];
 					int numeroCarreau = Integer.parseInt(data.get(i)[1]);
 					int prixAchat = Integer.parseInt(data.get(i)[4]);
-					ProprieteAConstruire p = new ProprieteAConstruire(prixAchat, nomCarreau, numeroCarreau, g, loyers, prixMaison, prixHotel);
+					
+					
+					
+					ProprieteAConstruire p = new ProprieteAConstruire(prixAchat, nomCarreau, numeroCarreau, a, loyers, prixMaison, prixHotel);
 
 					listCarreaux[numeroCarreau - 1] = p;
 
@@ -171,7 +174,6 @@ public class Monopoly {
 		// Inscription des Joueurs
 		int des1;
 		int des2;
-		int nbJoueur;
 		Scanner sc = new Scanner(System.in);
 		String nom;
 		CouleurPropriete couleur;
@@ -202,7 +204,7 @@ public class Monopoly {
 			nom = sc.nextLine();
 			System.out.println("Il a obtenu " + des1 + " et " + des2
 					+ " soit au total " + (des1 + des2) + ".");
-			j = new Joueur(listCarreaux[0], nom, (des1 + des2), couleur);
+			Joueur j = new Joueur(listCarreaux[0], nom, (des1 + des2), couleur);
 			joueursTemp[i] = j;
 		}
 
@@ -392,11 +394,8 @@ public class Monopoly {
 					choix=ch-48;
 					System.out.println("Ch"+choix);
 				}
-				else if(!choix1 && ch == '1')
-				{
-					System.out.print("Ce choix n'est pas disponible. Veuillez entrez un autre choix : ");
-				}
-				else{
+				else if(!choix1 && ch == '1'){
+				}else{
 					System.out.print("Choisissez un nombre entre 0 et 3 : ");
 				}
 			}
@@ -414,7 +413,7 @@ public class Monopoly {
 							int i = sc.nextInt();
 							p = (ProprieteAConstruire) j.choix(i);
 
-							p.construire();
+							p.construire(this);
 							break;
 						}
 
@@ -718,21 +717,5 @@ public class Monopoly {
 
 	public int roll() {
 		return (int) (Math.random() * 6) + 1;
-	}
-
-	public boolean getCarteSortieDePrisonChance() {
-		return this.carteSortieDePrisonChance;
-	}
-
-	public void setCarteSortieDePrisonChance(boolean carteSortieDePrisonChance){
-		this.carteSortieDePrisonChance = carteSortieDePrisonChance;
-	}
-
-	public boolean getCarteSortieDePrisonCaisse() {
-		return this.carteSortieDePrisonCaisse;
-	}
-
-	public void setCarteSortieDePrisonCaisse(boolean carteSortieDePrisonCaisse){
-		this.carteSortieDePrisonCaisse = carteSortieDePrisonCaisse;
 	}
 }
