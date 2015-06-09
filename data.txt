@@ -1,4 +1,4 @@
-CA,1,Départure,200
+CA,1,Départ,200
 P,2,Bd de Belleville,mauve,60,2,10,30,90,160,250,50,50
 CT,3,Caisse de Communauté
 P,4,Rue Lecourbe,mauve,60,4,20,60,180,320,450,50,50
