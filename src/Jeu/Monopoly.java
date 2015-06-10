@@ -1,6 +1,7 @@
 package Jeu;
 
 import Data.Carreau;
+import Data.CarreauAction;
 import Data.CarreauArgent;
 import Data.CarreauMouvement;
 import Data.CarreauPropriete;
@@ -131,7 +132,7 @@ public class Monopoly {
 		    //	System.out.println("Case Tirage :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
 		    int numeroCarreau = Integer.parseInt(data.get(i)[1]);
 		    String nomCarreau = data.get(i)[2];
-		    CarreauTirage ct = new CarreauTirage(nomCarreau, numeroCarreau);
+		    CarreauTirage ct = new CarreauTirage(nomCarreau, numeroCarreau,this);
 		    listCarreaux[numeroCarreau - 1] = ct;
 		} //Case argent
 		else if (caseType.compareTo("CA") == 0) {
@@ -139,14 +140,14 @@ public class Monopoly {
 		    int numeroCarreau = Integer.parseInt(data.get(i)[1]);
 		    String nomCarreau = data.get(i)[2];
 		    int montant = Integer.parseInt(data.get(i)[3]);
-		    CarreauArgent ca = new CarreauArgent(nomCarreau, numeroCarreau, montant);
+		    CarreauArgent ca = new CarreauArgent(nomCarreau, numeroCarreau, montant,this);
 		    listCarreaux[numeroCarreau - 1] = ca;
 		} //Case mouvement
 		else if (caseType.compareTo("CM") == 0) {
 		    //System.out.println("Case Mouvement :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
 		    int numeroCarreau = Integer.parseInt(data.get(i)[1]);
 		    String nomCarreau = data.get(i)[2];
-		    CarreauMouvement cm = new CarreauMouvement(nomCarreau, numeroCarreau);
+		    CarreauMouvement cm = new CarreauMouvement(nomCarreau, numeroCarreau,this);
 		    listCarreaux[numeroCarreau - 1] = cm;
 		} else {
 		    System.err.println("[buildGamePleateau()] : Invalid Data type");
@@ -331,6 +332,7 @@ public class Monopoly {
 	    ancienCar = j.getPositionCourante().getNumeroCarreau();
 	    newCar = (ancienCar + j.getDes());//numCar = case courante du joueur + son score au dés
 	    deplacerJoueur(ancienCar, newCar, j); //On met le joueur a sa nouvelle position sur le plateau.
+
 	    actionTour(j);
 	    compteur++;
 	} while (des1 == des2 && compteur < 3);
@@ -446,6 +448,12 @@ public class Monopoly {
 	ProprieteAConstruire p;
 	CarreauPropriete cp;
 
+	if(j.getPositionCourante() instanceof CarreauAction)
+	{
+	    ((CarreauAction) j.getPositionCourante()).action();
+	}
+	
+	
 	do {
 	    System.out.println("\n\t1  - Acheter la case sur laquelle on se trouve");
 	    System.out.println("\t2  - Construire\n");

@@ -2,7 +2,7 @@ package Data;
 
 import Jeu.Monopoly;
 
-public abstract class Carreau
+public class Carreau
 {
 
 	protected Monopoly monopoly;

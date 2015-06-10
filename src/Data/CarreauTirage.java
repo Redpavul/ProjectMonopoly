@@ -4,8 +4,9 @@ import Jeu.Monopoly;
 
 public class CarreauTirage extends CarreauAction {
 
-    public CarreauTirage(String nom, int num) {
-	super(nom, num);
+    public CarreauTirage(String nom, int num, Monopoly monopoly) {
+	super(nom, num, monopoly);
+	
     }
 
     public void action() {
@@ -30,37 +31,37 @@ public class CarreauTirage extends CarreauAction {
     public boolean effetChance(int id) {
 	boolean ok = true;
 	if (id == 1) {
-	    ok = effet0();
+	    ok = effetChance1();
 	} else if (id == 2) {
-	    effet0();
+	    effetChance2();
 	} else if (id == 3) {
-	    effet0();
+	    effetChance3();
 	} else if (id == 4) {
-	    effet0();
+	    effetChance4();
 	} else if (id == 5) {
-	    effet0();
+	    effetChance5();
 	} else if (id == 6) {
-	    effet0();
+	    effetChance6();
 	} else if (id == 7) {
-	    effet0();
+	    effetChance7();
 	} else if (id == 8) {
-	    effet0();
+	    effetChance8();
 	} else if (id == 9) {
-	    effet0();
+	    effetChance9();
 	} else if (id == 10) {
-	    effet0();
+	    effetChance10();
 	} else if (id == 11) {
-	    effet0();
+	    effetChance11();
 	} else if (id == 12) {
-	    effet0();
+	    effetChance12();
 	} else if (id == 13) {
-	    effet0();
+	    effetChance13();
 	} else if (id == 14) {
-	    effet0();
+	    effetChance14();
 	} else if (id == 15) {
-	    effet0();
+	    effetChance15();
 	} else if (id == 16) {
-	    effet0();
+	    effetChance16();
 	}
 	return ok;
     }
@@ -68,37 +69,37 @@ public class CarreauTirage extends CarreauAction {
     public boolean effetCaisse(int id) {
 	boolean ok = true;
 	if (id == 1) {
-	    ok = effet0();
+	    ok = effetCaisse1();
 	} else if (id == 2) {
-	    effet0();
+	    effetCaisse2();
 	} else if (id == 3) {
-	    effet0();
+	    effetCaisse3();
 	} else if (id == 4) {
-	    effet0();
+	    effetCaisse4();
 	} else if (id == 5) {
-	    effet0();
+	    effetCaisse5();
 	} else if (id == 6) {
-	    effet0();
+	    effetCaisse6();
 	} else if (id == 7) {
-	    effet0();
+	    effetCaisse7();
 	} else if (id == 8) {
-	    effet0();
+	    effetCaisse8();
 	} else if (id == 9) {
-	    effet0();
+	    effetCaisse9();
 	} else if (id == 10) {
-	    effet0();
+	    effetCaisse10();
 	} else if (id == 11) {
-	    effet0();
+	    effetCaisse11();
 	} else if (id == 12) {
-	    effet0();
+	    effetCaisse12();
 	} else if (id == 13) {
-	    effet0();
+	    effetCaisse13();
 	} else if (id == 14) {
-	    effet0();
+	    effetCaisse14();
 	} else if (id == 15) {
-	    effet0();
+	    effetCaisse15();
 	} else if (id == 16) {
-	    effet0();
+	    effetCaisse16();
 	}
 	return ok;
     }
@@ -266,7 +267,7 @@ public class CarreauTirage extends CarreauAction {
 
     }
 
-    public void effeCaisset2() {
+    public void effetCaisse2() {
 	System.out.println("Payer une amende de 10�");
 	Joueur j = getMonopoly().getJoueurs().getFirst();
 	j.setCash(j.getCash() - 10);

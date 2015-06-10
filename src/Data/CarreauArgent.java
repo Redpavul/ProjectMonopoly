@@ -18,27 +18,17 @@ public class CarreauArgent extends CarreauAction
 
 	private int montant;
 
-	public CarreauArgent(String nomCarreau, int numeroCarreau, int montant)
+	public CarreauArgent(String nomCarreau, int numeroCarreau, int montant, Monopoly monopoly)
 
 	{
 
-		super(nomCarreau, numeroCarreau);
+		super(nomCarreau, numeroCarreau,monopoly);
 
 		this.setMontant(montant);
 
 	}
 
-	public Monopoly getMonopoly() {
 
-		return monopoly;
-
-	}
-
-	public void setMonopoly(Monopoly monopoly) {
-
-		this.monopoly = monopoly;
-
-	}
 
 	public void setMontant(int montant) {
 
@@ -59,5 +49,7 @@ public class CarreauArgent extends CarreauAction
 		j.setCash(j.getCash()+getMontant());
 
 	}
+
+
 
 }

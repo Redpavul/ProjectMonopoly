@@ -1,12 +1,13 @@
 package Data;
 
+import Jeu.Monopoly;
+
 public abstract class CarreauAction extends Carreau
 {
-	public CarreauAction(String nomCarreau, int numeroCarreau)
+	public CarreauAction(String nomCarreau, int numeroCarreau, Monopoly monopoly)
 	{
 		super(nomCarreau, numeroCarreau);
+		   setMonopoly(monopoly);
 	}
-	public void action(){
-		System.out.print("marche pas");
-	}
+	public abstract void action();
 }
