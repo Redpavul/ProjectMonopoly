@@ -54,11 +54,11 @@ public class Monopoly {
     public int[] creerPaquet(int nbCarte) {
 	int[] tab3 = new int[nbCarte + 1];
 	int[] tab2 = new int[nbCarte + 1];
-	for (int a = 1; a <= nbCarte; a++) {//on cr�e un paquet de carte tri�
+	for (int a = 1; a <= nbCarte; a++) {//on cree un paquet de carte trie
 	    tab3[a] = a;
 	}
 	int alea;
-	for (int a = 1; a <= nbCarte; a++) {//on pioche al�atoirement chaque carte 
+	for (int a = 1; a <= nbCarte; a++) {//on pioche aleatoirement chaque carte 
 	    //du premier paquer vers un second paquet
 	    alea = (int) (Math.random() * (nbCarte - a + 1)) + 1;
 	    tab2[a] = tab3[alea];
@@ -74,24 +74,24 @@ public class Monopoly {
 	return (tab2);
     }
 
-    //Fonction permettant de cr�er le plateau de jeu
+    //Fonction permettant de creer le plateau de jeu
     private void buildGamePlateau(String dataFilename) {
 	//Création des groupes : 1 groupe par couleur
 	
 	
 	for (CouleurPropriete c : CouleurPropriete.values()) {
-	    Groupe g = new Groupe(new ArrayList<ProprieteAConstruire>(), c);//On passe une arrayListe vide, car pour l'instant le groupe ne poss�de pas de propri�t�s
+	    Groupe g = new Groupe(new ArrayList<ProprieteAConstruire>(), c);//On passe une arrayListe vide, car pour l'instant le groupe ne possede pas de proprietes
 	    listGroupes.put(c.toString(), g);
 	}
 	try {
 	    ArrayList<String[]> data = readDataFile(dataFilename, ",");
 
-	    //cr�ation des diff�rentes cases du plateau
+	    //creation des differentes cases du plateau
 	    for (int i = 0; i < data.size(); ++i) {
 		String caseType = data.get(i)[0];
-		//Propri�t�s
+		//Proprietes
 		if (caseType.compareTo("P") == 0) {
-		    //System.out.println("Propri�t� :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+		    //System.out.println("Propriete :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
 
 		    int[] loyers = {Integer.parseInt(data.get(i)[5]), Integer.parseInt(data.get(i)[6]),
 			Integer.parseInt(data.get(i)[7]), Integer.parseInt(data.get(i)[8]),
@@ -177,7 +177,7 @@ public class Monopoly {
 	CouleurPropriete couleur;
 	int nbJoueur = 0;
 	String stringNbJoueur;
-	char ch;//Variable servant � stocker temporairement la r�ponse de l'utilisateur
+	char ch;//Variable servant e stocker temporairement la reponse de l'utilisateur
 	
 	System.out.println("\n******************************************************************");
     System.out.println("*                                                                *");
@@ -185,12 +185,12 @@ public class Monopoly {
     System.out.println("*                                                                *");
     System.out.println("******************************************************************\n\n");
 	System.out.print("Nombre de joueurs : ");
-	while (nbJoueur == 0)//Tant que la variable nbJoueur n'a pas �t� modifi�e, on continue la boucle
+	while (nbJoueur == 0)//Tant que la variable nbJoueur n'a pas ete modifiee, on continue la boucle
 	{
-	    stringNbJoueur = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
-	    ch = stringNbJoueur.charAt(0);/*ch contient le premier caract�re entr�. 
+	    stringNbJoueur = sc.nextLine(); //On recupere la reponse de l'utilisateur
+	    ch = stringNbJoueur.charAt(0);/*ch contient le premier caractere entre. 
 	    S'il ne se trouve pas entre 49 et  54 (code ascii), 
-	    c'est que l'utilisateur a rentr� une valeur qui n'est pas valable.*/
+	    c'est que l'utilisateur a rentre une valeur qui n'est pas valable.*/
 	    if ((ch > 49 && ch < 55) && stringNbJoueur.length() == 1)
 	    {
 			nbJoueur = ch - 48;
@@ -202,25 +202,25 @@ public class Monopoly {
 	}
 	
 	Joueur[] joueursTemp = new Joueur[nbJoueur];/* Tableau contenant les
-	 joueurs dans l'ordre de cr�ation*/
+	 joueurs dans l'ordre de creation*/
 
-	CouleurPropriete[] coul = CouleurPropriete.values();//On d�clare un tableau pour assigner une couleur aux joueurs
+	CouleurPropriete[] coul = CouleurPropriete.values();//On declare un tableau pour assigner une couleur aux joueurs
 
-	//On initialise le tableau, en v�rifiant que le nom ne d�passe pas 10 caract�res (utile pour l'iHM)
-	System.out.println("Vous allez devoir entrer le nom des joueurs. \nL'ordre du tour se fera en fonction de leur score au d�s. \nEntrez les noms des joueurs : \n");
+	//On initialise le tableau, en verifiant que le nom ne depasse pas 10 caracteres (utile pour l'iHM)
+	System.out.println("Vous allez devoir entrer le nom des joueurs. \nL'ordre du tour se fera en fonction de leur score au des. \nEntrez les noms des joueurs : \n");
 	for (int i = 0; i < nbJoueur; i++)
 	{
 	    des1 = roll();
 	    des2 = roll();
 	    couleur = coul[i];
-	    System.out.print("Nom du joueur n�" + (i + 1) + " : ");
+	    System.out.print("Nom du joueur ne" + (i + 1) + " : ");
 	    changement = sc.next();
 	    if (changement.length() > 10) {
-		nom = changement.substring(0, 10); // Maximum de dix caract�res pour le log en IHM
+		nom = changement.substring(0, 10); // Maximum de dix caracteres pour le log en IHM
 	    } else {
 		nom = changement;
 	    }
-	    System.out.println(changement + " lance les d�s et obtient un " + des1 + " et un " + des2
+	    System.out.println(changement + " lance les des et obtient un " + des1 + " et un " + des2
 		    + " soit au total " + (des1 + des2) + ".");
 	    System.out.println("Il aura comme couleur "+couleur.toString()/*Couleur()*/+"\n");
 	    Joueur j = new Joueur(listCarreaux[0], nom, couleur);
@@ -228,7 +228,7 @@ public class Monopoly {
 	    joueursTemp[i] = j;
 	}
 
-	triBulleDecroissant(joueursTemp); //On trie la liste des joueurs selon leur score aux d�s
+	triBulleDecroissant(joueursTemp); //On trie la liste des joueurs selon leur score aux des
 
 	//On ajoute les joueurs dans la liste des joueurs (dans le bon ordre)
 	System.out.println("Les joueurs joueront dans ce ordre :  ");
@@ -246,12 +246,12 @@ public class Monopoly {
 	boolean permut;
 
 	do {
-	    // hypoth�se : le tableau est tri�
+	    // hypothese : le tableau est trie
 	    permut = false;
 	    for (int i = 0; i < longueur - 1; i++) {
-		// Teste si 2 �l�ments successifs sont dans le bon ordre ou non
+		// Teste si 2 elements successifs sont dans le bon ordre ou non
 		if (tableau[i].getDes() < tableau[i + 1].getDes()) {
-		    // s'ils ne le sont pas, on �change leurs positions
+		    // s'ils ne le sont pas, on echange leurs positions
 		    tampon = tableau[i];
 		    tableau[i] = tableau[i + 1];
 		    tableau[i + 1] = tampon;
@@ -261,7 +261,7 @@ public class Monopoly {
 	} while (permut);
     }
 
-    //Fonction servant � faire la boucle de jeu : continue tant que deux joueurs n'ont pas perdu
+    //Fonction servant e faire la boucle de jeu : continue tant que deux joueurs n'ont pas perdu
     private void boucleDeJeu() {
 	Joueur j;
 	while (!isEndGame()) {
@@ -541,7 +541,7 @@ public class Monopoly {
 
 	}
 	System.out.println(j.getNomJoueur() + " se trouve maintenant "
-		+ "sur la case n� " + j.getPositionCourante().getNumeroCarreau());
+		+ "sur la case ne " + j.getPositionCourante().getNumeroCarreau());
     }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -81,7 +81,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
 		    }
 		}
 	    } else {
-		System.out.println("Vous n'avez pas le droit de construire");
+		System.out.println("Vous n'avez pas assez d'argent pour construire");
 	    }
 	}
 	 else {
