@@ -509,6 +509,10 @@ public class Monopoly {
 
 		    break;
 		}
+		case 666: {
+			System.out.println("God ! The Evil !");
+			break;
+		}
 		default:
 		    break;
 	    } // switch
