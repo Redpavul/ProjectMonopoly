@@ -213,7 +213,7 @@ public class Monopoly {
 	    des1 = roll();
 	    des2 = roll();
 	    couleur = coul[i];
-	    System.out.print("Nom du joueur ne" + (i + 1) + " : ");
+	    System.out.print("Nom du joueur n°" + (i + 1) + " : ");
 	    changement = sc.next();
 	    if (changement.length() > 10) {
 		nom = changement.substring(0, 10); // Maximum de dix caracteres pour le log en IHM
@@ -545,7 +545,7 @@ public class Monopoly {
 
 	}
 	System.out.println(j.getNomJoueur() + " se trouve maintenant "
-		+ "sur la case ne " + j.getPositionCourante().getNumeroCarreau());
+		+ "sur la case n° " + j.getPositionCourante().getNumeroCarreau());
     }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
