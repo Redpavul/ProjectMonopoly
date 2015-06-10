@@ -117,10 +117,13 @@ public class Joueur {
 	this.groupeDePropriete = groupeDePropriete;
     }
 
-    public void afficherProprietesJoueur() {
+    public int afficherProprietesJoueur() {
+    	int i = 0;
 	for (ProprieteAConstruire p : getProprietes()) {
-	    System.out.println(p.getNomCarreau());
+	    i++;
+	    System.out.println("[" + i + "] " + p.getNomCarreau());
 	}
+	return i;
     }
 
     public ProprieteAConstruire choix(int indice) {

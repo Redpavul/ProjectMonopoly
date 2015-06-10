@@ -177,7 +177,7 @@ public class Monopoly {
 	CouleurPropriete couleur;
 	int nbJoueur = 0;
 	String stringNbJoueur;
-	char ch;//Variable servant à stocker temporairement la réponse de l'utilisateur
+	char ch;//Variable servant ï¿½ stocker temporairement la rï¿½ponse de l'utilisateur
 	
 	System.out.println("\n******************************************************************");
     System.out.println("*                                                                *");
@@ -185,12 +185,12 @@ public class Monopoly {
     System.out.println("*                                                                *");
     System.out.println("******************************************************************\n\n");
 	System.out.print("Nombre de joueurs : ");
-	while (nbJoueur == 0)//Tant que la variable nbJoueur n'a pas été modifiée, on continue la boucle
+	while (nbJoueur == 0)//Tant que la variable nbJoueur n'a pas ï¿½tï¿½ modifiï¿½e, on continue la boucle
 	{
-	    stringNbJoueur = sc.nextLine(); //On récupère la réponse de l'utilisateur
-	    ch = stringNbJoueur.charAt(0);/*ch contient le premier caractère entré. 
+	    stringNbJoueur = sc.nextLine(); //On rï¿½cupï¿½re la rï¿½ponse de l'utilisateur
+	    ch = stringNbJoueur.charAt(0);/*ch contient le premier caractï¿½re entrï¿½. 
 	    S'il ne se trouve pas entre 49 et  54 (code ascii), 
-	    c'est que l'utilisateur a rentré une valeur qui n'est pas valable.*/
+	    c'est que l'utilisateur a rentrï¿½ une valeur qui n'est pas valable.*/
 	    if ((ch > 49 && ch < 55) && stringNbJoueur.length() == 1)
 	    {
 			nbJoueur = ch - 48;
@@ -202,25 +202,25 @@ public class Monopoly {
 	}
 	
 	Joueur[] joueursTemp = new Joueur[nbJoueur];/* Tableau contenant les
-	 joueurs dans l'ordre de création*/
+	 joueurs dans l'ordre de crï¿½ation*/
 
-	CouleurPropriete[] coul = CouleurPropriete.values();//On déclare un tableau pour assigner une couleur aux joueurs
+	CouleurPropriete[] coul = CouleurPropriete.values();//On dï¿½clare un tableau pour assigner une couleur aux joueurs
 
-	//On initialise le tableau, en vérifiant que le nom ne dépasse pas 10 caractères (utile pour l'iHM)
-	System.out.println("Vous allez de voir entrer le nom des joueurs. \nL'ordre du tour se fera en fonction de leur score au dés. \nEntrez les noms des joueurs : \n");
+	//On initialise le tableau, en vï¿½rifiant que le nom ne dï¿½passe pas 10 caractï¿½res (utile pour l'iHM)
+	System.out.println("Vous allez devoir entrer le nom des joueurs. \nL'ordre du tour se fera en fonction de leur score au dï¿½s. \nEntrez les noms des joueurs : \n");
 	for (int i = 0; i < nbJoueur; i++)
 	{
 	    des1 = roll();
 	    des2 = roll();
 	    couleur = coul[i];
-	    System.out.print("Nom du joueur n°" + (i + 1) + " : ");
+	    System.out.print("Nom du joueur nï¿½" + (i + 1) + " : ");
 	    changement = sc.next();
 	    if (changement.length() > 10) {
-		nom = changement.substring(0, 10); // Maximum de dix caractères pour le log en IHM
+		nom = changement.substring(0, 10); // Maximum de dix caractï¿½res pour le log en IHM
 	    } else {
 		nom = changement;
 	    }
-	    System.out.println(changement + " lance les dés et obtient un " + des1 + " et un " + des2
+	    System.out.println(changement + " lance les dï¿½s et obtient un " + des1 + " et un " + des2
 		    + " soit au total " + (des1 + des2) + ".");
 	    System.out.println("Il aura comme couleur "+couleur.toString()/*Couleur()*/+"\n");
 	    Joueur j = new Joueur(listCarreaux[0], nom, couleur);
@@ -228,7 +228,7 @@ public class Monopoly {
 	    joueursTemp[i] = j;
 	}
 
-	triBulleDecroissant(joueursTemp); //On trie la liste des joueurs selon leur score aux dés
+	triBulleDecroissant(joueursTemp); //On trie la liste des joueurs selon leur score aux dï¿½s
 
 	//On ajoute les joueurs dans la liste des joueurs (dans le bon ordre)
 	System.out.println("Les joueurs joueront dans ce ordre :  ");
@@ -246,12 +246,12 @@ public class Monopoly {
 	boolean permut;
 
 	do {
-	    // hypothèse : le tableau est trié
+	    // hypothï¿½se : le tableau est triï¿½
 	    permut = false;
 	    for (int i = 0; i < longueur - 1; i++) {
-		// Teste si 2 éléments successifs sont dans le bon ordre ou non
+		// Teste si 2 ï¿½lï¿½ments successifs sont dans le bon ordre ou non
 		if (tableau[i].getDes() < tableau[i + 1].getDes()) {
-		    // s'ils ne le sont pas, on échange leurs positions
+		    // s'ils ne le sont pas, on ï¿½change leurs positions
 		    tampon = tableau[i];
 		    tableau[i] = tableau[i + 1];
 		    tableau[i + 1] = tampon;
@@ -261,7 +261,7 @@ public class Monopoly {
 	} while (permut);
     }
 
-    //Fonction servant à faire la boucle de jeu : continue tant que deux joueurs n'ont pas perdu
+    //Fonction servant ï¿½ faire la boucle de jeu : continue tant que deux joueurs n'ont pas perdu
     private void boucleDeJeu() {
 	Joueur j;
 	while (!isEndGame()) {
@@ -415,7 +415,7 @@ public class Monopoly {
 	    System.out.println("******************************************************************");
 	    System.out.print("      Votre Choix : ");
 	    choix = sc.nextInt();
-
+	    	
 	    switch (choix) {
 		case 1: {
 		    if (j.getPositionCourante() instanceof CarreauPropriete) {
@@ -430,13 +430,16 @@ public class Monopoly {
 		}
 
 		case 2: {
+			int taille = j.afficherProprietesJoueur();
+			if (taille != 0) {
+				System.out.println("Faites vos choix");
+			    int i = sc.nextInt();
+			    p = (ProprieteAConstruire) j.choix(i);
 
-		    j.afficherProprietesJoueur();
-		    System.out.println("Faites vos choix");
-		    int i = sc.nextInt();
-		    p = (ProprieteAConstruire) j.choix(i);
-
-		    p.construire(this);
+			    p.construire(this);
+			} else {
+				System.out.println("Vous ne pouvez pas construire sur cette case"); // Soit carte chance, caisse communautÃ©, soit aucune propriÃ©tÃ© possÃ¨dÃ©e
+			}
 		    break;
 		}
 
@@ -538,7 +541,7 @@ public class Monopoly {
 
 	}
 	System.out.println(j.getNomJoueur() + " se trouve maintenant "
-		+ "sur la case n° " + j.getPositionCourante().getNumeroCarreau());
+		+ "sur la case nï¿½ " + j.getPositionCourante().getNumeroCarreau());
     }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
