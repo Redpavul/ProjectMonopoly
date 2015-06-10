@@ -54,11 +54,11 @@ public class Monopoly {
     public int[] creerPaquet(int nbCarte) {
 	int[] tab3 = new int[nbCarte + 1];
 	int[] tab2 = new int[nbCarte + 1];
-	for (int a = 1; a <= nbCarte; a++) {//on cree un paquet de carte trie
+	for (int a = 1; a <= nbCarte; a++) {//on cr�e un paquet de carte tri�
 	    tab3[a] = a;
 	}
 	int alea;
-	for (int a = 1; a <= nbCarte; a++) {//on pioche aleatoirement chaque carte 
+	for (int a = 1; a <= nbCarte; a++) {//on pioche al�atoirement chaque carte 
 	    //du premier paquer vers un second paquet
 	    alea = (int) (Math.random() * (nbCarte - a + 1)) + 1;
 	    tab2[a] = tab3[alea];
@@ -74,24 +74,23 @@ public class Monopoly {
 	return (tab2);
     }
 
-    //Fonction permettant de creer le plateau de jeu
+    //Fonction permettant de cr�er le plateau de jeu
     private void buildGamePlateau(String dataFilename) {
 	//Création des groupes : 1 groupe par couleur
-	
-	
+
 	for (CouleurPropriete c : CouleurPropriete.values()) {
-	    Groupe g = new Groupe(new ArrayList<ProprieteAConstruire>(), c);//On passe une arrayListe vide, car pour l'instant le groupe ne possede pas de proprietes
+	    Groupe g = new Groupe(new ArrayList<ProprieteAConstruire>(), c);//On passe une arrayListe vide, car pour l'instant le groupe ne poss�de pas de propri�t�s
 	    listGroupes.put(c.toString(), g);
 	}
 	try {
 	    ArrayList<String[]> data = readDataFile(dataFilename, ",");
 
-	    //creation des differentes cases du plateau
+	    //cr�ation des diff�rentes cases du plateau
 	    for (int i = 0; i < data.size(); ++i) {
 		String caseType = data.get(i)[0];
-		//Proprietes
+		//Propri�t�s
 		if (caseType.compareTo("P") == 0) {
-		    //System.out.println("Propriete :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+		    //System.out.println("Propri�t� :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
 
 		    int[] loyers = {Integer.parseInt(data.get(i)[5]), Integer.parseInt(data.get(i)[6]),
 			Integer.parseInt(data.get(i)[7]), Integer.parseInt(data.get(i)[8]),
@@ -105,10 +104,10 @@ public class Monopoly {
 		    int prixAchat = Integer.parseInt(data.get(i)[4]);
 
 		    ProprieteAConstruire p = new ProprieteAConstruire(prixAchat, nomCarreau, numeroCarreau, a, loyers, prixMaison, prixHotel);
-		    
+
 		    a.getProprietes().add(p);
 		    listGroupes.put(data.get(i)[3], a);
-		    
+
 		    listCarreaux[numeroCarreau - 1] = p;
 
 		} //Gares
@@ -177,81 +176,82 @@ public class Monopoly {
 	CouleurPropriete couleur;
 	int nbJoueur = 0;
 	String stringNbJoueur;
-	char ch;//Variable servant e stocker temporairement la reponse de l'utilisateur
-	
-	System.out.println("\n******************************************************************");
-    System.out.println("*                                                                *");
-    System.out.println("*                         MONOPOLY                               *");
-    System.out.println("*                                                                *");
-    System.out.println("******************************************************************\n\n");
-	System.out.print("Nombre de joueurs : ");
-	while (nbJoueur == 0)//Tant que la variable nbJoueur n'a pas ete modifiee, on continue la boucle
+	char ch;//Variable servant � stocker temporairement la r�ponse de l'utilisateur
+
+	System.out.println("\n****************************************************************");
+	System.out.println("                                                                ");
+	System.out.println("                         MONOPOLY                               ");
+	System.out.println("                                                                ");
+	System.out.println("****************************************************************\n\n");
+	System.out.print("\tNombre de joueurs : ");
+	while (nbJoueur == 0)//Tant que la variable nbJoueur n'a pas �t� modifi�e, on continue la boucle
 	{
-	    stringNbJoueur = sc.nextLine(); //On recupere la reponse de l'utilisateur
-	    ch = stringNbJoueur.charAt(0);/*ch contient le premier caractere entre. 
-	    S'il ne se trouve pas entre 49 et  54 (code ascii), 
-	    c'est que l'utilisateur a rentre une valeur qui n'est pas valable.*/
-	    if ((ch > 49 && ch < 55) && stringNbJoueur.length() == 1)
-	    {
-			nbJoueur = ch - 48;
+	    stringNbJoueur = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
+	    if (stringNbJoueur.length() == 1) {
+		ch = stringNbJoueur.charAt(0);/*ch contient le premier caract�re entr�. 
+		 S'il ne se trouve pas entre 49 et  54 (code ascii), 
+		 c'est que l'utilisateur a rentr� une valeur qui n'est pas valable.*/
+
+		if ((ch > 49 && ch < 55)) {
+		    nbJoueur = ch - 48;
+		} else {
+		    System.out.print("\tChoisissez un nombre entre 2 et 6 : ");
+		}
+	    } else {
+		System.out.print("\tChoisissez un nombre entre 2 et 6 : ");
 	    }
-	    else
-	    {
-	    	System.out.print("Choisissez un nombre entre 2 et 6 : ");
-	    }
+
 	}
-	
+
 	Joueur[] joueursTemp = new Joueur[nbJoueur];/* Tableau contenant les
-	 joueurs dans l'ordre de creation*/
+	 joueurs dans l'ordre de cr�ation*/
 
-	CouleurPropriete[] coul = CouleurPropriete.values();//On declare un tableau pour assigner une couleur aux joueurs
+	CouleurPropriete[] coul = CouleurPropriete.values();//On d�clare un tableau pour assigner une couleur aux joueurs
 
-	//On initialise le tableau, en verifiant que le nom ne depasse pas 10 caracteres (utile pour l'iHM)
-	System.out.println("Vous allez devoir entrer le nom des joueurs. \nL'ordre du tour se fera en fonction de leur score au des. \nEntrez les noms des joueurs : \n");
-	for (int i = 0; i < nbJoueur; i++)
-	{
+	//On initialise le tableau, en v�rifiant que le nom ne d�passe pas 10 caract�res (utile pour l'iHM)
+	System.out.println("Vous allez de voir entrer le nom des joueurs. \nL'ordre du tour se fera en fonction de leur score au dés. \nEntrez les noms des joueurs : \n");
+	for (int i = 0; i < nbJoueur; i++) {
 	    des1 = roll();
 	    des2 = roll();
 	    couleur = coul[i];
 	    System.out.print("Nom du joueur n°" + (i + 1) + " : ");
 	    changement = sc.next();
 	    if (changement.length() > 10) {
-		nom = changement.substring(0, 10); // Maximum de dix caracteres pour le log en IHM
+		nom = changement.substring(0, 10); // Maximum de dix caract�res pour le log en IHM
 	    } else {
 		nom = changement;
 	    }
-	    System.out.println(changement + " lance les des et obtient un " + des1 + " et un " + des2
+	    System.out.println(changement + " lance les dés et obtient un " + des1 + " et un " + des2
 		    + " soit au total " + (des1 + des2) + ".");
-	    System.out.println("Il aura comme couleur "+couleur.toString()/*Couleur()*/+"\n");
+	    System.out.println("Il aura comme couleur " + couleur.toStringCouleur() + "\n");
 	    Joueur j = new Joueur(listCarreaux[0], nom, couleur);
-	    j.setDes(des1+des2);
+	    j.setDes(des1 + des2);
 	    joueursTemp[i] = j;
 	}
 
-	triBulleDecroissant(joueursTemp); //On trie la liste des joueurs selon leur score aux des
+	triBulleDecroissant(joueursTemp); //On trie la liste des joueurs selon leur score aux d�s
 
 	//On ajoute les joueurs dans la liste des joueurs (dans le bon ordre)
-	System.out.println("Les joueurs joueront dans ce ordre :  ");
+	System.out.println("Les joueurs joueront dans cet ordre :  ");
 	for (Joueur i : joueursTemp) {
 	    joueurs.add(i);
-	    System.out.print(i.getNomJoueur() + "\t");
+	    System.out.print(i.getNomJoueurCouleur() + "\t");
 	}
-	
+
     }
 
-    public static void triBulleDecroissant(Joueur tableau[])
-    {//Fonction permettant de trier le tableau des joueurs
+    public static void triBulleDecroissant(Joueur tableau[]) {//Fonction permettant de trier le tableau des joueurs
 	int longueur = tableau.length;
 	Joueur tampon;
 	boolean permut;
 
 	do {
-	    // hypothese : le tableau est trie
+	    // hypoth�se : le tableau est tri�
 	    permut = false;
 	    for (int i = 0; i < longueur - 1; i++) {
-		// Teste si 2 elements successifs sont dans le bon ordre ou non
+		// Teste si 2 �l�ments successifs sont dans le bon ordre ou non
 		if (tableau[i].getDes() < tableau[i + 1].getDes()) {
-		    // s'ils ne le sont pas, on echange leurs positions
+		    // s'ils ne le sont pas, on �change leurs positions
 		    tampon = tableau[i];
 		    tableau[i] = tableau[i + 1];
 		    tableau[i + 1] = tampon;
@@ -261,7 +261,7 @@ public class Monopoly {
 	} while (permut);
     }
 
-    //Fonction servant e faire la boucle de jeu : continue tant que deux joueurs n'ont pas perdu
+    //Fonction servant � faire la boucle de jeu : continue tant que deux joueurs n'ont pas perdu
     private void boucleDeJeu() {
 	Joueur j;
 	while (!isEndGame()) {
@@ -274,22 +274,39 @@ public class Monopoly {
 	    }
 	}
 
-	System.out.println("Le joueur gagnant est : " + joueurs.getFirst().getNomJoueur());
+	System.out.println("\tLe joueur gagnant est : " + joueurs.getFirst().getNomJoueur());
     }
 
-    private void jouerUnCoup(Joueur j)
-    {
-    	System.out.println("\n\n******************************************************************");
-	    System.out.println("                    Tour de " + j.getNomJoueur() + "      ");
-	    System.out.println("******************************************************************");
+    private void jouerUnCoup(Joueur j) {
+	Scanner sc = new Scanner(System.in);
+	String choix;
 
-	if (j.isPrison()) // Si le joueur est en prison
+	System.out.println("\n\n******************************************************************");
+	System.out.println("                    Tour de " + j.getNomJoueurCouleur() + "      ");
+	System.out.println("******************************************************************\n");
+	System.out.println("Entrer dans le mode Scenario ? (oui/non)");
+
+	do {
+	    choix = sc.nextLine();
+	    if (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non")) {
+		System.out.println("Veuillez entrer oui ou non : ");
+	    }
+	} while (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non"));
+	if (choix.equalsIgnoreCase("oui")) {
+	    triche(j);
+	    if (j.isPrison()) {
+		actionPrison();
+	    } else {
+		actionTour(j);
+	    }
+	} else if (j.isPrison()) // Si le joueur est en prison
 	{
 	    this.actionPrison();
 	} else // Si le joueur n'est pas en prison
 	{
 	    this.lancerDesAvancer();
 	}
+
     }
 
     public void lancerDesAvancer() {
@@ -307,10 +324,9 @@ public class Monopoly {
 	    des2 = roll();
 	    des = des1 + des2;
 	    j.setDes(des);
-	    System.out.println(j.getNomJoueur() + " lance les des : " + des1 + "+" + des2 + " = " + des);
-	    if(des1==des2)
-	    {
-	    	System.out.println("Vous avez fait un double !");
+	    System.out.println(j.getNomJoueurCouleur() + " lance les des : " + des1 + "+" + des2 + " = " + des);
+	    if (des1 == des2) {
+		System.out.println("Vous avez fait un double !");
 	    }
 	    ancienCar = j.getPositionCourante().getNumeroCarreau();
 	    newCar = (ancienCar + j.getDes());//numCar = case courante du joueur + son score au dés
@@ -334,6 +350,8 @@ public class Monopoly {
 	int des2;
 	int des;
 	String reponse;
+	String choix;
+	ProprieteAConstruire p;
 	Scanner sc = new Scanner(System.in);
 	System.out.println("                    Vous êtes en prison ! ");
 	System.out.println("Vous devez faire un double ou utiliser une carte pour en sortir.");
@@ -357,12 +375,40 @@ public class Monopoly {
 			    System.out.println("Vous avez utilisé votre carte et sortez donc de prison.");
 			} else if (reponse == "non") {
 			    System.out.println("Vous restez en prison.");
+			    if (!j.getProprietes().isEmpty()) {
+				System.out.println("Voulez vous construire?(oui/non)");
+				do {
+				    choix = sc.nextLine();
+				    if (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non")) {
+					System.out.println("Veuillez entrer oui ou non : ");
+				    }
+				} while (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non"));
+				j.afficherProprietesJoueur();
+				System.out.println("Faites vos choix");
+				int i = sc.nextInt();
+				p = (ProprieteAConstruire) j.choix(i);
+				p.construire(this);
+			    }
 			} else {
 			    System.out.println("Mauvaise saisie. Entrez oui ou non.");
 			}
 		    } while (reponse != "oui" || reponse != "non");
 		} else {
 		    System.out.println("Vous restez en prison.");
+		    if (!j.getProprietes().isEmpty()) {
+			System.out.println("Voulez vous construire?(oui/non)");
+			do {
+			    choix = sc.nextLine();
+			    if (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non")) {
+				System.out.println("Veuillez entrer oui ou non : ");
+			    }
+			} while (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non"));
+			j.afficherProprietesJoueur();
+			System.out.println("Faites vos choix");
+			int i = sc.nextInt();
+			p = (ProprieteAConstruire) j.choix(i);
+			p.construire(this);
+		    }
 		}
 	    } else {
 		j.setPrison(false);
@@ -397,25 +443,18 @@ public class Monopoly {
     public void actionTour(Joueur j) {
 	Scanner sc = new Scanner(System.in);
 	int choix;
-	Object c = j.getPositionCourante();
 	ProprieteAConstruire p;
 	CarreauPropriete cp;
 
-	System.out.println(j.getPositionCourante().getNomCarreau());
-
 	do {
-	    
-	    System.out.println("                                                                 *");
-	    System.out.println("*       1  - Acheter la case sur laquelle on se trouve           *");
-	    System.out.println("*       2  - Construire			                     *");
-	    System.out.println("*       3  - Entrer dans le mode triche			     *");
-	    System.out.println("                                                                 *");
+	    System.out.println("\n\t1  - Acheter la case sur laquelle on se trouve");
+	    System.out.println("\t2  - Construire\n");
 	    System.out.println("******************************************************************");
-	    System.out.println("        0  - Fin du tour                                         ");
+	    System.out.println("\t0  - Quitter");
 	    System.out.println("******************************************************************");
-	    System.out.print("      Votre Choix : ");
+	    System.out.print("\tVotre Choix : ");
 	    choix = sc.nextInt();
-	    	
+
 	    switch (choix) {
 		case 1: {
 		    if (j.getPositionCourante() instanceof CarreauPropriete) {
@@ -430,24 +469,18 @@ public class Monopoly {
 		}
 
 		case 2: {
-			int taille = j.afficherProprietesJoueur();
-			if (taille != 0) {
-				System.out.println("Faites vos choix");
-			    int i = sc.nextInt();
-			    p = (ProprieteAConstruire) j.choix(i);
-
-			    p.construire(this);
-			} else {
-				System.out.println("Vous ne pouvez pas construire sur cette case"); // Soit carte chance, caisse communauté, soit aucune propriété possèdée
-			}
+		    int taille = j.afficherProprietesJoueur();
+		    if (taille != 0) {
+			System.out.println("Faites vos choix");
+			int i = sc.nextInt();
+			p = (ProprieteAConstruire) j.choix(i);
+			p.construire(this);
+		    } else {
+			System.out.println("Vous ne pouvez pas construire sur cette case"); // Soit carte chance, caisse communauté, soit aucune propriété possèdée
+		    }
 		    break;
-		}
 
-		case 3: {
-		    triche(j);
-		    break;
 		}
-
 		default:
 		    break;
 	    } // switch
@@ -468,21 +501,18 @@ public class Monopoly {
 	Scanner sc = new Scanner(System.in);
 	int choix, numCase;
 
-	System.out.println("Vous êtes en mode triche. Vous pouvez choisir sur quelle case placer le joueur courant et gérer plusieurs choses \n ");
 	do {
 	    System.out.println("\n******************************************************************");
-	    System.out.println("*                           Mode triche                          *");
+	    System.out.println("                         Mode Scenario");
+	    System.out.println("******************************************************************\n");
+	    System.out.println("\t1  - Changer la case sur laquelle le joueur se trouve");
+	    System.out.println("\t2  - Mettre le joueur en prison");
+	    System.out.println("\t3  - Faire passer le joueur par la case départ");
+	    System.out.println("\t4  - Choisir une carte à faire piocher au joueur\n");
 	    System.out.println("******************************************************************");
-	    System.out.println("                                                                 *");
-	    System.out.println("      * 1  - Changer la case sur laquelle le joueur se trouve    *");
-	    System.out.println("      * 2  - Mettre le joueur en prison                          *");
-	    System.out.println("      * 3  - Faire passer le joueur par la case départ           *");
-	    System.out.println("      * 4  - Choisir une carte à faire piocher au joueur         *");
-	    System.out.println("                                                                 *");
+	    System.out.println("\t0  - Quitter");
 	    System.out.println("******************************************************************");
-	    System.out.println("      * 0  - Quitter                                             *");
-	    System.out.println("******************************************************************");
-	    System.out.print("      Votre Choix : ");
+	    System.out.print("\tVotre Choix : ");
 
 	    choix = sc.nextInt();
 	    switch (choix) {
@@ -501,17 +531,13 @@ public class Monopoly {
 
 		case 3: {
 		    j.setCash(j.getCash() + 200);
-		    System.out.println("Le joueur : " + j.getNomJoueur()
+		    System.out.println("Le joueur : " + j.getNomJoueurCouleur()
 			    + " est passé par la case départ et a donc gagné 200 €");
 		    break;
 		}
 		case 4: {
 
 		    break;
-		}
-		case 666: {
-			System.out.println("God ! The Evil !");
-			break;
 		}
 		default:
 		    break;
@@ -534,7 +560,7 @@ public class Monopoly {
 	//Permet de savoir si le joueur est passé par la case départ
 	if (isPasseDepart(ancien, nouveau)) {
 	    j.setCash(j.getCash() + 200);
-	    System.out.println(j.getNomJoueur() + "est passe par la case depart et a gagne 200 euros");
+	    System.out.println(j.getNomJoueurCouleur() + "est passe par la case depart et a gagne 200 euros");
 	}
 
 	if (nouveau == 40) {
@@ -544,8 +570,8 @@ public class Monopoly {
 	    //On fait un modulo 40 pour placer le joueur sur la bonne case
 
 	}
-	System.out.println(j.getNomJoueur() + " se trouve maintenant "
-		+ "sur la case n° " + j.getPositionCourante().getNumeroCarreau());
+	System.out.println(j.getNomJoueurCouleur() + " se trouve maintenant "
+		+ "sur la case n° " + j.getPositionCourante().getNumeroCarreau() + " : " + j.getPositionCourante().getNomCarreau());
     }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -599,7 +625,7 @@ public class Monopoly {
 
     public void afficherInfosJoueurs() {
 	for (Joueur i : joueurs) {
-	    System.out.println(i.getNomJoueur() + " : case n°"
+	    System.out.println(i.getNomJoueurCouleur() + " : case n°"
 		    + i.getPositionCourante().getNumeroCarreau()
 		    + ", " + i.getCash() + " €, couleur " + i.getCouleur().toStringCouleur());
 

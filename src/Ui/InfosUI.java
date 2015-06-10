@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 
@@ -35,6 +36,7 @@ public class InfosUI  extends JPanel
 	private JLabel space;
 	private JTextArea propriete;
 	private JTextArea logs;
+	private JScrollPane scroll;
 	public int selec;
 	private boolean typeSelec;
 	
@@ -61,11 +63,12 @@ public class InfosUI  extends JPanel
         caseSelectionee = new JPanel();
         bouttons = new JPanel();
         space = new JLabel("");
-        
         propriete= new JTextArea();
         propriete.setEditable(false);
         logs= new JTextArea();
         logs.setEditable(false);
+        scroll = new JScrollPane (logs);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         typeSelec=false;
         initUIComponents();
     }
@@ -78,7 +81,7 @@ public class InfosUI  extends JPanel
         caseSelectionee.setLayout(new GridLayout(1,2));
         
         int j = 1 ;
-        //On ajoute le bouton au content pane de la JFrame
+        joueurs.setPreferredSize(new Dimension(50,50));
         for( Joueur i : ihm.getMonopoly().getJoueurs())
         {
         	joueurs.add(new JLabel("<html>Joueur n°"+j+ "<br>"+
@@ -96,7 +99,7 @@ public class InfosUI  extends JPanel
     	maker = new JButton("Made by...");
     	construire = new JButton(" contruire");
     	jouer = new JButton("jouer !");
-    	
+    	logs.append("Lorem ipsu"+"\n"+"m dolor sit amet, conse"+"\n"+"ctetur adi"+"\n"+"piscing elit."+"\n"+" Pellentes"+"\n"+"que ultrices "+"\n"+"interdum nisl"+"\n"+" sit amet t"+"\n"+"incidunt. Proin el"+"\n"+"eifend ligu"+"\n"+"la ut odio ru"+"\n"+"trum, ac rho"+"\n"+"ncus "+"\n"+"enim imperdiet"+"\n"+". Nullam"+"\n"+" vehicu"+"\n"+"la tempor metus, ut r"+"\n"+"utru"+"\n"+"m tortor imperdiet sed."+"\n"+" Vivamus eget felis quis lectus tincidunt rhoncus eu "+"\n"+"tristique"+"\n"+" mauris. In ac ipsum id felis"+"\n"+" porta iaculis eu placerat felis. Nunc convallis d"+"\n"+"ignissim"+"\n"+" nis"+"\n"+"i, quis eleife"+"\n"+"nd justo"+"\n"+" malesuada ut. Cras in tempor tur"+"\n"+"pis, a he"+"\n"+"ndrerit enim. Morbi "+"\n"+"sed vestibulum sem."+"\n"+" Suspendisse metu"+"\n"+"s metus, bibendum sed "+"\n"+"pellentesque eu, "+"\n"+"laoreet a urna. Praesent at"+"\n"+" quam eu nibh tristique elementum eget a eros. Cras justo urna, "+"\n"+"scelerisque aliquam lobortis id, m"+"\n"+"olestie "+"\n"+"nec quam. Pellentesque mollis faucibus s"+"\n"+"apien, eget euismod dui "+"\n"+"condimentum "+"\n"+"at. Morbi co"+"\n"+"nva"+"\n"+"llis lectus et ultrices vehi"+"\n"+"cula. Morbi eg"+"\n"+"et justo quis"+"\n"+""+"\n"+"");
     	//this.setLayout(new BorderLayout());
     	bouttons.add(jouer);
     	bouttons.add(construire);
@@ -119,6 +122,14 @@ public class InfosUI  extends JPanel
                         JOptionPane.PLAIN_MESSAGE);
             }
         });
+    	
+    	jouer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ihm.getPlateau().deplacePion(5);
+
+            }
+        });
+    	
     	construire.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	if(typeSelec==false){
@@ -129,8 +140,8 @@ public class InfosUI  extends JPanel
 	
 	                JOptionPane.showMessageDialog(
 	                        null,
-	                        "Pas de propriété selectionner ! \n"+
-	                        "veulliez en selectionner une ", 
+	                        "Pas de propriété selectionné ! \n"+
+	                        "veulliez en selectionné une ", 
 	                        "", 
 	                        JOptionPane.PLAIN_MESSAGE);
             	}else{ //construire(); 
@@ -140,42 +151,14 @@ public class InfosUI  extends JPanel
         });
 
     	Carreau c = getInfoSelec();
-//    	if (getSelec()==0 ||getSelec()==10 ||getSelec()==20 ||getSelec()==30 ||getSelec()==2 ||getSelec()==7 ||getSelec()==17 ||getSelec()==22 ||getSelec()==33 ||getSelec()==36 ){
-//        	propriete.append("nom : "+c.getNomCarreau()+"\n" +
-//                    "\n" +
-//                    "\n" +
-//                    "\n" +
-//                    "\n" +
-//                    "\n");
-//    	}else if(getSelec()==4 ||getSelec()==38){
-//        	propriete.append("nom : "+c.getNomCarreau()+"\n" +
-//                    "prix : "+((CarreauArgent) c).getMontant()+"\n" +
-//                    "\n" +
-//                    "\n" +
-//                    "\n" +
-//                    "\n");
-//    	}else if(getSelec()==5 ||getSelec()==15||getSelec()==25 ||getSelec()==35 ||getSelec()==12 ||getSelec()==28){
-//        	propriete.append("nom : "+c.getNomCarreau()+"\n" +
-//                    "prix : "+((CarreauArgent) c).getMontant()+"\n" +
-//                    "Codeur Alpha		: CONGIO  Jorane\n" +
-//                    "IHMan 			: GLIERE  Swann\n" +
-//                    "Codeur Bravo		: ARTAUD  Matthieu\n" +
-//                    "Codeur Echo		: LALANDE Fabien\n");
-//    	}else{
-//    	propriete.append("nom : \n" +
-//                        "Chef de projet : REYMANN Paul\n" +
-//                        "Codeur Alpha		: CONGIO  Jorane\n" +
-//                        "IHMan 			: GLIERE  Swann\n" +
-//                        "Codeur Bravo		: ARTAUD  Matthieu\n" +
-//                        "Codeur Echo		: LALANDE Fabien\n");
-//    	}
+
     	caseSelectionee.add(propriete);
     	
 
     	selection();
     	caseSelectionee.add(propriete);
     //	caseSelectionee.add(space);
-    	caseSelectionee.add(logs);
+    	caseSelectionee.add(scroll);
 
     	this.add(joueurs);
     	this.add(caseSelectionee);
@@ -236,6 +219,10 @@ public class InfosUI  extends JPanel
                 "\n");
     	this.typeSelec=true;
 	}
+    }
+    public void addlogs(String str) 
+    {
+    	logs.append(str+"\n");
     }
         	
 }

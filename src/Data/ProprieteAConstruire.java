@@ -83,59 +83,54 @@ public class ProprieteAConstruire extends CarreauPropriete {
 	    } else {
 		System.out.println("Vous n'avez pas assez d'argent pour construire");
 	    }
-	}
-	 else {
-		System.out.println("Vous n'avez pas le droit de construire");
+	} else {
+	    System.out.println("Vous n'avez pas le droit de construire");
 	}
     }
 
-  /*  public void arrivPropriete(Joueur j) {
-	int prix;
-	boolean bon = true;
-	Scanner sca = new Scanner(System.in);*/
+    /*  public void arrivPropriete(Joueur j) {
+     int prix;
+     boolean bon = true;
+     Scanner sca = new Scanner(System.in);*/
+    public void acheterPropriete(Joueur j) {
 
-	public void acheterPropriete(Joueur j)
-	{
-	    
 	int prix;
-	boolean bon = true;
-	Scanner sca = new Scanner(System.in);
-	    prix = this.getPrixAchat();
-	    if (j.getCash() >= prix) {
-		System.out.println(j.getPositionCourante());
-		System.out.println("joueur " + j.getNomJoueur() + " voulez vous acheter la propriété " + this.getNomCarreau() + " pour un prix de " + prixAchat + " ? (oui/non)");
-		while (bon) {
-		    String choix = sca.nextLine();
-		    if (choix.contentEquals("oui")) {
-			bon = false;
-			payer(j, prix);
-			this.setProprietaire(j);
-			j.getProprietes().add(this);
-		    } else if (choix.contentEquals("non")) {
-			bon = true;
-		    }
+	String choix;
+	Scanner sc = new Scanner(System.in);
+	prix = this.getPrixAchat();
+	if (j.getCash() >= prix) {
+	    System.out.println(j.getPositionCourante().getNomCarreau());
+	    System.out.println("Voulez vous acheter la propriété " + this.getNomCarreau() + " pour un prix de " + prixAchat + " ? (oui/non)");
+	    do {
+		choix = sc.nextLine();
+		if (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non")) {
+		    System.out.println("Veuillez entrer oui ou non : ");
 		}
+	    } while (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non"));
 
+	    if (choix.contentEquals("oui")) {
+		payer(j, prix);
+		this.setProprietaire(j);
+		j.getProprietes().add(this);
 	    }
-	} 
-	public void payerLoyer(Joueur j) 
-	{
-	    Joueur j2 = this.getProprietaire();
-	    int montant;
+	}
+    }
 
-	    if (this.getNbHotels() == 0) {
-		montant = this.getLoyerMaison()[this.getNbMaisons()];
-	    } else {
-		montant = this.getLoyerMaison()[5];
-	    }
-	    if (j != j2) {
-		System.out.println("joueur " + j.getNomJoueur() + " vous êtes arrivé sur le/la " + this.getNomCarreau() + " qui appartiens a " + j2.getNomJoueur() + " vous lui devez " + montant + "€ ");
-		payer(j, montant);
-	    }
+    public void payerLoyer(Joueur j) {
+	Joueur j2 = this.getProprietaire();
+	int montant;
 
+	if (this.getNbHotels() == 0) {
+	    montant = this.getLoyerMaison()[this.getNbMaisons()];
+	} else {
+	    montant = this.getLoyerMaison()[5];
+	}
+	if (j != j2) {
+	    System.out.println("joueur " + j.getNomJoueur() + " vous êtes arrivé sur le/la " + this.getNomCarreau() + " qui appartiens a " + j2.getNomJoueur() + " vous lui devez " + montant + "€ ");
+	    payer(j, montant);
 	}
 
-    
+    }
 
     public Groupe getGroupePropriete() {
 	return groupePropriete;

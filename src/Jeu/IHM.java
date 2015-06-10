@@ -32,7 +32,7 @@ public class IHM extends JPanel
 	
 	private void initUI() {
         /* Onglets */
-        plateau = new PlateauUI(this, getMonopoly()){
+        setPlateau(new PlateauUI(this, getMonopoly()){
 
 
 			private static final long serialVersionUID = 1L;
@@ -43,18 +43,20 @@ public class IHM extends JPanel
  
                 ImageIcon m = new ImageIcon("monop.jpg");
                 Image monImage = m.getImage();
-                g.drawImage(monImage, 0, 0,this);
+                g.drawImage(monImage, 30, 30,this);
  
             }
-        };
+        });
         setInfos(new InfosUI(this));
         
 
         /* Fenêtre principale */
         fenetre = new FenetreUI(this);
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-        plateau.setPreferredSize(new Dimension(800,800));
-        this.add(plateau);
+
+        getPlateau().setPreferredSize(new Dimension(800,800));
+        getInfos().setPreferredSize(new Dimension(500,500));
+        this.add(getPlateau());
         this.add(getInfos());
         fenetre.add(this);
          
@@ -82,5 +84,13 @@ public class IHM extends JPanel
 
 	public void setInfos(InfosUI infos) {
 		this.infos = infos;
+	}
+
+	public PlateauUI getPlateau() {
+		return plateau;
+	}
+
+	public void setPlateau(PlateauUI plateau) {
+		this.plateau = plateau;
 	}
 }

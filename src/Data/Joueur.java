@@ -1,5 +1,6 @@
 package Data;
 
+import static Data.CouleurPropriete.*;
 import Jeu.Monopoly;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -117,7 +118,11 @@ public class Joueur {
 	this.groupeDePropriete = groupeDePropriete;
     }
 
+
+
+
     public int afficherProprietesJoueur() {
+
     	int i = 0;
 	for (ProprieteAConstruire p : getProprietes()) {
 	    i++;
@@ -170,5 +175,23 @@ public class Joueur {
 
     public ArrayList<Gare> getGares() {
 	return gares;
+    }
+    
+    public String getNomJoueurCouleur()
+    {
+    String couleur = "";
+	if(this.couleur == bleuFonce)
+	    couleur = "34";
+	else if(this.couleur == mauve)
+	    couleur = "35";
+	else if(this.couleur == bleuCiel)
+	    couleur = "36";
+	else if(this.couleur == jaune)
+	    couleur = "33";
+	else if(this.couleur == vert)
+	    couleur = "32";
+	else if(this.couleur == rouge)
+	    couleur = "31";
+	 return "\033[" + couleur + "m" + nomJoueur + "\033[0m";
     }
 }
