@@ -20,6 +20,7 @@ public class Joueur {
     private boolean prison;
     private int carteSortieDePrison;
     private HashMap<Groupe, Integer> groupeDePropriete; //Hashmap qui permet de savoir combien de propriété d'un groupe à un joueur
+    private int num; 
 
     public Joueur(Carreau positionCourante, String nomJoueur, CouleurPropriete couleur) {
 	super();
@@ -194,4 +195,14 @@ public class Joueur {
 	    couleur = "31";
 	 return "\033[" + couleur + "m" + nomJoueur + "\033[0m";
     }
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+    
+    
 }
