@@ -11,19 +11,19 @@ public class CarreauTirage extends CarreauAction {
 
     public void action() {
 	String nom = getNomCarreau();
-	if (nom == "Chance") {
-	    while (effetChance(getMonopoly().getPositionChance())) {
+	if (nom.equalsIgnoreCase("non")) {
+	    while (!effetChance(getMonopoly().getPositionChance())) {
 		getMonopoly().setPositionChance(getMonopoly().getPositionChance() + 1);
-		if (getMonopoly().getPositionChance() > getMonopoly().getNbDeCarteChance()) {
-		    getMonopoly().setPositionChance(1);
-		}
+			if (getMonopoly().getPositionChance() > getMonopoly().getNbDeCarteChance()) {
+				getMonopoly().setPositionChance(1);
+			}
 	    }
 	} else {
-	    while (effetCaisse(getMonopoly().getPositionCaisse())) {
+	    while (!effetCaisse(getMonopoly().getPositionCaisse())) {
 		getMonopoly().setPositionCaisse(getMonopoly().getPositionCaisse() + 1);
-		if (getMonopoly().getPositionCaisse() > getMonopoly().getNbDeCarteCaisse()) {
-		    getMonopoly().setPositionCaisse(1);
-		}
+			if (getMonopoly().getPositionCaisse() > getMonopoly().getNbDeCarteCaisse()) {
+				getMonopoly().setPositionCaisse(1);
+			}
 	    }
 	}
     }
@@ -127,8 +127,15 @@ public class CarreauTirage extends CarreauAction {
     {
 	System.out.println("Reculez de trois cases.");
 	Joueur j = getMonopoly().getJoueurs().getFirst();
-	j.setPositionCourante(getMonopoly().getListCarreaux()[j.getPositionCourante().getNumeroCarreau()-3]);
-	    }
+	if(j.getPositionCourante().getNumeroCarreau()>2){
+		j.setPositionCourante(getMonopoly().getListCarreaux()[j.getPositionCourante().getNumeroCarreau()-3]);
+	}else{
+		j.setPositionCourante(getMonopoly().getListCarreaux()[j.getPositionCourante().getNumeroCarreau()+37]);
+
+		System.out.println("Vous passez par la case dépar et recevez 200€");
+		j.setCash(j.getCash() + 200);
+	}
+	}
 
     public void effetChance3() {
 	System.out.println("Vous �tes impos�s pour les r�parations de voirie � raison de :");
