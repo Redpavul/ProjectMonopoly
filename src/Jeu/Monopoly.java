@@ -522,7 +522,7 @@ public class Monopoly {
 	    System.out.println("\t1  - Changer la case sur laquelle le joueur se trouve");
 	    System.out.println("\t2  - Mettre le joueur en prison");
 	    System.out.println("\t3  - Faire passer le joueur par la case départ");
-	    System.out.println("\t4  - Choisir une carte à faire piocher au joueur\n");
+	    System.out.println("\t4  - Choisir une carte à faire piocher au joueur");
 	    System.out.println("\t5  - Avoir toutes les propriétés d'un groupe\n");
 	    System.out.println("******************************************************************");
 	    System.out.println("\t0  - Quitter");
