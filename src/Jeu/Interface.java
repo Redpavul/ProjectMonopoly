@@ -10,12 +10,10 @@ import javax.swing.JOptionPane;
 
 public class Interface implements Runnable {
 
-    private IHM ihm;
 
     public void run() {
 
 	Monopoly monopoly = new Monopoly("data.txt");
-	setIhm(new IHM(monopoly));
     }
 
     public static void main(String[] args) {
@@ -24,12 +22,5 @@ public class Interface implements Runnable {
 
     }
 
-	public IHM getIhm() {
-		return ihm;
-	}
-
-	public void setIhm(IHM ihm) {
-		this.ihm = ihm;
-	}
 
 }

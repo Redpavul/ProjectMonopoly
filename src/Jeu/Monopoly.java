@@ -46,8 +46,8 @@ public class Monopoly {
 	//System.out.print("Paquet carte Caisse: ");
 	this.setTabCaisse(creerPaquet(this.getNbDeCarteCaisse()));
 	initialiserPartie();
-	
-	//boucleDeJeu();
+
+	boucleDeJeu();
 	this.setTabChance(creerPaquet(this.getNbDeCarteChance()));
 	this.setTabCaisse(creerPaquet(this.getNbDeCarteCaisse()));
 
@@ -229,7 +229,7 @@ public class Monopoly {
 	    Joueur j = new Joueur(listCarreaux[0], nom, couleur);
 	    j.setDes(des1 + des2);
 	    joueursTemp[i] = j;
-	    
+
 	}
 
 	triBulleDecroissant(joueursTemp); //On trie la liste des joueurs selon leur score aux d�s
@@ -240,10 +240,10 @@ public class Monopoly {
 	    joueurs.add(i);
 	    System.out.print(i.getNomJoueurCouleur() + "\t");
 	}
-	
+
     }
 
-    public static void triBulleDecroissant(Joueur tableau[]) {//Fonction permettant de trier le tableau des joueurs
+    public void triBulleDecroissant(Joueur tableau[]) {//Fonction permettant de trier le tableau des joueurs
 	int longueur = tableau.length;
 	Joueur tampon;
 	boolean permut;
@@ -291,11 +291,11 @@ public class Monopoly {
 
 	do {
 	    choix = sc.nextLine();
-	    if (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non") && !choix.equalsIgnoreCase("o") && !choix.equalsIgnoreCase("n") && !choix.equalsIgnoreCase("1") && !choix.equalsIgnoreCase("0")) {
+	    if (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non") && !choix.equalsIgnoreCase("o") && !choix.equalsIgnoreCase("n") ) {
 		System.out.println("Veuillez entrer oui ou non : ");
 	    }
-	} while (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non") && !choix.equalsIgnoreCase("o") && !choix.equalsIgnoreCase("n") && !choix.equalsIgnoreCase("1") && !choix.equalsIgnoreCase("0"));
-	if (choix.equalsIgnoreCase("oui")||choix.equalsIgnoreCase("o")||choix.equalsIgnoreCase("1")) {
+	} while (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non") && !choix.equalsIgnoreCase("o") && !choix.equalsIgnoreCase("n"));
+	if (choix.equalsIgnoreCase("oui") || choix.equalsIgnoreCase("o")) {
 	    triche(j);
 	    if (j.getPositionCourante() instanceof CarreauAction) {
 		((CarreauAction) j.getPositionCourante()).action();
@@ -468,23 +468,23 @@ public class Monopoly {
 	    String stringChoix;
 	    char ch;
 	    while (choix == -1)//Tant que la variable nbJoueur n'a pas �t� modifi�e, on continue la boucle
-		{
-		    stringChoix = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
-		    if (stringChoix.length() == 1) {
-			ch = stringChoix.charAt(0);/*ch contient le premier caract�re entr�. 
-			 S'il ne se trouve pas entre 49 et  54 (code ascii), 
-			 c'est que l'utilisateur a rentr� une valeur qui n'est pas valable.*/
+	    {
+		stringChoix = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
+		if (stringChoix.length() == 1) {
+		    ch = stringChoix.charAt(0);/*ch contient le premier caract�re entr�. 
+		     S'il ne se trouve pas entre 49 et  54 (code ascii), 
+		     c'est que l'utilisateur a rentr� une valeur qui n'est pas valable.*/
 
-			if ((ch > 47 && ch < 51)) {
-			    choix = ch - 48;
-			} else {
-			    System.out.print("\tChoisissez un nombre entre 0 et 2 : ");
-			}
+		    if ((ch > 47 && ch < 51)) {
+			choix = ch - 48;
 		    } else {
 			System.out.print("\tChoisissez un nombre entre 0 et 2 : ");
 		    }
-
+		} else {
+		    System.out.print("\tChoisissez un nombre entre 0 et 2 : ");
 		}
+
+	    }
 	    switch (choix) {
 		case 1: {
 		    if (j.getPositionCourante() instanceof CarreauPropriete) {
@@ -529,12 +529,15 @@ public class Monopoly {
 
     public void triche(Joueur j) {
 	Scanner sc = new Scanner(System.in);
-	int choix, numCase;
-	String reponse;
+	int numCase;
+	int choix ;
+	String reponse, rep;
 	int i = 1;
+	char ch;
 	CarreauTirage CT = new CarreauTirage(null, 15, this);
 
 	do {
+	    choix = -1;
 	    System.out.println("\n******************************************************************");
 	    System.out.println("                         Mode Scenario");
 	    System.out.println("******************************************************************\n");
@@ -548,7 +551,27 @@ public class Monopoly {
 	    System.out.println("******************************************************************");
 	    System.out.print("\tVotre Choix : ");
 
-	    choix = sc.nextInt();
+	    //Tant que la variable nbJoueur n'a pas �t� modifi�e, on continue la boucle
+	    do{
+		
+		rep = sc.nextLine();//On r�cup�re la r�ponse de l'utilisateur
+		if (rep.length() == 1) {
+		    ch = rep.charAt(0);/*ch contient le premier caract�re entr�. 
+		     S'il ne se trouve pas entre 49 et  54 (code ascii), 
+		     c'est que l'utilisateur a rentr� une valeur qui n'est pas valable.*/
+
+		    if ((ch > 47 && ch < 54)) {
+			
+			choix = ch - 48;
+		    } else {
+			System.out.print("\tChoisissez un nombre entre 0 et 5 : ");
+		    }
+		} else {
+		    System.out.print("\tChoisissez un nombre entre 0 et 5 : ");
+		}
+
+	    }while (choix < 0 || choix >5);
+
 	    switch (choix) {
 		case 1: {
 		    System.out.println("Veuillez choisir sur quel numéro de case placer le joueur : ");
@@ -610,9 +633,8 @@ public class Monopoly {
 		    reponse = sc.nextLine();
 		    //System.out.println(reponse);
 		    //System.out.println(listGroupes.get(reponse.toLowerCase()));
-		    for(ProprieteAConstruire tmp : listGroupes.get(reponse).getProprietes() )
-		    {
-			j.setCash(j.getCash()+tmp.getPrixAchat());
+		    for (ProprieteAConstruire tmp : listGroupes.get(reponse).getProprietes()) {
+			j.setCash(j.getCash() + tmp.getPrixAchat());
 			tmp.acheterPropriete(j);
 		    }
 		    break;
