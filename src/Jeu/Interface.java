@@ -15,7 +15,7 @@ public class Interface implements Runnable {
     public void run() {
 
 	Monopoly monopoly = new Monopoly("data.txt");
-	ihm = new IHM(monopoly);
+	setIhm(new IHM(monopoly));
     }
 
     public static void main(String[] args) {
@@ -23,5 +23,13 @@ public class Interface implements Runnable {
 	java.awt.EventQueue.invokeLater(new Interface());
 
     }
+
+	public IHM getIhm() {
+		return ihm;
+	}
+
+	public void setIhm(IHM ihm) {
+		this.ihm = ihm;
+	}
 
 }
