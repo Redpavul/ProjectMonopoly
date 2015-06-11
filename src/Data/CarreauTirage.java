@@ -12,14 +12,14 @@ public class CarreauTirage extends CarreauAction {
     public void action() {
 	String nom = getNomCarreau();
 	if (nom.equalsIgnoreCase("Chance")) {
-	    while (!effetChance(getMonopoly().getPositionChance())) {
+	    while (!effetChance(getMonopoly().getTabChance()[getMonopoly().getPositionChance()])) {
 		getMonopoly().setPositionChance(getMonopoly().getPositionChance() + 1);
 			if (getMonopoly().getPositionChance() > getMonopoly().getNbDeCarteChance()) {
 				getMonopoly().setPositionChance(1);
 			}
 	    }
 	} else {
-	    while (!effetCaisse(getMonopoly().getPositionCaisse())) {
+	    while (!effetCaisse(getMonopoly().getTabCaisse()[getMonopoly().getPositionCaisse()])) {
 		getMonopoly().setPositionCaisse(getMonopoly().getPositionCaisse() + 1);
 			if (getMonopoly().getPositionCaisse() > getMonopoly().getNbDeCarteCaisse()) {
 				getMonopoly().setPositionCaisse(1);
@@ -214,7 +214,7 @@ public class CarreauTirage extends CarreauAction {
 	    j.setPositionCourante(getMonopoly().getListCarreaux()[16 - j.getPositionCourante().getNumeroCarreau()]);
 			} else {
 	    j.setPositionCourante(getMonopoly().getListCarreaux()[40 + 16 - j.getPositionCourante().getNumeroCarreau()]);
-		System.out.println("Vous passez par la case dépar et recevez 200€");
+		System.out.println("Vous passez par la case départ et recevez 200€");
 		j.setCash(j.getCash() + 200);
 			}
     }
