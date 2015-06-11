@@ -184,10 +184,12 @@ public class CarreauTirage extends CarreauAction {
     }
 
     public void effetChance7() {
-	System.out.println("Avancer jusqu'a la case Depart");
+	System.out.println("Avancez jusqu'a la case Depart");
 	Joueur j = getMonopoly().getJoueurs().getFirst();
 	j.setPositionCourante(getMonopoly().getListCarreaux()[40 - j.getPositionCourante().getNumeroCarreau()]);
-    }
+	System.out.println("Vous passez par la case dépar et recevez 200€");
+	j.setCash(j.getCash() + 200);
+	}
 
     public void effetChance8() {
 	System.out.println("Aller en prison, ne passez pas par la case Depart");
@@ -368,10 +370,12 @@ public class CarreauTirage extends CarreauAction {
     }
 
     public void effetCaisse13() {
-	System.out.println("Avancer jusqu'a la case Depart");
+	System.out.println("Avancez jusqu'a la case Depart");
 	Joueur j = getMonopoly().getJoueurs().getFirst();
 	j.setPositionCourante(getMonopoly().getListCarreaux()[40 - j.getPositionCourante().getNumeroCarreau()]);
-    }
+	System.out.println("Vous passez par la case dépar et recevez 200€");
+	j.setCash(j.getCash() + 200);
+	}
 
     public void effetCaisse14() {
 	System.out.println("Recevez votre interet sur l'emprunt a 7% : 25€");
