@@ -185,6 +185,7 @@ public class CarreauTirage extends CarreauAction {
 	System.out.println("Avancer jusqu'à la case Départ");
 	Joueur j = getMonopoly().getJoueurs().getFirst();
 	j.setPositionCourante(getMonopoly().getListCarreaux()[40 - j.getPositionCourante().getNumeroCarreau()]);
+	j.setCash(j.getCash()+200);
     }
 
     public void effetChance8() {
