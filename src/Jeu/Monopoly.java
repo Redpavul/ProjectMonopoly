@@ -291,11 +291,11 @@ public class Monopoly {
 
 	do {
 	    choix = sc.nextLine();
-	    if (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non")) {
+	    if (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non") && !choix.equalsIgnoreCase("o") && !choix.equalsIgnoreCase("n") && !choix.equalsIgnoreCase("1") && !choix.equalsIgnoreCase("0")) {
 		System.out.println("Veuillez entrer oui ou non : ");
 	    }
-	} while (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non"));
-	if (choix.equalsIgnoreCase("oui")) {
+	} while (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non") && !choix.equalsIgnoreCase("o") && !choix.equalsIgnoreCase("n") && !choix.equalsIgnoreCase("1") && !choix.equalsIgnoreCase("0"));
+	if (choix.equalsIgnoreCase("oui")||choix.equalsIgnoreCase("o")||choix.equalsIgnoreCase("1")) {
 	    triche(j);
 	    if (j.getPositionCourante() instanceof CarreauAction) {
 		((CarreauAction) j.getPositionCourante()).action();
@@ -464,8 +464,27 @@ public class Monopoly {
 	    System.out.println("\t0  - Quitter");
 	    System.out.println("******************************************************************");
 	    System.out.print("\tVotre Choix : ");
-	    choix = sc.nextInt();
+	    choix = -1;
+	    String stringChoix;
+	    char ch;
+	    while (choix == -1)//Tant que la variable nbJoueur n'a pas �t� modifi�e, on continue la boucle
+		{
+		    stringChoix = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
+		    if (stringChoix.length() == 1) {
+			ch = stringChoix.charAt(0);/*ch contient le premier caract�re entr�. 
+			 S'il ne se trouve pas entre 49 et  54 (code ascii), 
+			 c'est que l'utilisateur a rentr� une valeur qui n'est pas valable.*/
 
+			if ((ch > 47 && ch < 51)) {
+			    choix = ch - 48;
+			} else {
+			    System.out.print("\tChoisissez un nombre entre 0 et 2 : ");
+			}
+		    } else {
+			System.out.print("\tChoisissez un nombre entre 0 et 2 : ");
+		    }
+
+		}
 	    switch (choix) {
 		case 1: {
 		    if (j.getPositionCourante() instanceof CarreauPropriete) {
