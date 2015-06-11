@@ -47,7 +47,7 @@ public class Monopoly {
 	this.setTabCaisse(creerPaquet(this.getNbDeCarteCaisse()));
 	initialiserPartie();
 	
-	boucleDeJeu();
+	//boucleDeJeu();
 	this.setTabChance(creerPaquet(this.getNbDeCarteChance()));
 	this.setTabCaisse(creerPaquet(this.getNbDeCarteCaisse()));
 

@@ -126,8 +126,7 @@ public class InfosUI  extends JPanel
     	
     	jouer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-               // ihm.getPlateau().deplacePion(5);
-            	boiteMessage("choix oui non");
+               ihm.getMonopoly().actionTour(ihm.getMonopoly().getJoueurs().getFirst());
 
             }
         });

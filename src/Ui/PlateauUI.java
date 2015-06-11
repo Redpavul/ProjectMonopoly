@@ -61,7 +61,7 @@ public class PlateauUI extends JPanel
 		
 		for(int i=0;i<40;i++)
 		{
-			JButton s=new JButton("");
+			final JButton s=new JButton("");
 			Carreau c = list[i];
 			//c.getNomCarreau();
 			
