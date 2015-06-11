@@ -39,6 +39,7 @@ public class InfosUI  extends JPanel
 	private JScrollPane scroll;
 	public int selec;
 	private boolean typeSelec;
+	private String proprieteselectionner;
 	
     public int getSelec() {
 		return selec;
@@ -125,7 +126,8 @@ public class InfosUI  extends JPanel
     	
     	jouer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ihm.getPlateau().deplacePion(5);
+               // ihm.getPlateau().deplacePion(5);
+            	boiteMessage("choix oui non");
 
             }
         });
@@ -144,7 +146,7 @@ public class InfosUI  extends JPanel
 	                        "veulliez en selectionné une ", 
 	                        "", 
 	                        JOptionPane.PLAIN_MESSAGE);
-            	}else{ //construire(); 
+            	}else{ ((ProprieteAConstruire) ihm.getMonopoly().getListCarreaux()[Integer.parseInt(getProprieteselectionner())]).construireIHM(ihm.getMonopoly()); 
             		}
             	
             }
@@ -224,5 +226,29 @@ public class InfosUI  extends JPanel
     {
     	logs.append(str+"\n");
     }
+    public String boiteMessage(String str) 
+    {
+        Object choix;
+        String message;
+        
+    	
+        choix=JOptionPane.showConfirmDialog(null,str, str, JOptionPane.YES_NO_OPTION);
+        if(choix.toString()=="0"){
+        	message="oui";
+        }else{
+        	message="non";
+        }
+		return message;
+    }
+
+	public String getProprieteselectionner() {
+		return proprieteselectionner;
+	}
+
+	public void setProprieteselectionner(String proprieteselectionner) {
+		this.proprieteselectionner = proprieteselectionner;
+	}
+
+
         	
 }

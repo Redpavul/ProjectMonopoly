@@ -61,7 +61,7 @@ public class PlateauUI extends JPanel
 		
 		for(int i=0;i<40;i++)
 		{
-			final JButton s=new JButton("");
+			JButton s=new JButton("");
 			Carreau c = list[i];
 			//c.getNomCarreau();
 			
@@ -104,6 +104,7 @@ public class PlateauUI extends JPanel
 		                String message;
 		                
 		                System.out.println("" +s.getName());
+		                ihm.getInfos().setProprieteselectionner(s.getName().toString());
 		                ihm.getInfos().setSelec( Integer.parseInt(s.getName()));
 		                ihm.getInfos().selection();
 		            }
