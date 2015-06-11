@@ -46,6 +46,7 @@ public class Monopoly {
 	//System.out.print("Paquet carte Caisse: ");
 	this.setTabCaisse(creerPaquet(this.getNbDeCarteCaisse()));
 	initialiserPartie();
+	
 	boucleDeJeu();
 	this.setTabChance(creerPaquet(this.getNbDeCarteChance()));
 	this.setTabCaisse(creerPaquet(this.getNbDeCarteCaisse()));
@@ -132,7 +133,7 @@ public class Monopoly {
 		    //	System.out.println("Case Tirage :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
 		    int numeroCarreau = Integer.parseInt(data.get(i)[1]);
 		    String nomCarreau = data.get(i)[2];
-		    CarreauTirage ct = new CarreauTirage(nomCarreau, numeroCarreau,this);
+		    CarreauTirage ct = new CarreauTirage(nomCarreau, numeroCarreau, this);
 		    listCarreaux[numeroCarreau - 1] = ct;
 		} //Case argent
 		else if (caseType.compareTo("CA") == 0) {
@@ -140,14 +141,14 @@ public class Monopoly {
 		    int numeroCarreau = Integer.parseInt(data.get(i)[1]);
 		    String nomCarreau = data.get(i)[2];
 		    int montant = Integer.parseInt(data.get(i)[3]);
-		    CarreauArgent ca = new CarreauArgent(nomCarreau, numeroCarreau, montant,this);
+		    CarreauArgent ca = new CarreauArgent(nomCarreau, numeroCarreau, montant, this);
 		    listCarreaux[numeroCarreau - 1] = ca;
 		} //Case mouvement
 		else if (caseType.compareTo("CM") == 0) {
 		    //System.out.println("Case Mouvement :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
 		    int numeroCarreau = Integer.parseInt(data.get(i)[1]);
 		    String nomCarreau = data.get(i)[2];
-		    CarreauMouvement cm = new CarreauMouvement(nomCarreau, numeroCarreau,this);
+		    CarreauMouvement cm = new CarreauMouvement(nomCarreau, numeroCarreau, this);
 		    listCarreaux[numeroCarreau - 1] = cm;
 		} else {
 		    System.err.println("[buildGamePleateau()] : Invalid Data type");
@@ -228,6 +229,7 @@ public class Monopoly {
 	    Joueur j = new Joueur(listCarreaux[0], nom, couleur);
 	    j.setDes(des1 + des2);
 	    joueursTemp[i] = j;
+	    
 	}
 
 	triBulleDecroissant(joueursTemp); //On trie la liste des joueurs selon leur score aux d�s
@@ -238,7 +240,7 @@ public class Monopoly {
 	    joueurs.add(i);
 	    System.out.print(i.getNomJoueurCouleur() + "\t");
 	}
-
+	
     }
 
     public static void triBulleDecroissant(Joueur tableau[]) {//Fonction permettant de trier le tableau des joueurs
@@ -295,9 +297,13 @@ public class Monopoly {
 	} while (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non"));
 	if (choix.equalsIgnoreCase("oui")) {
 	    triche(j);
+	    if (j.getPositionCourante() instanceof CarreauAction) {
+		((CarreauAction) j.getPositionCourante()).action();
+	    }
 	    if (j.isPrison()) {
 		actionPrison();
 	    } else {
+
 		actionTour(j);
 	    }
 	} else if (j.isPrison()) // Si le joueur est en prison
@@ -332,7 +338,9 @@ public class Monopoly {
 	    ancienCar = j.getPositionCourante().getNumeroCarreau();
 	    newCar = (ancienCar + j.getDes());//numCar = case courante du joueur + son score au dés
 	    deplacerJoueur(ancienCar, newCar, j); //On met le joueur a sa nouvelle position sur le plateau.
-
+	    if (j.getPositionCourante() instanceof CarreauAction) {
+		((CarreauAction) j.getPositionCourante()).action();
+	    }
 	    actionTour(j);
 	    compteur++;
 	} while (des1 == des2 && compteur < 3);
@@ -372,10 +380,11 @@ public class Monopoly {
 		    System.out.println("Vous possèdez une carte vous permettant de sortir de prison. L'utiliser ? (oui/non)");
 		    reponse = sc.nextLine();
 		    do {
-			if (reponse == "oui") {
+			if (reponse.equals("oui")) {
 			    j.setPrison(false);
 			    System.out.println("Vous avez utilisé votre carte et sortez donc de prison.");
-			} else if (reponse == "non") {
+			    j.setCarteSortieDePrison(j.getCarteSortieDePrison() - 1);
+			} else if (reponse.equals("non")) {
 			    System.out.println("Vous restez en prison.");
 			    if (!j.getProprietes().isEmpty()) {
 				System.out.println("Voulez vous construire?(oui/non)");
@@ -394,7 +403,7 @@ public class Monopoly {
 			} else {
 			    System.out.println("Mauvaise saisie. Entrez oui ou non.");
 			}
-		    } while (reponse != "oui" || reponse != "non");
+		    } while (!reponse.equals("oui") && !reponse.equals("non"));
 		} else {
 		    System.out.println("Vous restez en prison.");
 		    if (!j.getProprietes().isEmpty()) {
@@ -447,13 +456,7 @@ public class Monopoly {
 	int choix;
 	ProprieteAConstruire p;
 	CarreauPropriete cp;
-
-	if(j.getPositionCourante() instanceof CarreauAction)
-	{
-	    ((CarreauAction) j.getPositionCourante()).action();
-	}
-	
-	
+	afficherInfosJoueurs();
 	do {
 	    System.out.println("\n\t1  - Acheter la case sur laquelle on se trouve");
 	    System.out.println("\t2  - Construire\n");
@@ -508,6 +511,9 @@ public class Monopoly {
     public void triche(Joueur j) {
 	Scanner sc = new Scanner(System.in);
 	int choix, numCase;
+	String reponse;
+	int i = 1;
+	CarreauTirage CT = new CarreauTirage(null, 15, this);
 
 	do {
 	    System.out.println("\n******************************************************************");
@@ -517,6 +523,7 @@ public class Monopoly {
 	    System.out.println("\t2  - Mettre le joueur en prison");
 	    System.out.println("\t3  - Faire passer le joueur par la case départ");
 	    System.out.println("\t4  - Choisir une carte à faire piocher au joueur\n");
+	    System.out.println("\t5  - Avoir toutes les propriétés d'un groupe\n");
 	    System.out.println("******************************************************************");
 	    System.out.println("\t0  - Quitter");
 	    System.out.println("******************************************************************");
@@ -544,7 +551,51 @@ public class Monopoly {
 		    break;
 		}
 		case 4: {
+		    System.out.println("Choisir parmi les cartes communauté ou chance (entrez communauté ou chance) :  ");
+		    do {
 
+			reponse = sc.nextLine();
+
+		    } while (!reponse.equalsIgnoreCase("communauté") && !reponse.equalsIgnoreCase("chance"));
+
+		    if (reponse.equalsIgnoreCase("communauté")) {
+			CT.afficherCommu();
+			System.out.println("Veuillez entrer un chiffre entre 1 et 16 : ");
+			do {
+			    choix = sc.nextInt();
+			    if (choix < 1 && choix > 16) {
+				System.out.println("Veuillez entrer un chiffre entre 1 et 16 : ");
+			    }
+			} while (choix < 1 && choix > 16);
+			CT.effetCaisse(choix);
+		    } else {
+			CT.afficherChance();
+			System.out.println("Veuillez entrer un chiffre entre 1 et 16 : ");
+			do {
+			    choix = sc.nextInt();
+			    if (choix < 1 && choix > 16) {
+				System.out.println("Veuillez entrer un chiffre entre 1 et 16 : ");
+			    }
+			} while (choix < 1 && choix > 16);
+			CT.effetChance(choix);
+		    }
+		    break;
+		}
+		case 5: {
+
+		    for (Groupe g : listGroupes.values()) {
+			System.out.println(g.getCouleur().toStringCouleur());
+		    }
+		    System.out.println("Choisissez une couleur :");
+		    reponse = sc.nextLine();
+		    reponse = sc.nextLine();
+		    //System.out.println(reponse);
+		    //System.out.println(listGroupes.get(reponse.toLowerCase()));
+		    for(ProprieteAConstruire tmp : listGroupes.get(reponse).getProprietes() )
+		    {
+			j.setCash(j.getCash()+tmp.getPrixAchat());
+			tmp.acheterPropriete(j);
+		    }
 		    break;
 		}
 		default:
@@ -632,6 +683,7 @@ public class Monopoly {
     }
 
     public void afficherInfosJoueurs() {
+	System.out.println();
 	for (Joueur i : joueurs) {
 	    System.out.println(i.getNomJoueurCouleur() + " : case n°"
 		    + i.getPositionCourante().getNumeroCarreau()
