@@ -12,6 +12,7 @@ import Data.Gare;
 import Data.Groupe;
 import Data.Joueur;
 import Data.ProprieteAConstruire;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -415,8 +416,40 @@ public class Monopoly {
 			    }
 			} while (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non"));
 			j.afficherProprietesJoueur();
-			System.out.println("Faites vos choix");
-			int i = sc.nextInt();
+			System.out.print("Faites vos choix : ");
+			int longueur = 0;
+			for (ProprieteAConstruire p1 : j.getProprietes()) {
+				longueur++;
+			}
+			int i = -1;
+			char ch=48; 
+			char ch2=48;
+			String stringI = "11";
+			while (i <= 0 || i>longueur )//Tant que la variable nbJoueur n'a pas �t� modifi�e, on continue la boucle
+			{
+				if((i==0 || i>longueur)&&((ch > 47 && ch < 57 && ch2 > 47 && ch2 < 57 && stringI.length() <= 2 && stringI.length() >= 1))){System.out.print("Choisissez un nombre valide : ");}
+			    stringI = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
+			    if (stringI.length() == 1 || stringI.length()==2) {
+				ch = stringI.charAt(0);/*ch contient le premier caract�re entr�. 
+				 S'il ne se trouve pas entre 47 et  58 (code ascii), 
+				 c'est que l'utilisateur a rentr� une valeur qui n'est pas valable.*/
+
+				ch2 = 48;
+				if(stringI.length()==2){ch2=stringI.charAt(1);}
+				if ((ch > 47 && ch < 57) && ch2 > 47 && ch2 < 57) {
+					if(stringI.length()==2){
+						i = (ch2 - 48)+10*(ch-48);
+					}else{
+						i = ch - 48;
+					}
+				} else {
+				    System.out.print("Choisissez un nombre valide : ");
+				}
+			    } else {
+				System.out.print("Choisissez un nombre valide : ");
+			    }
+
+			}
 			p = (ProprieteAConstruire) j.choix(i);
 			p.construire(this);
 		    }
@@ -466,7 +499,7 @@ public class Monopoly {
 	    System.out.print("\tVotre Choix : ");
 	    choix = -1;
 	    String stringChoix;
-	    char ch;
+	    char ch=47;
 	    while (choix == -1)//Tant que la variable nbJoueur n'a pas �t� modifi�e, on continue la boucle
 	    {
 		stringChoix = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
@@ -501,8 +534,39 @@ public class Monopoly {
 		case 2: {
 		    int taille = j.afficherProprietesJoueur();
 		    if (taille != 0) {
-			System.out.println("Faites vos choix");
-			int i = sc.nextInt();
+			System.out.print("Faites vos choix : ");
+			int longueur = 0;
+			for (ProprieteAConstruire p1 : j.getProprietes()) {
+				longueur++;
+			}
+			char ch2 = 48;
+			int i = -1;
+			String stringI="11";
+			while (i <= 0 || i>longueur)//Tant que la variable nbJoueur n'a pas �t� modifi�e, on continue la boucle
+			{
+				if((i==0 || i>longueur)&&((ch > 47 && ch < 57 && ch2 > 47 && ch2 < 57 && stringI.length() <= 2 && stringI.length() >= 1))){System.out.print("Choisissez un nombre valide : ");}
+			    stringI = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
+			    if (stringI.length() == 1 || stringI.length() == 2) {
+				ch = stringI.charAt(0);/*ch contient le premier caract�re entr�. 
+				 S'il ne se trouve pas entre 47 et  58 (code ascii), 
+				 c'est que l'utilisateur a rentr� une valeur qui n'est pas valable.*/
+
+				ch2 = 48;
+				if(stringI.length()==2){ch2=stringI.charAt(1);}
+				if ((ch > 47 && ch < 57) && ch2 > 47 && ch2 < 57) {
+					if(stringI.length()==2){
+						i = (ch2 - 48)+10*(ch-48);
+					}else{
+						i = ch - 48;
+					}
+				} else {
+				    System.out.print("Choisissez un nombre valide : ");
+				}
+			    } else {
+				System.out.print("Choisissez un nombre valide : ");
+			    }
+
+			}
 			p = (ProprieteAConstruire) j.choix(i);
 			p.construire(this);
 		    } else {
