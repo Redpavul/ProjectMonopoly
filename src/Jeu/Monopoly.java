@@ -385,6 +385,9 @@ public class Monopoly {
 			    j.setPrison(false);
 			    System.out.println("Vous avez utilisé votre carte et sortez donc de prison.");
 			    j.setCarteSortieDePrison(j.getCarteSortieDePrison() - 1);
+			    if(getCarteSortieDePrisonCaisse()){
+			    	setCarteSortieDePrisonChance(true);
+			    }else{setCarteSortieDePrisonCaisse(true);}
 			} else if (reponse.equals("non") || reponse.equalsIgnoreCase("n")) {
 			    System.out.println("Vous restez en prison.");
 			    if (!j.getProprietes().isEmpty()) {
