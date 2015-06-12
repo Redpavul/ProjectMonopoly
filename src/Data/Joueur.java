@@ -17,7 +17,7 @@ public class Joueur {
     private int cash = 1500;
     private int des;
     private int nbToursPrison = 0;
-    private boolean prison;
+    private boolean prison = false;
     private int carteSortieDePrison;
     private HashMap<Groupe, Integer> groupeDePropriete; //Hashmap qui permet de savoir combien de propriété d'un groupe à un joueur
     
@@ -96,6 +96,7 @@ public class Joueur {
     }
 
     public void setPrison(boolean isPrison) {
+    if(isPrison){getPositionCourante().getMonopoly().deplacerJoueur(11, this);}
 	this.prison = isPrison;
     }
 
