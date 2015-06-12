@@ -71,7 +71,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
 			do {
 			    reponse = sc.nextLine();
 			} while (!reponse.equals("oui") && !reponse.equals("non"));
-			if (reponse.equals("oui")) {
+			if (reponse.equalsIgnoreCase("oui") && reponse.equalsIgnoreCase("o")) {
 			    j.setCash(arg - prix);
 			    this.setNbMaisons(nbMaison + 1);
 			    monopoly.setNbMaisonsDispo(nbMaisonDispo - 1);
@@ -103,12 +103,12 @@ public class ProprieteAConstruire extends CarreauPropriete {
 	    System.out.println("Voulez vous acheter la propriété " + this.getNomCarreau() + " pour un prix de " + prixAchat + " ? (oui/non)");
 	    do {
 		choix = sc.nextLine();
-		if (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non")) {
+		if (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non") && !choix.equalsIgnoreCase("o") && !choix.equalsIgnoreCase("n")) {
 		    System.out.println("Veuillez entrer oui ou non : ");
 		}
-	    } while (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non"));
+	    } while (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non") && !choix.equalsIgnoreCase("o") && !choix.equalsIgnoreCase("n"));
 
-	    if (choix.contentEquals("oui")) {
+	    if (choix.contentEquals("oui") || choix.equalsIgnoreCase("o")) {
 		payer(j, prix);
 		this.setProprietaire(j);
 		j.getProprietes().add(this);
