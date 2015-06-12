@@ -70,8 +70,8 @@ public class ProprieteAConstruire extends CarreauPropriete {
 			String reponse;
 			do {
 			    reponse = sc.nextLine();
-			} while (!reponse.equals("oui") && !reponse.equals("non"));
-			if (reponse.equalsIgnoreCase("oui") && reponse.equalsIgnoreCase("o")) {
+			} while (!reponse.equals("oui") && !reponse.equals("non")&& reponse.equalsIgnoreCase("o") && reponse.equalsIgnoreCase("n"));
+			if (reponse.equalsIgnoreCase("oui") || reponse.equalsIgnoreCase("o")) {
 			    j.setCash(arg - prix);
 			    this.setNbMaisons(nbMaison + 1);
 			    monopoly.setNbMaisonsDispo(nbMaisonDispo - 1);

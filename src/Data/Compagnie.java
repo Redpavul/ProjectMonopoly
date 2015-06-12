@@ -42,13 +42,13 @@ public class Compagnie extends CarreauPropriete {
 		System.out.println("joueur " + j.getNomJoueur() + " voulez vous acheter la gare " + this.getNomCarreau() + " pour un prix de " + prixAchat + " ? (oui/non)");
 		while (bon) {
 		    String choix = sca.nextLine();
-		    if (choix.contentEquals("oui")) {
+		    if (choix.contentEquals("oui") || choix.equalsIgnoreCase("o")) {
 			bon = false;
 			payer(j, prix);
 			setProprietaire(j);
 			j.getCompagnies().add(this);
-		    } else if (choix.contentEquals("non")) {
-			bon = true;
+		    } else if (choix.contentEquals("non") || choix.equalsIgnoreCase("n")) {
+			bon = false;
 		    }
 		}
 

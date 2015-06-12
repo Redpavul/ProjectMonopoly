@@ -381,40 +381,72 @@ public class Monopoly {
 		    System.out.println("Vous possèdez une carte vous permettant de sortir de prison. L'utiliser ? (oui/non)");
 		    reponse = sc.nextLine();
 		    do {
-			if (reponse.equals("oui")) {
+			if (reponse.equals("oui") || reponse.equalsIgnoreCase("o")) {
 			    j.setPrison(false);
 			    System.out.println("Vous avez utilisé votre carte et sortez donc de prison.");
 			    j.setCarteSortieDePrison(j.getCarteSortieDePrison() - 1);
-			} else if (reponse.equals("non")) {
+			} else if (reponse.equals("non") || reponse.equalsIgnoreCase("n")) {
 			    System.out.println("Vous restez en prison.");
 			    if (!j.getProprietes().isEmpty()) {
 				System.out.println("Voulez vous construire?(oui/non)");
 				do {
 				    choix = sc.nextLine();
-				    if (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non")) {
+				    if (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non") && !choix.equalsIgnoreCase("o") && !choix.equalsIgnoreCase("n")) {
 					System.out.println("Veuillez entrer oui ou non : ");
 				    }
-				} while (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non"));
+				} while (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non") && !choix.equalsIgnoreCase("o") && !choix.equalsIgnoreCase("n"));
 				j.afficherProprietesJoueur();
-				System.out.println("Faites vos choix");
-				int i = sc.nextInt();
+				System.out.print("Faites vos choix : ");
+				int longueur = 0;
+				for (ProprieteAConstruire p1 : j.getProprietes()) {
+					longueur++;
+				}
+				char ch = 48;
+				char ch2 = 48;
+				int i = -1;
+				String stringI="11";
+				while (i <= 0 || i>longueur)//Tant que la variable nbJoueur n'a pas �t� modifi�e, on continue la boucle
+				{
+					if((i==0 || i>longueur)&&((ch > 47 && ch < 57 && ch2 > 47 && ch2 < 57 && stringI.length() <= 2 && stringI.length() >= 1))){System.out.print("Choisissez un nombre valide : ");}
+				    stringI = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
+				    if (stringI.length() == 1 || stringI.length() == 2) {
+					ch = stringI.charAt(0);/*ch contient le premier caract�re entr�. 
+					 S'il ne se trouve pas entre 47 et  58 (code ascii), 
+					 c'est que l'utilisateur a rentr� une valeur qui n'est pas valable.*/
+
+					ch2 = 48;
+					if(stringI.length()==2){ch2=stringI.charAt(1);}
+					if ((ch > 47 && ch < 57) && ch2 > 47 && ch2 < 57) {
+						if(stringI.length()==2){
+							i = (ch2 - 48)+10*(ch-48);
+						}else{
+							i = ch - 48;
+						}
+					} else {
+					    System.out.print("Choisissez un nombre valide : ");
+					}
+				    } else {
+					System.out.print("Choisissez un nombre valide : ");
+				    }
+
+				}
 				p = (ProprieteAConstruire) j.choix(i);
 				p.construire(this);
 			    }
 			} else {
 			    System.out.println("Mauvaise saisie. Entrez oui ou non.");
 			}
-		    } while (!reponse.equals("oui") && !reponse.equals("non"));
+		    } while (!reponse.equals("oui") && !reponse.equals("non") && !reponse.equalsIgnoreCase("o") && !reponse.equalsIgnoreCase("n"));
 		} else {
 		    System.out.println("Vous restez en prison.");
 		    if (!j.getProprietes().isEmpty()) {
 			System.out.println("Voulez vous construire?(oui/non)");
 			do {
 			    choix = sc.nextLine();
-			    if (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non")) {
+			    if (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non") && !choix.equalsIgnoreCase("o") && !choix.equalsIgnoreCase("n")) {
 				System.out.println("Veuillez entrer oui ou non : ");
 			    }
-			} while (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non"));
+			} while (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non") && !choix.equalsIgnoreCase("o") && !choix.equalsIgnoreCase("n"));
 			j.afficherProprietesJoueur();
 			System.out.print("Faites vos choix : ");
 			int longueur = 0;
@@ -639,7 +671,36 @@ public class Monopoly {
 	    switch (choix) {
 		case 1: {
 		    System.out.println("Veuillez choisir sur quel numéro de case placer le joueur : ");
-		    numCase = sc.nextInt();
+			int longueur = 40;
+			numCase = -1;
+			ch=48; 
+			char ch2=48;
+			String stringI = "11";
+			while (numCase <= 0 || numCase>longueur )//Tant que la variable nbJoueur n'a pas �t� modifi�e, on continue la boucle
+			{
+				if((numCase==0 || numCase>longueur)&&((ch > 47 && ch < 57 && ch2 > 47 && ch2 < 57 && stringI.length() <= 2 && stringI.length() >= 1))){System.out.print("Choisissez un nombre valide : ");}
+			    stringI = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
+			    if (stringI.length() == 1 || stringI.length()==2) {
+				ch = stringI.charAt(0);/*ch contient le premier caract�re entr�. 
+				 S'il ne se trouve pas entre 47 et  58 (code ascii), 
+				 c'est que l'utilisateur a rentr� une valeur qui n'est pas valable.*/
+
+				ch2 = 48;
+				if(stringI.length()==2){ch2=stringI.charAt(1);}
+				if ((ch > 47 && ch < 57) && ch2 > 47 && ch2 < 57) {
+					if(stringI.length()==2){
+						numCase = (ch2 - 48)+10*(ch-48);
+					}else{
+						numCase = ch - 48;
+					}
+				} else {
+				    System.out.print("Choisissez un nombre valide : ");
+				}
+			    } else {
+				System.out.print("Choisissez un nombre valide : ");
+			    }
+
+			}
 		    deplacerJoueur(numCase, j);
 		    break;
 		}
@@ -657,30 +718,88 @@ public class Monopoly {
 		    break;
 		}
 		case 4: {
-		    System.out.println("Choisir parmi les cartes communauté ou chance (entrez communauté ou chance) :  ");
 		    do {
-
+		    System.out.print("Choisir parmi les cartes communauté ou chance (entrez communauté ou chance) : ");
+			    
 			reponse = sc.nextLine();
-
+			
 		    } while (!reponse.equalsIgnoreCase("communauté") && !reponse.equalsIgnoreCase("chance"));
 
 		    if (reponse.equalsIgnoreCase("communauté")) {
 			CT.afficherCommu();
-			System.out.println("Veuillez entrer un chiffre entre 1 et 16 : ");
+			System.out.print("Veuillez entrer un chiffre entre 1 et 16 : ");
 			do {
-			    choix = sc.nextInt();
+				int longueur = 16;
+				choix = -1;
+				ch=48; 
+				char ch2=48;
+				String stringI = "11";
+				while (choix <= 0 || choix>longueur )
+				{
+					if((choix==0 || choix>longueur)&&((ch > 47 && ch < 57 && ch2 > 47 && ch2 < 57 && stringI.length() <= 2 && stringI.length() >= 1))){System.out.print("Choisissez un nombre valide : ");}
+				    stringI = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
+				    if (stringI.length() == 1 || stringI.length()==2) {
+					ch = stringI.charAt(0);/*ch contient le premier caract�re entr�. 
+					 S'il ne se trouve pas entre 47 et  58 (code ascii), 
+					 c'est que l'utilisateur a rentr� une valeur qui n'est pas valable.*/
+
+					ch2 = 48;
+					if(stringI.length()==2){ch2=stringI.charAt(1);}
+					if ((ch > 47 && ch < 57) && ch2 > 47 && ch2 < 57) {
+						if(stringI.length()==2){
+							choix = (ch2 - 48)+10*(ch-48);
+						}else{
+							choix = ch - 48;
+						}
+					} else {
+					    System.out.print("Choisissez un nombre valide : ");
+					}
+				    } else {
+					System.out.print("Choisissez un nombre valide : ");
+				    }
+
+				}
 			    if (choix < 1 && choix > 16) {
-				System.out.println("Veuillez entrer un chiffre entre 1 et 16 : ");
+				System.out.print("Veuillez entrer un chiffre entre 1 et 16 : ");
 			    }
 			} while (choix < 1 && choix > 16);
 			CT.effetCaisse(choix);
 		    } else {
 			CT.afficherChance();
-			System.out.println("Veuillez entrer un chiffre entre 1 et 16 : ");
+			System.out.print("Veuillez entrer un chiffre entre 1 et 16 : ");
 			do {
-			    choix = sc.nextInt();
+				int longueur = 16;
+				choix = -1;
+				ch=48; 
+				char ch2=48;
+				String stringI = "11";
+				while (choix <= 0 || choix>longueur )
+				{
+					if((choix==0 || choix>longueur)&&((ch > 47 && ch < 57 && ch2 > 47 && ch2 < 57 && stringI.length() <= 2 && stringI.length() >= 1))){System.out.print("Choisissez un nombre valide : ");}
+				    stringI = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
+				    if (stringI.length() == 1 || stringI.length()==2) {
+					ch = stringI.charAt(0);/*ch contient le premier caract�re entr�. 
+					 S'il ne se trouve pas entre 47 et  58 (code ascii), 
+					 c'est que l'utilisateur a rentr� une valeur qui n'est pas valable.*/
+
+					ch2 = 48;
+					if(stringI.length()==2){ch2=stringI.charAt(1);}
+					if ((ch > 47 && ch < 57) && ch2 > 47 && ch2 < 57) {
+						if(stringI.length()==2){
+							choix = (ch2 - 48)+10*(ch-48);
+						}else{
+							choix = ch - 48;
+						}
+					} else {
+					    System.out.print("Choisissez un nombre valide : ");
+					}
+				    } else {
+					System.out.print("Choisissez un nombre valide : ");
+				    }
+
+				}
 			    if (choix < 1 && choix > 16) {
-				System.out.println("Veuillez entrer un chiffre entre 1 et 16 : ");
+				System.out.print("Veuillez entrer un chiffre entre 1 et 16 : ");
 			    }
 			} while (choix < 1 && choix > 16);
 			CT.effetChance(choix);
@@ -692,11 +811,21 @@ public class Monopoly {
 		    for (Groupe g : listGroupes.values()) {
 			System.out.println(g.getCouleur().toStringCouleur());
 		    }
+		    reponse="erreur";
+		    while(listGroupes.get(reponse)==null){
 		    System.out.println("Choisissez une couleur :");
 		    reponse = sc.nextLine();
-		    reponse = sc.nextLine();
+		    if(reponse.equalsIgnoreCase("orange")){reponse="orange";}
+		    else if(reponse.equalsIgnoreCase("bleuFonce")){reponse="bleuFonce";}
+		    else if(reponse.equalsIgnoreCase("vert")){reponse="vert";}
+		    else if(reponse.equalsIgnoreCase("jaune")){reponse="jaune";}
+		    else if(reponse.equalsIgnoreCase("violet")){reponse="violet";}
+		    else if(reponse.equalsIgnoreCase("bleuCiel")){reponse="bleuCiel";}
+		    else if(reponse.equalsIgnoreCase("rouge")){reponse="rouge";}
+		    else if(reponse.equalsIgnoreCase("mauve")){reponse="mauve";}
 		    //System.out.println(reponse);
 		    //System.out.println(listGroupes.get(reponse.toLowerCase()));
+		    }
 		    for (ProprieteAConstruire tmp : listGroupes.get(reponse).getProprietes()) {
 			j.setCash(j.getCash() + tmp.getPrixAchat());
 			tmp.acheterPropriete(j);

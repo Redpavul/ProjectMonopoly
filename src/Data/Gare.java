@@ -41,13 +41,13 @@ public class Gare extends CarreauPropriete
                         this.getNomCarreau() + " pour un prix de " + prixAchat + " ? (oui/non)");
 		while (bon) {
 		    String choix = sca.nextLine();
-		    if (choix.contentEquals("oui")) {
+		    if (choix.contentEquals("oui") || choix.equalsIgnoreCase("o")) {
 			bon = false;
 			payer(j, prix);
 			setProprietaire(j);
 			j.getGares().add(this);
-		    } else if (choix.contentEquals("non")) {
-			bon = true;
+		    } else if (choix.contentEquals("non") || choix.equalsIgnoreCase("n")) {
+			bon = false;
 		    }
 		}
 
