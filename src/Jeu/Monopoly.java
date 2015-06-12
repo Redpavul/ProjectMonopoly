@@ -408,15 +408,12 @@ public class Monopoly {
 				char ch2 = 48;
 				int i = -1;
 				String stringI="11";
-				while (i <= 0 || i>longueur)//Tant que la variable nbJoueur n'a pas �t� modifi�e, on continue la boucle
+				while (i <= 0 || i>longueur)
 				{
 					if((i==0 || i>longueur)&&((ch > 47 && ch < 57 && ch2 > 47 && ch2 < 57 && stringI.length() <= 2 && stringI.length() >= 1))){System.out.print("Choisissez un nombre valide : ");}
 				    stringI = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
 				    if (stringI.length() == 1 || stringI.length() == 2) {
-					ch = stringI.charAt(0);/*ch contient le premier caract�re entr�. 
-					 S'il ne se trouve pas entre 47 et  58 (code ascii), 
-					 c'est que l'utilisateur a rentr� une valeur qui n'est pas valable.*/
-
+					ch = stringI.charAt(0);
 					ch2 = 48;
 					if(stringI.length()==2){ch2=stringI.charAt(1);}
 					if ((ch > 47 && ch < 57) && ch2 > 47 && ch2 < 57) {
@@ -460,14 +457,12 @@ public class Monopoly {
 			char ch=48; 
 			char ch2=48;
 			String stringI = "11";
-			while (i <= 0 || i>longueur )//Tant que la variable nbJoueur n'a pas �t� modifi�e, on continue la boucle
-			{
+				while (i <= 0 || i>longueur )
+				{
 				if((i==0 || i>longueur)&&((ch > 47 && ch < 57 && ch2 > 47 && ch2 < 57 && stringI.length() <= 2 && stringI.length() >= 1))){System.out.print("Choisissez un nombre valide : ");}
 			    stringI = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
 			    if (stringI.length() == 1 || stringI.length()==2) {
-				ch = stringI.charAt(0);/*ch contient le premier caract�re entr�. 
-				 S'il ne se trouve pas entre 47 et  58 (code ascii), 
-				 c'est que l'utilisateur a rentr� une valeur qui n'est pas valable.*/
+				ch = stringI.charAt(0);
 
 				ch2 = 48;
 				if(stringI.length()==2){ch2=stringI.charAt(1);}
@@ -577,14 +572,11 @@ public class Monopoly {
 			char ch2 = 48;
 			int i = -1;
 			String stringI="11";
-			while (i <= 0 || i>longueur)//Tant que la variable nbJoueur n'a pas �t� modifi�e, on continue la boucle
-			{
+			while (i <= 0 || i>longueur){
 				if((i==0 || i>longueur)&&((ch > 47 && ch < 57 && ch2 > 47 && ch2 < 57 && stringI.length() <= 2 && stringI.length() >= 1))){System.out.print("Choisissez un nombre valide : ");}
 			    stringI = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
 			    if (stringI.length() == 1 || stringI.length() == 2) {
-				ch = stringI.charAt(0);/*ch contient le premier caract�re entr�. 
-				 S'il ne se trouve pas entre 47 et  58 (code ascii), 
-				 c'est que l'utilisateur a rentr� une valeur qui n'est pas valable.*/
+				ch = stringI.charAt(0);
 
 				ch2 = 48;
 				if(stringI.length()==2){ch2=stringI.charAt(1);}
@@ -679,14 +671,11 @@ public class Monopoly {
 			ch=48; 
 			char ch2=48;
 			String stringI = "11";
-			while (numCase <= 0 || numCase>longueur )//Tant que la variable nbJoueur n'a pas �t� modifi�e, on continue la boucle
-			{
+			while (numCase <= 0 || numCase>longueur ){
 				if((numCase==0 || numCase>longueur)&&((ch > 47 && ch < 57 && ch2 > 47 && ch2 < 57 && stringI.length() <= 2 && stringI.length() >= 1))){System.out.print("Choisissez un nombre valide : ");}
 			    stringI = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
 			    if (stringI.length() == 1 || stringI.length()==2) {
-				ch = stringI.charAt(0);/*ch contient le premier caract�re entr�. 
-				 S'il ne se trouve pas entre 47 et  58 (code ascii), 
-				 c'est que l'utilisateur a rentr� une valeur qui n'est pas valable.*/
+				ch = stringI.charAt(0);
 
 				ch2 = 48;
 				if(stringI.length()==2){ch2=stringI.charAt(1);}
@@ -742,9 +731,7 @@ public class Monopoly {
 					if((choix==0 || choix>longueur)&&((ch > 47 && ch < 57 && ch2 > 47 && ch2 < 57 && stringI.length() <= 2 && stringI.length() >= 1))){System.out.print("Choisissez un nombre valide : ");}
 				    stringI = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
 				    if (stringI.length() == 1 || stringI.length()==2) {
-					ch = stringI.charAt(0);/*ch contient le premier caract�re entr�. 
-					 S'il ne se trouve pas entre 47 et  58 (code ascii), 
-					 c'est que l'utilisateur a rentr� une valeur qui n'est pas valable.*/
+					ch = stringI.charAt(0);
 
 					ch2 = 48;
 					if(stringI.length()==2){ch2=stringI.charAt(1);}
@@ -781,9 +768,7 @@ public class Monopoly {
 					if((choix==0 || choix>longueur)&&((ch > 47 && ch < 57 && ch2 > 47 && ch2 < 57 && stringI.length() <= 2 && stringI.length() >= 1))){System.out.print("Choisissez un nombre valide : ");}
 				    stringI = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
 				    if (stringI.length() == 1 || stringI.length()==2) {
-					ch = stringI.charAt(0);/*ch contient le premier caract�re entr�. 
-					 S'il ne se trouve pas entre 47 et  58 (code ascii), 
-					 c'est que l'utilisateur a rentr� une valeur qui n'est pas valable.*/
+					ch = stringI.charAt(0);
 
 					ch2 = 48;
 					if(stringI.length()==2){ch2=stringI.charAt(1);}
