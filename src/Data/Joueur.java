@@ -96,7 +96,7 @@ public class Joueur {
     }
 
     public void setPrison(boolean isPrison) {
-    if(isPrison){getPositionCourante().getMonopoly().deplacerJoueur(11, this);}
+    if(isPrison){getPositionCourante().getMonopoly().getInterf().deplacerJoueur(11, this);}
 	this.prison = isPrison;
     }
 
