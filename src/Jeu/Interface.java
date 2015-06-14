@@ -502,6 +502,7 @@ public class Interface implements Runnable {
         CarreauTirage CT = new CarreauTirage(null, 15, monopoly);
         Joueur j;
         Joueur tmp2 = null;
+        int h;
 
         do {
             j = monopoly.getJoueurs().getFirst();
@@ -515,7 +516,9 @@ public class Interface implements Runnable {
             System.out.println("\t3  - Faire passer le joueur par la case départ");
             System.out.println("\t4  - Choisir une carte à faire piocher au joueur");
             System.out.println("\t5  - Avoir toutes les propriétés d'un groupe");
-            System.out.println("\t6  - Faire perdre un joueur\n");
+            System.out.println("\t6  - Faire perdre un joueur");
+            System.out.println("\t7  - Ajouter de l'argent à un joueur");
+            System.out.println("\t8  - Enlever de l'argent à un joueur\n");
             System.out.println("******************************************************************");
             System.out.println("\t0  - Quitter");
             System.out.println("******************************************************************");
@@ -523,24 +526,23 @@ public class Interface implements Runnable {
 
             //Tant que la variable nbJoueur n'a pas �t� modifi�e, on continue la boucle
             do {
-
                 rep = sc.nextLine();//On r�cup�re la r�ponse de l'utilisateur
                 if (rep.length() == 1) {
                     ch = rep.charAt(0);/*ch contient le premier caract�re entr�. 
                      S'il ne se trouve pas entre 49 et  54 (code ascii), 
                      c'est que l'utilisateur a rentr� une valeur qui n'est pas valable.*/
 
-                    if ((ch > 47 && ch < 55)) {
+                    if ((ch > 47 && ch < 57)) {
 
                         choix = ch - 48;
                     } else {
-                        System.out.print("\tChoisissez un nombre entre 0 et 6 : ");
+                        System.out.print("\tChoisissez un nombre entre 0 et 8 : ");
                     }
                 } else {
-                    System.out.print("\tChoisissez un nombre entre 0 et 6 : ");
+                    System.out.print("\tChoisissez un nombre entre 0 et 8 : ");
                 }
 
-            } while (choix < 0 || choix > 6);
+            } while (choix < 0 || choix > 8);
 
             switch (choix) {
                 case 1: {
@@ -738,7 +740,29 @@ public class Interface implements Runnable {
                     for (Joueur tmp : monopoly.getJoueurs()) {
                         System.out.println(tmp.getNomJoueurCouleur());
                     }
-
+                     break;
+                }
+                case 7 : {
+                    System.out.println("Veuillez entrez une somme d'argent à ajouter au joueur : "+ j.getNomJoueurCouleur());
+                    h = sc.nextInt();
+                    j.setCash(j.getCash()+h);
+                    System.out.println("Le joueur à maintenant : "+ j.getCash()+" €");
+                     break;
+                }
+                
+                case 8 : {
+                    System.out.println("Veuillez entrez une somme d'argent à enlever au joueur : "+ j.getNomJoueurCouleur());
+                    System.out.println("Evitez d'entrer une valeur supérieur ou égale au cash du joueur : "+ j.getCash());
+                    h = sc.nextInt();
+                    while(h>=j.getCash())
+                    {
+                        System.out.println("Entrez une valeur inférieur au cash du joueur");
+                    }
+                    j.setCash(j.getCash()-h);
+                    System.out.println("Le joueur à maintenant : "+ j.getCash()+" €");
+                     break;
+                    
+                
                 }
 
                 default:
