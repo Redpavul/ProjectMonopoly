@@ -10,7 +10,7 @@ public class CarreauMouvement extends CarreauAction
 	}
 	
 	
-	
+	//Il n'existe qu'un seul carreau mouvement : Allez en prison
 	public void action(){
 	    
 	    Joueur j = getMonopoly().getJoueurs().getFirst();

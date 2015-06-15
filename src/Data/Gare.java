@@ -12,6 +12,7 @@ public class Gare extends CarreauPropriete
                 prixAchat = 200;
 	}
 	
+        //Calcul de du loyer d'un gare
 	public void calculLoyerGare() {
 		Joueur jProprio = getProprietaire();
 		int nb = jProprio.getGares().size();
@@ -26,10 +27,7 @@ public class Gare extends CarreauPropriete
 		jProprio.setCash(jProprio.getCash()+p);
 	}
         
-        
-
-
-        
+        //Permet d'acheter un propriété au joueur qui a lancé l'achat
 	public void acheterPropriete(Joueur j){
 		int prix;
 	boolean bon = true;
@@ -53,6 +51,8 @@ public class Gare extends CarreauPropriete
 
 	    }
 	} 
+        
+        //Permet de faire payer le loyer au joueur qui est tombé sur une case qui appartient déjà à quelqu'un
 	public void payerLoyer(Joueur j) 
 	{
 	    Joueur j2 = this.getProprietaire();

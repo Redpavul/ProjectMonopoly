@@ -41,11 +41,9 @@ public class Joueur {
 	this.monopoly = monopoly;
     }
 
-
     public void setCompagnies(Compagnie[] compagnies) {
 	this.setCompagnies(compagnies);
     }
-
 
     public void setGares(Gare[] gares) {
 	this.setGares(gares);
@@ -120,9 +118,7 @@ public class Joueur {
 	this.groupeDePropriete = groupeDePropriete;
     }
 
-
-
-
+    //Affiche toutes les proprietes d'un joueur
     public int afficherProprietesJoueur() {
 
     	int i = 0;
@@ -133,6 +129,7 @@ public class Joueur {
 	return i;
     }
 
+    //Retourne l'indice d'une proprieteAConstruire dans la liste des proprieteAConstruire du joueur
     public ProprieteAConstruire choix(int indice) {
 
 	int i = 1;
@@ -179,6 +176,7 @@ public class Joueur {
 	return gares;
     }
     
+    //Retourne le nom du joueur , mais attention ! Coloré !
     public String getNomJoueurCouleur()
     {
     String couleur = "";

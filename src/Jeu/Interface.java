@@ -7,21 +7,7 @@ import Data.CouleurPropriete;
 import Data.Groupe;
 import Data.Joueur;
 import Data.ProprieteAConstruire;
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Scanner;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
-import Jeu.Monopoly.*;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class Interface implements Runnable {
 
@@ -40,7 +26,9 @@ public class Interface implements Runnable {
 
     }
 
-    public void initialiserPartie() {
+    //Initialisation de la partie de monopoly
+    
+    private void initialiserPartie() {
         // Inscription des Joueurs
         int des1;
         int des2;
@@ -50,7 +38,7 @@ public class Interface implements Runnable {
         CouleurPropriete couleur;
         int nbJoueur = 0;
         String stringNbJoueur;
-        char ch;//Variable servant � stocker temporairement la r�ponse de l'utilisateur
+        char ch;//Variable servant à stocker temporairement la réponse de l'utilisateur
 
         System.out.println("\n****************************************************************");
         System.out.println("                                                                ");
@@ -58,13 +46,13 @@ public class Interface implements Runnable {
         System.out.println("                                                                ");
         System.out.println("****************************************************************\n\n");
         System.out.print("\tNombre de joueurs : ");
-        while (nbJoueur == 0)//Tant que la variable nbJoueur n'a pas �t� modifi�e, on continue la boucle
+        while (nbJoueur == 0)//Tant que la variable nbJoueur n'a pas été modifiée, on continue la boucle
         {
-            stringNbJoueur = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
+            stringNbJoueur = sc.nextLine(); //On récupère la réponse de l'utilisateur
             if (stringNbJoueur.length() == 1) {
-                ch = stringNbJoueur.charAt(0);/*ch contient le premier caract�re entr�. 
+                ch = stringNbJoueur.charAt(0);/*ch contient le premier caractère entré. 
                  S'il ne se trouve pas entre 49 et  54 (code ascii), 
-                 c'est que l'utilisateur a rentr� une valeur qui n'est pas valable.*/
+                 c'est que l'utilisateur a rentré une valeur qui n'est pas valable.*/
 
                 if ((ch > 49 && ch < 55)) {
                     nbJoueur = ch - 48;
@@ -78,11 +66,11 @@ public class Interface implements Runnable {
         }
 
         Joueur[] joueursTemp = new Joueur[nbJoueur];/* Tableau contenant les
-         joueurs dans l'ordre de cr�ation*/
+         joueurs dans l'ordre de création*/
 
-        CouleurPropriete[] coul = CouleurPropriete.values();//On d�clare un tableau pour assigner une couleur aux joueurs
+        CouleurPropriete[] coul = CouleurPropriete.values();//On déclare un tableau pour assigner une couleur aux joueurs
 
-        //On initialise le tableau, en v�rifiant que le nom ne d�passe pas 10 caract�res (utile pour l'iHM)
+        //On initialise le tableau, en vérifiant que le nom ne dépasse pas 10 caractères (utile pour l'iHM)
         System.out.println("Vous allez devoir entrer le nom des joueurs. \nL'ordre du tour se fera en fonction de leur score au dés. \nEntrez les noms des joueurs : \n");
         for (int i = 0; i < nbJoueur; i++) {
             des1 = monopoly.roll();
@@ -91,7 +79,7 @@ public class Interface implements Runnable {
             System.out.print("Nom du joueur n°" + (i + 1) + " : ");
             changement = sc.next();
             if (changement.length() > 10) {
-                nom = changement.substring(0, 10); // Maximum de dix caract�res pour le log en IHM
+                nom = changement.substring(0, 10); // Maximum de dix caractères pour le log en IHM
             } else {
                 nom = changement;
             }
@@ -104,7 +92,7 @@ public class Interface implements Runnable {
 
         }
 
-        triBulleDecroissant(joueursTemp); //On trie la liste des joueurs selon leur score aux d�s
+        triBulleDecroissant(joueursTemp); //On trie la liste des joueurs selon leur score aux dés
 
         //On ajoute les joueurs dans la liste des joueurs (dans le bon ordre)
         System.out.println("Les joueurs joueront dans cet ordre :  ");
@@ -115,29 +103,26 @@ public class Interface implements Runnable {
 
     }
 
-    public void triBulleDecroissant(Joueur tableau[]) {//Fonction permettant de trier le tableau des joueurs
+    private void triBulleDecroissant(Joueur tableau[]) {//Fonction permettant de trier le tableau des joueurs
         int longueur = tableau.length;
-        Joueur tampon;
+        Joueur tmp;
         boolean permut;
 
         do {
-            // hypoth�se : le tableau est tri�
             permut = false;
             for (int i = 0; i < longueur - 1; i++) {
-                // Teste si 2 �l�ments successifs sont dans le bon ordre ou non
                 if (tableau[i].getDes() < tableau[i + 1].getDes()) {
-                    // s'ils ne le sont pas, on �change leurs positions
-                    tampon = tableau[i];
+                    tmp = tableau[i];
                     tableau[i] = tableau[i + 1];
-                    tableau[i + 1] = tampon;
+                    tableau[i + 1] = tmp;
                     permut = true;
                 }
             }
         } while (permut);
     }
 
-    //Fonction servant � faire la boucle de jeu : continue tant que deux joueurs n'ont pas perdu
-    public void boucleDeJeu() {
+    //Fonction servant à faire la boucle de jeu : continue tant qu'il reste plus d'un joueur dans l'arrayList
+    private void boucleDeJeu() {
         Joueur j;
         while (!monopoly.isEndGame()) {
             j = monopoly.getJoueurs().getFirst();
@@ -152,6 +137,7 @@ public class Interface implements Runnable {
         System.out.println("\tLe joueur gagnant est : " + monopoly.getJoueurs().getFirst().getNomJoueurCouleur());
     }
 
+    //Commencement du tour d'un joueur , lui demandant si il veut entrer dans le scénario ou non
     private void jouerUnCoup(Joueur j) {
         Scanner sc = new Scanner(System.in);
         String choix;
@@ -161,6 +147,8 @@ public class Interface implements Runnable {
         System.out.println("******************************************************************\n");
         System.out.println("Entrer dans le mode Scenario ? (oui/non)");
 
+        
+        //Gestion d'erreur
         do {
             choix = sc.nextLine();
             if (!choix.equalsIgnoreCase("oui") && !choix.equalsIgnoreCase("non") && !choix.equalsIgnoreCase("o") && !choix.equalsIgnoreCase("n")) {
@@ -190,16 +178,17 @@ public class Interface implements Runnable {
 
     }
 
-    public void lancerDesAvancer() {
+    //Le joueur courant lance les dés
+    private void lancerDesAvancer() {
         Joueur j = monopoly.getJoueurs().getFirst();
-        //afficherInfosJoueurs();
+       
         int des1;
         int des2;
         int des;
         int ancienCar;
         int newCar;
         int compteur = 0;
-        do {//Boucle de jeu, à continuer tant que le joueur ne fait pas trois doubles d'affilé
+        do {//Boucle de jeu, à continuer tant que le joueur ne fait pas trois doubles d'affilé ou a arrêté de faire des doubles
 
             des1 = monopoly.roll();
             des2 = monopoly.roll();
@@ -227,6 +216,7 @@ public class Interface implements Runnable {
         }
     }
 
+    //Tour de jeu, lorsque le joueur est en prison
     private void actionPrison() {
         Joueur j = monopoly.getJoueurs().getFirst();
         int toursPrison;
@@ -253,6 +243,7 @@ public class Interface implements Runnable {
                 if (j.getCarteSortieDePrison() > 0) {
                     System.out.println("Vous possèdez une carte vous permettant de sortir de prison. L'utiliser ? (oui/non)");
                     reponse = sc.nextLine();
+                    //Gestion d'erreur
                     do {
                         if (reponse.equals("oui") || reponse.equalsIgnoreCase("o")) {
                             j.setPrison(false);
@@ -287,7 +278,7 @@ public class Interface implements Runnable {
                                     if ((i == 0 || i > longueur) && ((ch > 47 && ch < 57 && ch2 > 47 && ch2 < 57 && stringI.length() <= 2 && stringI.length() >= 1))) {
                                         System.out.print("Choisissez un nombre valide : ");
                                     }
-                                    stringI = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
+                                    stringI = sc.nextLine(); //On récupère la réponse de l'utilisateur
                                     if (stringI.length() == 1 || stringI.length() == 2) {
                                         ch = stringI.charAt(0);
                                         ch2 = 48;
@@ -339,7 +330,7 @@ public class Interface implements Runnable {
                             if ((i == 0 || i > longueur) && ((ch > 47 && ch < 57 && ch2 > 47 && ch2 < 57 && stringI.length() <= 2 && stringI.length() >= 1))) {
                                 System.out.print("Choisissez un nombre valide : ");
                             }
-                            stringI = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
+                            stringI = sc.nextLine(); //On récupère la réponse de l'utilisateur
                             if (stringI.length() == 1 || stringI.length() == 2) {
                                 ch = stringI.charAt(0);
 
@@ -382,7 +373,8 @@ public class Interface implements Runnable {
         }
     }
 
-    public void actionTour(Joueur j) {
+    //Tour de jeu, lorsque le joueur n'est pas en prison
+    private void actionTour(Joueur j) {
         Scanner sc = new Scanner(System.in);
         int choix;
         ProprieteAConstruire p;
@@ -392,7 +384,7 @@ public class Interface implements Runnable {
             System.out.println("\n\t1  - Acheter la case sur laquelle on se trouve");
             System.out.println("\t2  - Construire\n");
             System.out.println("******************************************************************");
-            System.out.println("\t0  - Quitter");
+            System.out.println("\t0  - Fin du tour");
             System.out.println("******************************************************************");
             System.out.print("\tVotre Choix : ");
             choix = -1;
@@ -489,9 +481,9 @@ public class Interface implements Runnable {
         } while (choix != 0);
         messageEtatJoueur(j);
     }
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    public void scenario() {
+    
+    //Menu pour le scénario permettant plusieurs choix d'action hors-jeu
+    private void scenario() {
         Scanner sc = new Scanner(System.in);
         int numCase;
         int choix;
@@ -524,13 +516,13 @@ public class Interface implements Runnable {
             System.out.println("******************************************************************");
             System.out.print("\tVotre Choix : ");
 
-            //Tant que la variable nbJoueur n'a pas �t� modifi�e, on continue la boucle
+            //Tant que la variable nbJoueur n'a pas été modifiée, on continue la boucle
             do {
-                rep = sc.nextLine();//On r�cup�re la r�ponse de l'utilisateur
+                rep = sc.nextLine();//On récupère la réponse de l'utilisateur
                 if (rep.length() == 1) {
-                    ch = rep.charAt(0);/*ch contient le premier caract�re entr�. 
+                    ch = rep.charAt(0);/*ch contient le premier caractère entré. 
                      S'il ne se trouve pas entre 49 et  54 (code ascii), 
-                     c'est que l'utilisateur a rentr� une valeur qui n'est pas valable.*/
+                     c'est que l'utilisateur a rentré une valeur qui n'est pas valable.*/
 
                     if ((ch > 47 && ch < 57)) {
 
@@ -556,7 +548,7 @@ public class Interface implements Runnable {
                         if ((numCase == 0 || numCase > longueur) && ((ch > 47 && ch < 57 && ch2 > 47 && ch2 < 57 && stringI.length() <= 2 && stringI.length() >= 1))) {
                             System.out.print("Choisissez un nombre valide : ");
                         }
-                        stringI = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
+                        stringI = sc.nextLine(); //On récupère la réponse de l'utilisateur
                         if (stringI.length() == 1 || stringI.length() == 2) {
                             ch = stringI.charAt(0);
 
@@ -615,7 +607,7 @@ public class Interface implements Runnable {
                                 if ((choix == 0 || choix > longueur) && ((ch > 47 && ch < 57 && ch2 > 47 && ch2 < 57 && stringI.length() <= 2 && stringI.length() >= 1))) {
                                     System.out.print("Choisissez un nombre valide : ");
                                 }
-                                stringI = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
+                                stringI = sc.nextLine(); //On récupère la réponse de l'utilisateur
                                 if (stringI.length() == 1 || stringI.length() == 2) {
                                     ch = stringI.charAt(0);
 
@@ -655,7 +647,7 @@ public class Interface implements Runnable {
                                 if ((choix == 0 || choix > longueur) && ((ch > 47 && ch < 57 && ch2 > 47 && ch2 < 57 && stringI.length() <= 2 && stringI.length() >= 1))) {
                                     System.out.print("Choisissez un nombre valide : ");
                                 }
-                                stringI = sc.nextLine(); //On r�cup�re la r�ponse de l'utilisateur
+                                stringI = sc.nextLine(); //On récupère la réponse de l'utilisateur
                                 if (stringI.length() == 1 || stringI.length() == 2) {
                                     ch = stringI.charAt(0);
 
@@ -711,8 +703,6 @@ public class Interface implements Runnable {
                         } else if (reponse.equalsIgnoreCase("mauve")) {
                             reponse = "mauve";
                         }
-                        //System.out.println(reponse);
-                        //System.out.println(listGroupes.get(reponse.toLowerCase()));
                     }
                     for (ProprieteAConstruire tmp : monopoly.getListGroupes().get(reponse).getProprietes()) {
                         j.setCash(j.getCash() + tmp.getPrixAchat());
@@ -753,13 +743,19 @@ public class Interface implements Runnable {
                 case 8 : {
                     System.out.println("Veuillez entrez une somme d'argent à enlever au joueur : "+ j.getNomJoueurCouleur());
                     System.out.println("Evitez d'entrer une valeur supérieur ou égale au cash du joueur : "+ j.getCash());
-                    h = sc.nextInt();
-                    while(h>=j.getCash())
+                    
+                    do
                     {
-                        System.out.println("Entrez une valeur inférieur au cash du joueur");
-                    }
+                        h = sc.nextInt();
+                        if (h>=j.getCash())
+                        {
+                            System.out.println("Entrez une valeur inférieur au cash du joueur");
+                        }
+                        
+                    }while(h>=j.getCash());
                     j.setCash(j.getCash()-h);
                     System.out.println("Le joueur à maintenant : "+ j.getCash()+" €");
+                    
                      break;
                     
                 
@@ -771,7 +767,8 @@ public class Interface implements Runnable {
         } while (choix != 0 && !monopoly.isEndGame());
     }
 
-    public void deplacerJoueur(int numCase, Joueur joueur) {//Permet de déplacer un joueur d'après un numéro entré par l'utilisateur (mode triche)
+    //Permet de déplacer un joueur d'après un numéro entré par l'utilisateur (mode scénario) 
+    public void deplacerJoueur(int numCase, Joueur joueur) {
         Scanner sc = new Scanner(System.in);
         while (numCase > 40 || numCase < 1) {
             System.out.println("Mauvaise saisie.Veuillez recommencer : ");
@@ -781,7 +778,8 @@ public class Interface implements Runnable {
 
     }
 
-    public void deplacerJoueur(int ancien, int nouveau, Joueur j) {//Permet de déplacer un joueur après un lancer de dés
+    //Permet de déplacer un joueur après un lancer de dés
+    private void deplacerJoueur(int ancien, int nouveau, Joueur j) {
 
         //Permet de savoir si le joueur est passé par la case départ
         if (monopoly.isPasseDepart(ancien, nouveau)) {
@@ -800,13 +798,15 @@ public class Interface implements Runnable {
                 + "sur la case n° " + j.getPositionCourante().getNumeroCarreau() + " : " + j.getPositionCourante().getNomCarreau());
     }
 
-    public void messageEtatJoueur(Joueur j) {
+    //Affiche l'état et des informations sur un joueur
+    private void messageEtatJoueur(Joueur j) {
         System.out.println(j.getNomJoueurCouleur() + " : case n°"
                 + j.getPositionCourante().getNumeroCarreau()
                 + ", " + j.getCash() + " €, couleur " + j.getCouleur().toStringCouleur());
     }
 
-    public void afficherInfosJoueurs() {
+    //Affiche l'état et des informations sur tout les joueurs
+    private void afficherInfosJoueurs() {
         System.out.println();
         for (Joueur i : monopoly.getJoueurs()) {
             System.out.println(i.getNomJoueurCouleur() + " : case n°"

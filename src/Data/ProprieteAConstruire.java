@@ -17,7 +17,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
 
     }
 
-
+    //Fonction permettant de construire
     public void construire(Monopoly monopoly) {
 	Joueur j = monopoly.getJoueurs().getFirst();
 	Groupe gr = this.getGroupePropriete();
@@ -89,6 +89,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
 	}
     }
 
+    //Permet d'acheter un propriété au joueur qui a lancé l'achat
     public void acheterPropriete(Joueur j) {
 
 	int prix;
@@ -112,6 +113,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
 	}
     }
 
+    //Permet de faire payer le loyer au joueur qui est tombé sur une case qui appartient déjà à quelqu'un
     public void payerLoyer(Joueur j) {
 	Joueur j2 = this.getProprietaire();
 	int montant;

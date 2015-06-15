@@ -28,6 +28,7 @@ public class CarreauTirage extends CarreauAction {
 	}
     }
 
+    //Gère les effets Chance
     public boolean effetChance(int id) {
 	boolean ok = true;
 	if (id == 1) {
@@ -158,6 +159,7 @@ public class CarreauTirage extends CarreauAction {
 	return ok;
     }
 
+    //Gère les effets Caisse de communautés
     public boolean effetCaisse(int id) {
 	boolean ok = true;
 	if (id == 1) {
@@ -251,7 +253,7 @@ public class CarreauTirage extends CarreauAction {
 	return ok;
     }
     
-
+    //affiche toutes les cartes communautés
     public void afficherCommu() {
 	System.out.println("1- Vous recevez une carte sortie de Prison");
 	System.out.println("2- Payer une amende de 10€");
@@ -272,8 +274,8 @@ public class CarreauTirage extends CarreauAction {
 
     }
 
-    public void afficherChance()
-    {
+    //affiche toutes les cartes chance
+    public void afficherChance()    {
 	System.out.println("1- Vous recevez une carte sortie de Prison");
 	System.out.println("2- Reculez de trois cases.");
 	System.out.println("3- Vous êtes imposés pour les réparations de voirie à raison de :");

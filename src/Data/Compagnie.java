@@ -10,6 +10,7 @@ public class Compagnie extends CarreauPropriete {
 	prixAchat = 150;
     }
 
+    //Calcul du loyer d'une compagnie
     public void calculLoyerCompagnie() {
 	Joueur jProprio = this.getProprietaire();
 	int nb = jProprio.getCompagnies().size();
@@ -27,11 +28,8 @@ public class Compagnie extends CarreauPropriete {
 	jProprio.setCash(jProprio.getCash() + prix);
     }
 
-
-
-
-	public void acheterPropriete(Joueur j)
-	{
+    //Permet d'acheter un propriété au joueur qui a lancé l'achat
+    public void acheterPropriete(Joueur j){
 
 	int prix;
 	boolean bon = true;
@@ -53,10 +51,10 @@ public class Compagnie extends CarreauPropriete {
 		}
 
 	    }
-	}
-	    
-	public void payerLoyer(Joueur j) 
-	{
+	}   
+    
+    //Permet de faire payer le loyer au joueur qui est tombé sur une case qui appartient déjà à quelqu'un
+    public void payerLoyer(Joueur j) {
 	    Joueur j2 = this.getProprietaire();
 
 	    if (j != j2) {
