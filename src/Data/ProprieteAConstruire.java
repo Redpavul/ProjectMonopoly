@@ -89,10 +89,6 @@ public class ProprieteAConstruire extends CarreauPropriete {
 	}
     }
 
-    /*  public void arrivPropriete(Joueur j) {
-     int prix;
-     boolean bon = true;
-     Scanner sca = new Scanner(System.in);*/
     public void acheterPropriete(Joueur j) {
 
 	int prix;
