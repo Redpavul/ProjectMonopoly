@@ -43,14 +43,8 @@ public class Monopoly {
         this.interf=interf;
 	setJoueurs(new LinkedList<Joueur>());
 	buildGamePlateau(dataFilename);
-	//System.out.print("Paquet carte Chance: ");
-	this.setTabChance(creerPaquet(this.getNbDeCarteChance()));
-	//System.out.print("Paquet carte Caisse: ");
-	this.setTabCaisse(creerPaquet(this.getNbDeCarteCaisse()));
-	
 	this.setTabChance(creerPaquet(this.getNbDeCarteChance()));
 	this.setTabCaisse(creerPaquet(this.getNbDeCarteCaisse()));
-
     }
 
     public int[] creerPaquet(int nbCarte) {
@@ -69,10 +63,6 @@ public class Monopoly {
 	    }
 	    tab3[nbCarte] = 0;
 	}
-	/*for(int c = 1;c<=nbCarte;c++){
-	 System.out.print(""+c+","+tab2[c]+"|");
-	 }
-	 System.out.println("");*/
 	return (tab2);
     }
 
